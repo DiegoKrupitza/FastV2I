@@ -2,13 +2,15 @@ version: '3.7'
 
 services:
   eureka-server:
+    container_name: "Eureka Server"
     build:
       context: ./eureka-service
     ports:
-      - '8761:8761'
+      - "8761:8761"
     restart: unless-stopped
 
   rabbitmq:
+    container_name: "RabbitMq"
     image: "rabbitmq:3.9.13-management-alpine"
     hostname: "rabbit"
     ports:
@@ -17,3 +19,17 @@ services:
     environment:
       - "RABBITMQ_DEFAULT_USER=dst"
       - "RABBITMQ_DEFAULT_PASS=dst"
+    restart: unless-stopped
+
+  mongo:
+    container_name: "MongoDB"
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: root-db
+    volumes:
+      - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    restart: unless-stopped
