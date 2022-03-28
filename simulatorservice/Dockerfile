@@ -1,19 +1,17 @@
-FROM openjdk:17 as build
-EXPOSE 8081
+FROM maven:3.8-eclipse-temurin-17 as BUILDER
+
 WORKDIR /app
 
-# Copy maven executable to the image
-COPY mvnw .
-COPY .mvn .mvn
+COPY pom.xml /app
+RUN mvn dependency:resolve
 
-# Copy the pom.xml file
-COPY pom.xml .
+COPY ./ /app
+RUN mvn package -DskipTests
 
-# Copy the project source
-COPY ./src ./src
-COPY ./pom.xml ./pom.xml
+FROM openjdk:17
 
-RUN chmod 755 /app/mvnw
+COPY --from=BUILDER /app/target/SimulatorService-0.0.1-SNAPSHOT.jar .
 
-RUN ./mvnw package -DskipTests
-ENTRYPOINT ["java","-jar","target/SimulatorService-0.0.1-SNAPSHOT.jar"]
+EXPOSE 8081
+
+ENTRYPOINT ["java","-jar","SimulatorService-0.0.1-SNAPSHOT.jar"]
