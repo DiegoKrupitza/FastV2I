@@ -2,29 +2,29 @@ version: '3.7'
 
 services:
   eureka-server:
-    container_name: "EurekaServer"
+    container_name: 'EurekaServer'
     build:
       context: ./eureka-service
     ports:
-      - "8761:8761"
+      - '8761:8761'
     restart: unless-stopped
 
   gateway:
-    container_name: "Gateway"
+    container_name: 'Gateway'
     build:
       context: ./gateway
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
       - EUREKA_SERVER_ADDRESS=eureka-server
     restart: unless-stopped
 
   simulatorservice:
-    container_name: "SimulatorService"
+    container_name: 'SimulatorService'
     build:
-      context: ./simulatorservice
+      context: ./simulator-service
     ports:
-      - "8081:8081"
+      - '8081:8081'
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
       - EUREKA_SERVER_ADDRESS=eureka-server
@@ -32,18 +32,18 @@ services:
       - rabbitmq
 
   rabbitmq:
-    container_name: "RabbitMq"
-    image: "rabbitmq:management-alpine"
+    container_name: 'RabbitMq'
+    image: 'rabbitmq:management-alpine'
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - '5672:5672'
+      - '15672:15672'
     restart: unless-stopped
 
   mongo:
-    container_name: "MongoDB"
+    container_name: 'MongoDB'
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - '27017:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
