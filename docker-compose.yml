@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  eureka-server:
+    build:
+      context: ./eureka-service
+    ports:
+      - '8761:8761'
+    restart: unless-stopped
