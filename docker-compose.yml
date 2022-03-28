@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   eureka-server:
-    container_name: "Eureka Server"
+    container_name: "EurekaServer"
     build:
       context: ./eureka-service
     ports:
@@ -15,18 +15,28 @@ services:
       context: ./gateway
     ports:
       - "8080:8080"
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka-server
     restart: unless-stopped
+
+  simulatorservice:
+    container_name: "SimulatorService"
+    build:
+      context: ./simulatorservice
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - EUREKA_SERVER_ADDRESS=eureka-server
+    depends_on:
+      - rabbitmq
 
   rabbitmq:
     container_name: "RabbitMq"
-    image: "rabbitmq:3.9.13-management-alpine"
-    hostname: "rabbit"
+    image: "rabbitmq:management-alpine"
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      - "RABBITMQ_DEFAULT_USER=dst"
-      - "RABBITMQ_DEFAULT_PASS=dst"
     restart: unless-stopped
 
   mongo:

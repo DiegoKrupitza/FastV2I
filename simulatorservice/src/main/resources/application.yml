@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: SimulatorService
+  rabbitmq:
+    host: localhost
+
+
+server:
+  port: 8081
+eureka:
+  client:
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost}:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,gateway,info
+
+
+info:
+  application:
+    name: ${spring.application.name}
+    description: SimulatorService for our DSE Project
+    version: '@project.version@'
+    spring-boot-version: '@project.parent.version@'
