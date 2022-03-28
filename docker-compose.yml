@@ -9,6 +9,14 @@ services:
       - "8761:8761"
     restart: unless-stopped
 
+  gateway:
+    container_name: "Gateway"
+    build:
+      context: ./gateway
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
   rabbitmq:
     container_name: "RabbitMq"
     image: "rabbitmq:3.9.13-management-alpine"
