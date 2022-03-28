@@ -16,4 +16,4 @@ COPY ./pom.xml ./pom.xml
 RUN chmod 755 /app/mvnw
 
 RUN ./mvnw package -DskipTests
-ENTRYPOINT ["java","-jar","target/gateway-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","target/SimulatorService-0.0.1-SNAPSHOT.jar"]
