@@ -153,6 +153,8 @@ fabric.properties
 
 .idea/*
 
+*.iml
+
 !.idea/codeStyles
 !.idea/runConfigurations
 
@@ -1156,6 +1158,5 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,netbeans,eclipse,maven,macos,windows,linux,visualstudio,visualstudiocode,latex,microsoftoffice,libreoffice,gradle,node
+mongodb.iml
 
-
-*.iml
