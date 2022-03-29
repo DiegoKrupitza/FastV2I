@@ -5,13 +5,14 @@ spring:
     gateway:
       routes:
         - id: entity-service
-          uri: lb://entity-service
+          uri: lb://ENTITY-SERVICE
           predicates:
             - Path=/entities/**
         - id: tracking-service
-          uri: lb://tracking-service
+          uri: lb://TRACKING-SERVICE
           predicates:
             - Path=/tracking/**
+
 server:
   port: 8080
 eureka:
