@@ -9,6 +9,7 @@ export function eureka(server: FastifyInstance, _: FastifyPluginOptions, done: (
       app: 'tracking-service',
       hostName: process.env.HOSTNAME ?? 'localhost',
       ipAddr: env.host,
+      statusPageUrl: `http://${process.env.HOSTNAME ?? 'localhost'}:${env.port}/tracking/health`,
       port: {
         '$': env.port,
         '@enabled': true,
