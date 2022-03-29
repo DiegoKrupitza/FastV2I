@@ -209,6 +209,11 @@
   resolved "https://registry.yarnpkg.com/@types/eureka-js-client/-/eureka-js-client-4.5.5.tgz#e96c93aaf3f8c15993b9852883aa5fb9be9af0d8"
   integrity sha512-8Qi5y9jxqewg658OI6zBD+XIq1/5NmjqZxkscaMA2ELqWjjioQU3oopNdtZA0dDujaTDEqFk2Ol+gqps4+1TWw==
 
+"@types/geojson@7946.0.8":
+  version "7946.0.8"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
+  integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
+
 "@types/json-schema@^7.0.9":
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"

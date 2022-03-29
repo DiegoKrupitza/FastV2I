@@ -49,9 +49,9 @@ services:
     environment:
       - EUREKA_SERVER_ADDRESS=eureka-server
       - MONGO_DB_HOST=mongo
-      - MONGO_DB_NAME=trackingService_db
-      - MONGO_DB_USER=trackingService_user
-      - MONGO_DB_PWD=12345
+      - MONGO_DB_NAME=tracking-service-db
+      - MONGO_DB_USER=admin
+      - MONGO_DB_PWD=admin
     depends_on:
       - eureka-server
       - rabbitmq
@@ -73,12 +73,9 @@ services:
     ports:
       - '27017:27017'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
       MONGO_INITDB_DATABASE: root-db
-    volumes:
-      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-      - ./docker-entrypoint-initdb.d/datadir:/data/db
     restart: unless-stopped
     networks:
       - mongo-network
