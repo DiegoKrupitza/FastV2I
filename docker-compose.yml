@@ -25,7 +25,7 @@ services:
     networks:
       - eureka-network
 
-  simulatorservice:
+  simulator-service:
     container_name: simulator-service
     build:
       context: ./simulator-service
@@ -33,6 +33,20 @@ services:
       - '8081:8081'
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
+      - EUREKA_SERVER_ADDRESS=eureka-server
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - eureka-network
+
+  tracking-service:
+    container_name: tracking-service
+    build:
+      context: ./tracking-service
+    ports:
+      - '8888:8888'
+    environment:
       - EUREKA_SERVER_ADDRESS=eureka-server
     depends_on:
       - eureka-server
