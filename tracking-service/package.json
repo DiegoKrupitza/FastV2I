@@ -13,6 +13,7 @@
     "dotenv": "16.0.0",
     "eureka-js-client": "4.5.0",
     "fastify": "3.27.4",
+    "mongodb": "4.4.1",
     "pino-pretty": "7.6.0"
   },
   "devDependencies": {

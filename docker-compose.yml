@@ -48,11 +48,16 @@ services:
       - '8888:8888'
     environment:
       - EUREKA_SERVER_ADDRESS=eureka-server
+      - MONGO_DB_HOST=mongo
+      - MONGO_DB_NAME=trackingService_db
+      - MONGO_DB_USER=trackingService_user
+      - MONGO_DB_PWD=12345
     depends_on:
       - eureka-server
       - rabbitmq
     networks:
       - eureka-network
+      - mongo-network
 
   rabbitmq:
     container_name: rabbitmq
@@ -74,6 +79,9 @@ services:
     volumes:
       - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     restart: unless-stopped
+    networks:
+      - mongo-network
 
 networks:
   eureka-network:
+  mongo-network:
