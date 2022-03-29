@@ -2,15 +2,17 @@ version: '3.7'
 
 services:
   eureka-server:
-    container_name: 'EurekaServer'
+    container_name: eureka-server
     build:
       context: ./eureka-service
     ports:
       - '8761:8761'
     restart: unless-stopped
+    networks:
+      - eureka-network
 
   gateway:
-    container_name: 'Gateway'
+    container_name: gateway
     build:
       context: ./gateway
     ports:
@@ -18,9 +20,13 @@ services:
     environment:
       - EUREKA_SERVER_ADDRESS=eureka-server
     restart: unless-stopped
+    depends_on:
+      - eureka-server
+    networks:
+      - eureka-network
 
   simulatorservice:
-    container_name: 'SimulatorService'
+    container_name: simulator-service
     build:
       context: ./simulator-service
     ports:
@@ -29,10 +35,13 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
       - EUREKA_SERVER_ADDRESS=eureka-server
     depends_on:
+      - eureka-server
       - rabbitmq
+    networks:
+      - eureka-network
 
   rabbitmq:
-    container_name: 'RabbitMq'
+    container_name: rabbitmq
     image: 'rabbitmq:management-alpine'
     ports:
       - '5672:5672'
@@ -40,7 +49,7 @@ services:
     restart: unless-stopped
 
   mongo:
-    container_name: 'MongoDB'
+    container_name: mongo
     image: mongo:latest
     ports:
       - '27017:27017'
@@ -51,3 +60,6 @@ services:
     volumes:
       - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     restart: unless-stopped
+
+networks:
+  eureka-network:
