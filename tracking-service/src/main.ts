@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { Eureka } from 'eureka-js-client'
 import fastify from 'fastify'
+
 import { routes } from './routes'
 
 const port = parseInt(process.env.port ?? '8888', 10)
