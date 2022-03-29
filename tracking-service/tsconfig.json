@@ -1,0 +1,10 @@
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es2018",
+    "lib": ["es2018"],
+    "types": ["@types/node"],
+    "declaration": false
+  }
+}
