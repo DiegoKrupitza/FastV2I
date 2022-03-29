@@ -1,18 +1,9 @@
 import { Eureka } from 'eureka-js-client'
-import type { FastifyInstance } from 'fastify'
+import type { FastifyInstance, FastifyPluginOptions } from 'fastify'
 
 import { env } from './env'
 
-function startEureka(eureka: Eureka, server: FastifyInstance) {
-  eureka.start((err) => {
-    if (err) {
-      server.log.warn('Could not start Eureka client. Retrying in 5 seconds.')
-      setTimeout(() => startEureka(eureka, server), 5000)
-    }
-  })
-}
-
-export function eureka(server: FastifyInstance) {
+export function eureka(server: FastifyInstance, _: FastifyPluginOptions, done: () => void) {
   const eureka = new Eureka({
     instance: {
       app: 'tracking-service',
@@ -34,6 +25,7 @@ export function eureka(server: FastifyInstance) {
       servicePath: '/eureka/apps',
     },
   })
-  startEureka(eureka, server)
+  eureka.start()
   server.log.info('Eureka client created')
+  done()
 }

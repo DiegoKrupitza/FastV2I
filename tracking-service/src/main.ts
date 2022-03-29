@@ -2,7 +2,7 @@ import fastify from 'fastify'
 
 import { connectToDatabase } from './database'
 import { env } from './env'
-// import { eureka } from './eureka'
+import { eureka } from './eureka'
 import { routes } from './routes'
 
 const server = fastify({
@@ -16,7 +16,7 @@ const server = fastify({
 })
 
 server.register(routes)
-// server.register(eureka)
+server.register(eureka)
 
 connectToDatabase(server)
 
