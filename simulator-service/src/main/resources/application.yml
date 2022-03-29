@@ -4,21 +4,20 @@ spring:
   rabbitmq:
     host: localhost
 
-
 server:
   port: 8081
 eureka:
   client:
+    fetch-registry: true
     registerWithEureka: true
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost}:8761/eureka
+      defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
 
 management:
   endpoints:
     web:
       exposure:
         include: health,gateway,info
-
 
 info:
   application:
