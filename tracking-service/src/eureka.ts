@@ -10,7 +10,7 @@ export function eureka(server: FastifyInstance, _: FastifyPluginOptions, done: (
       hostName: process.env.HOSTNAME ?? 'localhost',
       ipAddr: env.host,
       port: {
-        $: env.port,
+        '$': env.port,
         '@enabled': true,
       },
       vipAddress: 'tracking-service',
