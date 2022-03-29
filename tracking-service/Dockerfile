@@ -2,9 +2,9 @@ FROM node:16-alpine AS DEPENDENCIES
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json yarn.lock ./
 
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 FROM node:16-alpine AS BUILDER
 

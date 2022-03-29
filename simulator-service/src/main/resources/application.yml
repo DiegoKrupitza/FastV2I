@@ -1,6 +1,6 @@
 spring:
   application:
-    name: SimulatorService
+    name: simulator-service
   rabbitmq:
     host: localhost
 
