@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify'
+import type { FastifyInstance, FastifyRequest } from 'fastify'
 import { collections } from './database'
 
 export async function routes(server: FastifyInstance) {
@@ -8,8 +8,24 @@ export async function routes(server: FastifyInstance) {
     return 'hello world'
   })
 
-  server.get('/test', async (request, reply) => {
-    const doc = await collections.cars?.findOne()
-    return doc
+  server.get('/cars', async () => {
+    return await collections.cars?.find().toArray()
+  })
+
+  server.get(
+    '/cars/:vin',
+    async (req: FastifyRequest<{ Params: { vin: string } }>, res) => {
+      const vin = req.params.vin
+      const car = await collections.cars?.findOne({ vin: { $eq: vin } })
+      if (!car) {
+        res.statusCode = 404
+        return null
+      }
+      return car
+    }
+  )
+
+  server.get('/traffic-lights', async () => {
+    return await collections.trafficLights?.find().toArray()
   })
 }
