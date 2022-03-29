@@ -16,7 +16,7 @@ const server = fastify({
   },
 })
 
-server.register(routes)
+server.register(routes, { prefix: '/tracking' })
 server.register(eureka)
 
 connectToDatabase(server)
