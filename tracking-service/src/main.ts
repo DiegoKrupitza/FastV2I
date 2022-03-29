@@ -6,6 +6,7 @@ import { eureka } from './eureka'
 import { routes } from './routes'
 
 const server = fastify({
+  ignoreTrailingSlash: true,
   logger: {
     prettyPrint: {
       translateTime: 'HH:MM:ss Z',

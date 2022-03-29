@@ -1,0 +1,6 @@
+import { Document } from 'mongodb'
+
+export interface Car extends Document {
+  vin: string
+  location: GeoJSON.Point
+}
