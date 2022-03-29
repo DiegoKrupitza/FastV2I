@@ -8,6 +8,14 @@ export async function routes(server: FastifyInstance) {
     return 'hello world'
   })
 
+  server.get('/health', async (request, reply) => {
+    request.log.info('I am still alive!')
+    reply.statusCode = 200
+    return {
+      "status": "UP"
+    }
+  })
+
   server.get('/cars', async () => {
     return await collections.cars?.find().toArray()
   })
