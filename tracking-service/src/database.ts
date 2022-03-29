@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import type { Collection } from 'mongodb'
 import { MongoClient } from 'mongodb'
 
-const collections: { cars?: Collection } = {}
+export const collections: { cars?: Collection } = {}
 
 export async function connectToDatabase(server: FastifyInstance) {
   try {
@@ -19,6 +19,7 @@ export async function connectToDatabase(server: FastifyInstance) {
     const db = client.db(process.env.MONGO_DB_NAME)
     collections.cars = db.collection('cars')
     server.log.info('Successfully connected to database')
+    collections.cars.insertOne({ name: 'hello world' })
   } catch (err) {
     server.log.error(err)
   }
