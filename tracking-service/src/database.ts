@@ -4,6 +4,11 @@ import type { Collection, MongoClient, MongoClientOptions } from 'mongodb'
 import type { Car } from './model/car'
 import type { TrafficLight } from './model/traffic-light'
 
+export type MongoDBProvider = (
+  url: string,
+  options: MongoClientOptions
+) => Promise<MongoClient>
+
 export const collections: {
   cars?: Collection<Car>
   trafficLights?: Collection<TrafficLight>
@@ -11,17 +16,16 @@ export const collections: {
 
 export async function connectToDatabase(
   server: FastifyInstance,
-  createClient: (url: string, options: MongoClientOptions) => MongoClient
+  mongoDbProvider: MongoDBProvider
 ) {
   try {
-    const url = `mongodb://${process.env.MONGO_DB_HOST}:27017`
-    const client = createClient(url, {
+    const url = `mongodb://${process.env.MONGO_DB_HOST ?? 'localhost'}:27017`
+    const client = await mongoDbProvider(url, {
       auth: {
         username: process.env.MONGO_DB_USER,
         password: process.env.MONGO_DB_PWD,
       },
     })
-    await client.connect()
     const db = client.db(process.env.MONGO_DB_NAME)
     collections.cars = db.collection('cars')
     collections.trafficLights = db.collection('traffic-lights')

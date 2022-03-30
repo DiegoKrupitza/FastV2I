@@ -1,13 +1,21 @@
 import type { FastifyInstance } from 'fastify'
 import fastify from 'fastify'
-import { MongoClient } from 'mongodb'
 
 import { connectToAmqp } from './amqp'
+import type { MongoDBProvider } from './database'
 import { connectToDatabase } from './database'
 import { connectToEureka } from './eureka'
 import { routes } from './routes'
 
-export function createServer(isTest = false): FastifyInstance {
+export interface Options {
+  isTest: boolean
+  mongoDbProvider: MongoDBProvider
+}
+
+export function createServer({
+  isTest,
+  mongoDbProvider,
+}: Options): FastifyInstance {
   const server = fastify({
     ignoreTrailingSlash: true,
     logger: {
@@ -18,14 +26,11 @@ export function createServer(isTest = false): FastifyInstance {
       },
     },
   })
+  server.log.info(`Starting in ${isTest ? 'test' : 'production'} mode`)
+
   server.register(routes, { prefix: '/tracking' })
 
-  connectToDatabase(server, (url, options) =>
-    isTest
-      ? // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require('mongo-mock').MongoClient(url)
-      : new MongoClient(url, options)
-  )
+  connectToDatabase(server, mongoDbProvider)
 
   if (isTest) {
     return server

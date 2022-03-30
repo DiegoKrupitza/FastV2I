@@ -37,4 +37,6 @@ export async function routes(server: FastifyInstance) {
   server.get('/traffic-lights', async () => {
     return await collections.trafficLights?.find().toArray()
   })
+
+  server.log.info('Routes registered')
 }
