@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "prepare": "husky install",
-    "install:all": "yarn install:cockpit && yarn install:entity-service && yarn install:tracking-service",
+    "install:all": "yarn install && yarn install:cockpit && yarn install:entity-service && yarn install:tracking-service",
     "install:cockpit": "cd cockpit && yarn install",
     "install:entity-service": "cd entity-service && yarn install",
     "install:tracking-service": "cd tracking-service && yarn install",

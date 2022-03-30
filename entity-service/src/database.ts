@@ -27,7 +27,7 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
 
     server.log.info(`Connected to database at ${url}`)
 
-    collections.cars.insertMany(
+    await collections.cars.insertMany(
       [
         {
           vin: 'vw-passat-1',
@@ -42,7 +42,7 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
       ].map(Mappers.carDtoToCar)
     )
 
-    collections.trafficLights.insertMany(
+    await collections.trafficLights.insertMany(
       [
         {
           id: 'tl-1',

@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest'
 
 import { TestUtils } from './test-utils'
 
-describe('cars', () => {
+describe('traffic lights', () => {
   it('can be retrieved', async () => {
     const server = await TestUtils.createTestServer()
     const response = await server.inject({
       method: 'GET',
-      url: '/tracking/cars',
+      url: '/tracking/traffic-lights',
     })
     expect(response.statusCode).toEqual(200)
     expect(JSON.parse(response.body).length).toEqual(2)
@@ -17,17 +17,17 @@ describe('cars', () => {
     const server = await TestUtils.createTestServer()
     const response = await server.inject({
       method: 'GET',
-      url: '/tracking/cars/vw-passat-1',
+      url: '/tracking/traffic-lights/tl-1',
     })
     expect(response.statusCode).toEqual(200)
-    expect(JSON.parse(response.body).vin).toEqual('vw-passat-1')
+    expect(JSON.parse(response.body).id).toEqual('tl-1')
   })
 
   it('handles errors', async () => {
     const server = await TestUtils.createTestServer()
     const response = await server.inject({
       method: 'GET',
-      url: '/tracking/cars/does-not-exist',
+      url: '/tracking/traffic-lights/does-not-exist',
     })
     expect(response.statusCode).toEqual(404)
     expect(JSON.parse(response.body)).toBeNull()
