@@ -40,6 +40,27 @@ services:
     networks:
       - eureka-network
 
+  entity-service:
+    container_name: entity-service
+    build:
+      context: ./entity-service
+    ports:
+      - '8889:8889'
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka-server
+      - MONGO_DB_HOST=mongo
+      - MONGO_DB_NAME=entity-service-db
+      - MONGO_DB_USER=admin
+      - MONGO_DB_PWD=admin
+      - RABBIT_MQ_HOST=rabbitmq
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - eureka-network
+      - mongo-network
+      - rabbit-network
+
   tracking-service:
     container_name: tracking-service
     build:
