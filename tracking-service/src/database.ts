@@ -1,8 +1,9 @@
 import type { FastifyInstance } from 'fastify'
 import type { Collection } from 'mongodb'
 import { MongoClient } from 'mongodb'
-import { Car } from './model/car'
-import { TrafficLight } from './model/traffic-light'
+
+import type { Car } from './model/car'
+import type { TrafficLight } from './model/traffic-light'
 
 export const collections: {
   cars?: Collection<Car>
