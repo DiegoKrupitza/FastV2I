@@ -1,0 +1,12 @@
+{
+  "name": "dse-ss2022",
+  "version": "1.0.0",
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "docker-compose down && docker-compose build && docker-compose up"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "7.0.4"
+  }
+}
