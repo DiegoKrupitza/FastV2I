@@ -2,23 +2,22 @@ import type { FastifyInstance } from 'fastify'
 import fastify from 'fastify'
 
 import { connectToAmqp } from './amqp'
-import type { MongoDBProvider } from './database'
 import { connectToDatabase } from './database'
 import { connectToEureka } from './eureka'
 import { routes } from './routes'
 
 export interface Options {
   isTest: boolean
-  mongoDbProvider: MongoDBProvider
+  mongoDbUrl: string
 }
 
-export function createServer({
+export async function createServer({
   isTest,
-  mongoDbProvider,
-}: Options): FastifyInstance {
+  mongoDbUrl,
+}: Options): Promise<FastifyInstance> {
   const server = fastify({
     ignoreTrailingSlash: true,
-    logger: {
+    logger: !isTest && {
       prettyPrint: {
         translateTime: 'HH:MM:ss Z',
         ignore: 'pid,hostname,reqId,remoteAddress,remotePort',
@@ -30,7 +29,7 @@ export function createServer({
 
   server.register(routes, { prefix: '/tracking' })
 
-  connectToDatabase(server, mongoDbProvider)
+  await connectToDatabase(server, mongoDbUrl)
 
   if (isTest) {
     return server
