@@ -33,5 +33,20 @@ export async function routes(server: FastifyInstance) {
     return (trafficLights ?? []).map(Mappers.trafficLightToTrafficLightDto)
   })
 
+  server.get(
+    '/traffic-lights/:id',
+    async (req: FastifyRequest<{ Params: { id: string } }>, res) => {
+      const id = req.params.id
+      const trafficLight = await collections.trafficLights?.findOne({
+        _id: { $eq: id },
+      })
+      if (!trafficLight) {
+        res.statusCode = 404
+        return null
+      }
+      return Mappers.trafficLightToTrafficLightDto(trafficLight)
+    }
+  )
+
   server.log.info('Routes registered')
 }

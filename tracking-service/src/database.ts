@@ -3,6 +3,7 @@ import type { Collection } from 'mongodb'
 import { MongoClient } from 'mongodb'
 
 import type { Car } from './model/car'
+import { Mappers } from './model/mappers'
 import type { TrafficLight } from './model/traffic-light'
 
 export const collections: {
@@ -26,35 +27,39 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
 
     server.log.info(`Connected to database at ${url}`)
 
-    collections.cars.insertMany([
-      {
-        vin: 'first',
-        speed: 30,
-        location: { type: 'Point', coordinates: [42, 7] },
-        timestamp: 12,
-      },
-      {
-        vin: 'second',
-        speed: 50,
-        location: { type: 'Point', coordinates: [123, 321] },
-        timestamp: 10,
-      },
-    ])
+    await collections.cars.insertMany(
+      [
+        {
+          vin: 'vw-passat-1',
+          speed: 30,
+          location: [42, 7],
+          timestamp: 12,
+        },
+        {
+          vin: 'vw-polo-1',
+          speed: 50,
+          location: [123, 321],
+          timestamp: 10,
+        },
+      ].map(Mappers.carDtoToCar)
+    )
 
-    collections.trafficLights.insertMany([
-      {
-        id: 'tl-1',
-        color: 'green',
-        remainingMilliseconds: 5000,
-        timestamp: 42,
-      },
-      {
-        id: 'tl-2',
-        color: 'red',
-        remainingMilliseconds: 1500,
-        timestamp: 10,
-      },
-    ])
+    await collections.trafficLights.insertMany(
+      [
+        {
+          id: 'tl-1',
+          color: 'green' as const,
+          remainingMilliseconds: 5000,
+          timestamp: 42,
+        },
+        {
+          id: 'tl-2',
+          color: 'red' as const,
+          remainingMilliseconds: 1500,
+          timestamp: 10,
+        },
+      ].map(Mappers.trafficLightDtoToTrafficLight)
+    )
   } catch (err) {
     server.log.error(err)
   }
