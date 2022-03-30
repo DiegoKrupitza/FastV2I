@@ -1159,5 +1159,5 @@ FodyWeavers.xsd
 
 
 *.iml
-
+.idea
 ./docker-entrypoint-initdb.d/datadir/*

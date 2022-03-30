@@ -35,6 +35,23 @@ services:
     networks:
       - eureka-network
 
+  flowcontrol-service:
+    container_name: flowcontrol-service
+    build:
+      context: ./flowcontrol-service
+    ports:
+      - '8087:8087'
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka-server
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    restart: unless-stopped
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - eureka-network
+      - rabbit-network
+
   simulator-service:
     container_name: simulator-service
     build:
@@ -49,6 +66,7 @@ services:
       - rabbitmq
     networks:
       - eureka-network
+      - rabbit-network
 
   entity-service:
     container_name: entity-service
