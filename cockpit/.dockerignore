@@ -1,0 +1,10 @@
+*
+!locales
+!public
+!src
+!index.html
+!nginx.conf
+!package.json
+!tsconfig.json
+!vite.config.ts
+!yarn.lock

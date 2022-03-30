@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+(cd cockpit && yarn lint-staged)
 (cd entity-service && yarn lint-staged)
 (cd tracking-service && yarn lint-staged)

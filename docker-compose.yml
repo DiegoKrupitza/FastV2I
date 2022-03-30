@@ -1,6 +1,16 @@
 version: '3.7'
 
 services:
+  cockpit:
+    container_name: cockpit
+    build:
+      context: ./cockpit
+    ports:
+      - '80:80'
+    depends_on:
+      - eureka-server
+      - rabbitmq
+
   eureka-server:
     container_name: eureka-server
     build:

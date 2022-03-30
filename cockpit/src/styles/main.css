@@ -1,0 +1,85 @@
+@import './markdown.css';
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html.dark {
+  background: #121212;
+}
+
+#nprogress {
+  pointer-events: none;
+}
+
+button {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+}
+
+mark {
+  background: none;
+  color: inherit;
+  font-style: italic;
+  font-weight: bold;
+}
+
+:root {
+  --primary: #007afe;
+  --c-link: var(--primary);
+}
+
+html.dark {
+  --primary: #fdd888;
+}
+
+a {
+  color: var(--c-link);
+  transition: opacity 200ms ease;
+}
+
+a:hover {
+  opacity: 80%;
+}
+
+img.square::after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+
+#app {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.5em;
+}
