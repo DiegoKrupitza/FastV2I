@@ -10,6 +10,7 @@
     "fix": "yarn lint --fix "
   },
   "dependencies": {
+    "amqplib": "0.8.0",
     "dotenv": "16.0.0",
     "eureka-js-client": "4.5.0",
     "fastify": "3.27.4",
@@ -17,6 +18,7 @@
     "pino-pretty": "7.6.0"
   },
   "devDependencies": {
+    "@types/amqplib": "0.8.2",
     "@types/eureka-js-client": "4.5.5",
     "@types/geojson": "7946.0.8",
     "@types/node": "17.0.23",

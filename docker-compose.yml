@@ -52,12 +52,14 @@ services:
       - MONGO_DB_NAME=tracking-service-db
       - MONGO_DB_USER=admin
       - MONGO_DB_PWD=admin
+      - RABBIT_MQ_HOST=rabbitmq
     depends_on:
       - eureka-server
       - rabbitmq
     networks:
       - eureka-network
       - mongo-network
+      - rabbit-network
 
   rabbitmq:
     container_name: rabbitmq
@@ -66,6 +68,8 @@ services:
       - '5672:5672'
       - '15672:15672'
     restart: unless-stopped
+    networks:
+      - rabbit-network
 
   mongo:
     container_name: mongo
@@ -83,3 +87,4 @@ services:
 networks:
   eureka-network:
   mongo-network:
+  rabbit-network:
