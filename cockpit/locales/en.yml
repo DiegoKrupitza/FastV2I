@@ -1,0 +1,10 @@
+button:
+  home: Home
+  toggle_dark: Toggle dark mode
+
+meta:
+  description: Cockpit
+  title: Cockpit
+
+toasts:
+  backend-error: An error occurred
