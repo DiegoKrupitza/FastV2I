@@ -29,26 +29,30 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
     collections.cars.insertMany([
       {
         vin: 'first',
+        speed: 30,
         location: { type: 'Point', coordinates: [42, 7] },
+        timestamp: 12,
       },
       {
         vin: 'second',
+        speed: 50,
         location: { type: 'Point', coordinates: [123, 321] },
+        timestamp: 10,
       },
     ])
 
     collections.trafficLights.insertMany([
       {
-        state: {
-          color: 'green',
-          remainingMilliseconds: 5000,
-        },
+        id: 'tl-1',
+        color: 'green',
+        remainingMilliseconds: 5000,
+        timestamp: 42,
       },
       {
-        state: {
-          color: 'red',
-          remainingMilliseconds: 1500,
-        },
+        id: 'tl-2',
+        color: 'red',
+        remainingMilliseconds: 1500,
+        timestamp: 10,
       },
     ])
   } catch (err) {
