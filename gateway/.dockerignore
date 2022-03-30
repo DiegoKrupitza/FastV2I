@@ -1,3 +1,4 @@
 *
 !src
 !pom.xml
+!wait-for-it.sh
