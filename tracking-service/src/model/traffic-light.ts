@@ -1,10 +1,8 @@
 import type { Document } from 'mongodb'
 
-export interface TrafficLightState {
+export interface TrafficLight extends Document {
+  id: string
   color: 'green' | 'red'
   remainingMilliseconds: number
-}
-
-export interface TrafficLight extends Document {
-  state: TrafficLightState
+  timestamp: number
 }
