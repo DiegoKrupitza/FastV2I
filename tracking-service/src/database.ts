@@ -1,6 +1,5 @@
 import type { FastifyInstance } from 'fastify'
-import type { Collection } from 'mongodb'
-import { MongoClient } from 'mongodb'
+import type { Collection, MongoClient, MongoClientOptions } from 'mongodb'
 
 import type { Car } from './model/car'
 import type { TrafficLight } from './model/traffic-light'
@@ -10,10 +9,13 @@ export const collections: {
   trafficLights?: Collection<TrafficLight>
 } = {}
 
-export async function connectToDatabase(server: FastifyInstance) {
+export async function connectToDatabase(
+  server: FastifyInstance,
+  createClient: (url: string, options: MongoClientOptions) => MongoClient
+) {
   try {
     const url = `mongodb://${process.env.MONGO_DB_HOST}:27017`
-    const client = new MongoClient(url, {
+    const client = createClient(url, {
       auth: {
         username: process.env.MONGO_DB_USER,
         password: process.env.MONGO_DB_PWD,
