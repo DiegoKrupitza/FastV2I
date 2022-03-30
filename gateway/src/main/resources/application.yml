@@ -40,9 +40,12 @@ management:
     web:
       exposure:
         include: health,gateway,info
+  info:
+    env:
+      enabled: true
 
 info:
-  application:
+  app:
     name: ${spring.application.name}
     description: Gateway to our DSE Project
     version: '@project.version@'

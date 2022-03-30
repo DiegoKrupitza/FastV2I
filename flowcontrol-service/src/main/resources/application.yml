@@ -1,14 +1,17 @@
 spring:
   application:
-    name: simulator-service
+    name: flowcontrol-service
+
+dse:
   rabbitmq:
-    host: localhost
+    carQueueName: CAR
+    speedQueueName: SPEED
+
 
 server:
-  port: 8081
+  port: 8087
 eureka:
   client:
-    fetch-registry: true
     registerWithEureka: true
     serviceUrl:
       defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
@@ -17,14 +20,16 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,gateway,info
+        include: health,info
   info:
     env:
       enabled: true
 
+
 info:
-  application:
+  app:
     name: ${spring.application.name}
-    description: SimulatorService for our DSE Project
+    description: Flow control service for our DSE Project
     version: '@project.version@'
+    spring-cloud-version: '@spring-cloud.version@'
     spring-boot-version: '@project.parent.version@'
