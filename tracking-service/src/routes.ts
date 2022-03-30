@@ -1,4 +1,5 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify'
+
 import { collections } from './database'
 
 export async function routes(server: FastifyInstance) {
@@ -12,7 +13,7 @@ export async function routes(server: FastifyInstance) {
     request.log.info('I am still alive!')
     reply.statusCode = 200
     return {
-      "status": "UP"
+      status: 'UP',
     }
   })
 

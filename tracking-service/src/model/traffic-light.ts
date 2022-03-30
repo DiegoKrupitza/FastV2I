@@ -1,4 +1,4 @@
-import { Document } from 'mongodb'
+import type { Document } from 'mongodb'
 
 export interface TrafficLightState {
   color: 'green' | 'red'

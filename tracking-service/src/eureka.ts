@@ -3,15 +3,21 @@ import type { FastifyInstance, FastifyPluginOptions } from 'fastify'
 
 import { env } from './env'
 
-export function eureka(server: FastifyInstance, _: FastifyPluginOptions, done: () => void) {
+export function eureka(
+  server: FastifyInstance,
+  _: FastifyPluginOptions,
+  done: () => void
+) {
   const eureka = new Eureka({
     instance: {
       app: 'tracking-service',
       hostName: process.env.HOSTNAME ?? 'localhost',
       ipAddr: env.host,
-      statusPageUrl: `http://${process.env.HOSTNAME ?? 'localhost'}:${env.port}/tracking/health`,
+      statusPageUrl: `http://${process.env.HOSTNAME ?? 'localhost'}:${
+        env.port
+      }/tracking/health`,
       port: {
-        '$': env.port,
+        $: env.port,
         '@enabled': true,
       },
       vipAddress: 'tracking-service',
