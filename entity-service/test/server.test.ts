@@ -12,7 +12,7 @@ describe('server', () => {
     const server = await TestUtils.createTestServer()
     const response = await server.inject({
       method: 'GET',
-      url: '/tracking/health',
+      url: '/entities/health',
     })
     expect(JSON.parse(response.body)).toMatchInlineSnapshot(`
       {
