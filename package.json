@@ -3,7 +3,20 @@
   "version": "1.0.0",
   "scripts": {
     "prepare": "husky install",
-    "dev": "docker-compose down && docker-compose build && docker-compose up"
+    "install:all": "yarn install:entity-service && yarn install:tracking-service",
+    "install:entity-service": "cd entity-service && yarn install",
+    "install:tracking-service": "cd tracking-service && yarn install",
+    "dev": "docker-compose down && docker-compose build && docker-compose up",
+    "ci": "yarn fix && yarn build && yarn test",
+    "fix": "yarn fix:entity-service && yarn fix:tracking-service",
+    "fix:entity-service": "cd entity-service && yarn fix",
+    "fix:tracking-service": "cd tracking-service && yarn fix",
+    "build": "yarn build:entity-service && yarn build:tracking-service",
+    "build:entity-service": "cd entity-service && yarn build",
+    "build:tracking-service": "cd tracking-service && yarn build",
+    "test": "yarn test:entity-service && yarn test:tracking-service",
+    "test:entity-service": "cd entity-service && yarn test",
+    "test:tracking-service": "cd tracking-service  && yarn test"
   },
   "license": "MIT",
   "devDependencies": {
