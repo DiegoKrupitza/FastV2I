@@ -3,6 +3,7 @@ import type { Collection } from 'mongodb'
 import { MongoClient } from 'mongodb'
 
 import type { Car } from './model/car'
+import { Mappers } from './model/mappers'
 import type { TrafficLight } from './model/traffic-light'
 
 export const collections: {
@@ -26,29 +27,33 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
 
     server.log.info(`Connected to database at ${url}`)
 
-    collections.cars.insertMany([
-      {
-        vin: 'vw-passat-1',
-        oem: 'vw',
-        model: 'passat',
-      },
-      {
-        vin: 'vw-polo-1',
-        oem: 'vw',
-        model: 'polo',
-      },
-    ])
+    collections.cars.insertMany(
+      [
+        {
+          vin: 'vw-passat-1',
+          oem: 'vw',
+          model: 'passat',
+        },
+        {
+          vin: 'vw-polo-1',
+          oem: 'vw',
+          model: 'polo',
+        },
+      ].map(Mappers.carDtoToCar)
+    )
 
-    collections.trafficLights.insertMany([
-      {
-        id: 'tl-1',
-        location: { type: 'Point', coordinates: [1, 1] },
-      },
-      {
-        id: 'tl-2',
-        location: { type: 'Point', coordinates: [42, 7] },
-      },
-    ])
+    collections.trafficLights.insertMany(
+      [
+        {
+          id: 'tl-1',
+          location: [1, 1],
+        },
+        {
+          id: 'tl-2',
+          location: [42, 7],
+        },
+      ].map(Mappers.trafficLightDtoToTrafficLight)
+    )
   } catch (err) {
     server.log.error(err)
   }
