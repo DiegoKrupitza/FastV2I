@@ -3,6 +3,17 @@ spring:
     name: gateway
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allowedHeaders: '*'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
       routes:
         - id: entity-service
           uri: lb://ENTITY-SERVICE
