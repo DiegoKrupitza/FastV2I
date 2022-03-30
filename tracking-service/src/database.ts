@@ -12,20 +12,18 @@ export const collections: {
 
 export async function connectToDatabase(server: FastifyInstance) {
   try {
-    const client = new MongoClient(
-      `mongodb://${process.env.MONGO_DB_HOST}:27017`,
-      {
-        auth: {
-          username: process.env.MONGO_DB_USER,
-          password: process.env.MONGO_DB_PWD,
-        },
-      }
-    )
+    const url = `mongodb://${process.env.MONGO_DB_HOST}:27017`
+    const client = new MongoClient(url, {
+      auth: {
+        username: process.env.MONGO_DB_USER,
+        password: process.env.MONGO_DB_PWD,
+      },
+    })
     await client.connect()
     const db = client.db(process.env.MONGO_DB_NAME)
     collections.cars = db.collection('cars')
     collections.trafficLights = db.collection('traffic-lights')
-    server.log.info('Successfully connected to database')
+    server.log.info(`Connected to database at ${url}`)
 
     collections.cars.insertMany([
       {

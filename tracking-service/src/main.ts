@@ -1,8 +1,9 @@
 import fastify from 'fastify'
 
+import { connectToAmqp } from './amqp'
 import { connectToDatabase } from './database'
 import { env } from './env'
-import { eureka } from './eureka'
+import { connectToEureka } from './eureka'
 import { routes } from './routes'
 
 const server = fastify({
@@ -17,9 +18,10 @@ const server = fastify({
 })
 
 server.register(routes, { prefix: '/tracking' })
-server.register(eureka)
 
 connectToDatabase(server)
+connectToAmqp(server)
+connectToEureka(server)
 
 server.listen({ port: env.port, host: env.host }, (err) => {
   if (err) {

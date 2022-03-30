@@ -7,6 +7,7 @@ declare global {
       MONGO_DB_USER: string
       MONGO_DB_PWD: string
       MONGO_DB_NAME: string
+      RABBIT_MQ_HOST: string
     }
   }
 }

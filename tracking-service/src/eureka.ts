@@ -1,14 +1,11 @@
 import { Eureka } from 'eureka-js-client'
-import type { FastifyInstance, FastifyPluginOptions } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 
 import { env } from './env'
 
-export function eureka(
-  server: FastifyInstance,
-  _: FastifyPluginOptions,
-  done: () => void
-) {
+export function connectToEureka(server: FastifyInstance) {
   const eureka = new Eureka({
+    logger: server.log,
     instance: {
       app: 'tracking-service',
       hostName: process.env.HOSTNAME ?? 'localhost',
@@ -34,5 +31,4 @@ export function eureka(
   })
   eureka.start()
   server.log.info('Eureka client created')
-  done()
 }

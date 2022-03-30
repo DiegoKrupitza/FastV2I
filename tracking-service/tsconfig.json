@@ -4,7 +4,7 @@
     "outDir": "dist",
     "target": "es2018",
     "lib": ["es2018"],
-    "types": ["@types/node", "@types/geojson"],
+    "types": ["@types/node", "@types/geojson", "@types/amqplib"],
     "declaration": false
   }
 }
