@@ -36,6 +36,12 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
           timestamp: 12,
         },
         {
+          vin: 'vw-passat-1',
+          speed: 40,
+          location: [62, 7],
+          timestamp: 15,
+        },
+        {
           vin: 'vw-polo-1',
           speed: 50,
           location: [123, 321],
@@ -57,6 +63,12 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
           color: 'red' as const,
           remainingMilliseconds: 1500,
           timestamp: 10,
+        },
+        {
+          id: 'tl-2',
+          color: 'green' as const,
+          remainingMilliseconds: 3000,
+          timestamp: 14,
         },
       ].map(Mappers.trafficLightDtoToTrafficLight)
     )

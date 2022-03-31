@@ -10,6 +10,7 @@ interface CarEntity {
 
 interface CarState {
   vin: string
+  timestamp: string
 }
 
 interface TrafficLightEntity {
@@ -19,6 +20,8 @@ interface TrafficLightEntity {
 
 interface TrafficLightState {
   id: string
+  color: 'green' | 'red'
+  timestamp: string
 }
 
 const { get } = useBackend()
@@ -30,11 +33,27 @@ const trafficLightEntities = asyncComputed(
   async () => (await get<TrafficLightEntity[]>('/entities/traffic-lights')).data
 )
 
-const carStates = asyncComputed(
-  async () => (await get<CarState[]>('/tracking/cars')).data
+const carStates = asyncComputed(async () =>
+  Promise.all(
+    carEntities.value.map(async (car) => {
+      const states = await get<CarState[]>(`/tracking/cars/${car.vin}`)
+      const latest = await get<CarState>(`/tracking/cars/${car.vin}/latest`)
+      return { car, states: states.data, latest: latest.data }
+    })
+  )
 )
-const trafficLightStates = asyncComputed(
-  async () => (await get<TrafficLightState[]>('/tracking/traffic-lights')).data
+const trafficLightStates = asyncComputed(async () =>
+  Promise.all(
+    trafficLightEntities.value?.map(async (trafficLight) => {
+      const states = await get<TrafficLightState[]>(
+        `/tracking/traffic-lights/${trafficLight.id}`
+      )
+      const latest = await get<TrafficLightState>(
+        `/tracking/traffic-lights/${trafficLight.id}/latest`
+      )
+      return { trafficLight, states: states.data, latest: latest.data }
+    })
+  )
 )
 </script>
 
@@ -57,15 +76,40 @@ const trafficLightStates = asyncComputed(
     <section>
       <h2>Tracking</h2>
       <h3>Cars</h3>
-      <ul>
-        <li v-for="car of carStates" :key="car.vin">{{ car }}</li>
-      </ul>
+      <div v-for="{ car, states, latest } of carStates" :key="car.vin">
+        <h4>{{ car.vin }}</h4>
+        <ul>
+          <li
+            v-for="state of states"
+            :key="state.timestamp"
+            :class="{ 'text-$primary': state.timestamp === latest.timestamp }"
+          >
+            {{ state }}
+          </li>
+        </ul>
+      </div>
       <h3>Traffic Lights</h3>
-      <ul>
-        <li v-for="trafficLight of trafficLightStates" :key="trafficLight.id">
-          {{ trafficLight }}
-        </li>
-      </ul>
+      <div
+        v-for="{ trafficLight, states, latest } of trafficLightStates"
+        :key="trafficLight.id"
+      >
+        <h4>{{ trafficLight.id }}</h4>
+        <ul>
+          <li
+            v-for="state of states"
+            :key="state.timestamp"
+            :class="{ 'text-$primary': state.timestamp === latest.timestamp }"
+          >
+            {{ state }}
+            <carbon-circle-solid
+              :class="{
+                'color-green400': state.color === 'green',
+                'color-red': state.color === 'red',
+              }"
+            />
+          </li>
+        </ul>
+      </div>
     </section>
   </div>
 </template>
