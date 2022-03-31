@@ -1,11 +1,9 @@
-import type { ObjectId } from 'mongodb'
-
 import type { Car, CarDto } from './car'
 import type { TrafficLight, TrafficLightDto } from './traffic-light'
 
 function carDtoToCar(car: CarDto): Car {
   return {
-    _id: car.vin as unknown as ObjectId,
+    vin: car.vin,
     location: {
       type: 'Point',
       coordinates: car.location,
@@ -17,7 +15,7 @@ function carDtoToCar(car: CarDto): Car {
 
 function carToCarDto(car: Car): CarDto {
   return {
-    vin: car._id,
+    vin: car.vin,
     location: car.location.coordinates,
     speed: car.speed,
     timestamp: car.timestamp,
@@ -28,7 +26,7 @@ function trafficLightDtoToTrafficLight(
   trafficLight: TrafficLightDto
 ): TrafficLight {
   return {
-    _id: trafficLight.id as unknown as ObjectId,
+    id: trafficLight.id,
     color: trafficLight.color,
     remainingMilliseconds: trafficLight.remainingMilliseconds,
     timestamp: trafficLight.timestamp,
@@ -39,7 +37,7 @@ function trafficLightToTrafficLightDto(
   trafficLight: TrafficLight
 ): TrafficLightDto {
   return {
-    id: trafficLight._id,
+    id: trafficLight.id,
     color: trafficLight.color,
     remainingMilliseconds: trafficLight.remainingMilliseconds,
     timestamp: trafficLight.timestamp,

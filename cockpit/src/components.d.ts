@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('./components/Button.vue')['default']
+    CarbonCircleSolid: typeof import('~icons/carbon/circle-solid')['default']
     CarbonHome: typeof import('~icons/carbon/home')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
