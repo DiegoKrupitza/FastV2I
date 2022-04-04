@@ -1,3 +1,19 @@
 \section{Technische Planung}
 
-TODO
+Ein Eureka stellt neben einer Registrierung für einzelne Dienste sowie darauf aufbauender Service Discovery auch Statusüberwachung bereit.
+
+Als \enquote{MoM} für eine asynchrone Kommunikation wird RabbitMQ verwendet.
+
+Ein Spring Cloud Gateway wird als Einstiegspunkt für externe Kommunikation dienen.
+Dafür werden Anfragen an zuständige Komponenten weitergeleitet und Load-Balancing durchgeführt.
+
+Zum Persistieren von Daten wird MongoDB verwendet, da die Datenbestände keine Relationen zwischen Entitäten aufweisen und sie sich somit für dokumentbasierte Datenbanken eignen.
+
+EntityService und TrackingService werden mit Node.js, TypeScript sowie Fastify implementiert.
+
+FlowControlService und SimulatorService werden hingegen mit Spring Boot entwickelt.
+Dabei steht insbesondere die simple Konfiguration im Vordergrund.
+
+Die Web-Applikation wird mit Vue 3 und Vite entwickelt, um den Anteil an Boilerplate zu minimieren und schnelles Iterieren während der Entwicklung zu ermöglichen.
+
+Während der Entwicklung werden Docker Compose und minikube verwendet um das System lokal in Betrieb zu nehmen.
