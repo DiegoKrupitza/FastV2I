@@ -1,9 +1,6 @@
-import type { UseMemoizedFn } from '@vueuse/core'
 import axios from 'axios'
-import type { Ref } from 'vue'
 
 import type { HttpClient, HttpMethods, HttpResponse } from '~/composables'
-import type { SetSettingsDto } from '~/types'
 
 const client = axios.create({
   baseURL: 'http://localhost:8080',
@@ -55,56 +52,4 @@ export function useBackend(): HttpMethods {
     client.put<T, HttpResponse<U>>(path, body)
 
   return { delete: del, get, post, put }
-}
-
-export interface UseApiKey {
-  getKeyIsPresent: UseMemoizedFn<Promise<boolean>, []>
-  keyIsPresent: Ref<boolean>
-  storeApiKey: (apiKey?: string) => Promise<void>
-}
-
-let useApiKeySingleton: Omit<UseApiKey, 'keyIsPresent'>
-
-export function useApiKey(): UseApiKey {
-  if (useApiKeySingleton) {
-    return {
-      ...useApiKeySingleton,
-      keyIsPresent: asyncComputed(
-        () => useApiKeySingleton.getKeyIsPresent(),
-        true
-      ),
-    }
-  }
-
-  const { get, post } = useBackend()
-  const { t } = useI18n()
-  const toast = useToast()
-
-  const getKeyIsPresent = useMemoize(
-    async (): Promise<boolean> =>
-      (await get<boolean>('/user-settings/key-present')).data
-  )
-
-  async function storeApiKey(apiKey?: string) {
-    if (!apiKey) {
-      return
-    }
-    const res = await post<SetSettingsDto, boolean>('/user-settings', {
-      apiKey,
-    })
-    if (res.status === 201) {
-      toast.success(t('toasts.settings.api-key-saved'))
-      await getKeyIsPresent.load()
-    }
-  }
-
-  useApiKeySingleton = {
-    getKeyIsPresent,
-    storeApiKey,
-  }
-
-  return {
-    ...useApiKeySingleton,
-    keyIsPresent: asyncComputed(() => getKeyIsPresent(), true),
-  }
 }
