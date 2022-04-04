@@ -1,0 +1,31 @@
+\section{Projektzielplan}
+
+Ziel dieses Projektes ist die Entwicklung eines Softwaresystems, welches eine Kommunikation zwischen autonomen Fahrzeugen und Verkehrsinfrastruktur simuliert.
+Dabei soll eine intelligente Verkehrflusssteuerung auf Basis eines Algorithmus umgesetzt werden.
+Die Umsetzung soll auf Basis eines verteilten Systems erfolgen, wobei einzelne Komponenten voneinander entkoppelt implementiert werden sollen.
+Dafür sollen Komponenten mithilfe von REST und einer \enquote{MoM} kommunizieren.
+
+Folgende Projektziele werden realisiert:
+
+\begin{itemize}
+  \item Es ist möglich eine Verkehrsituation mit bis zu vier Fahrzeugen und vier Ampeln zu simulieren.
+  \item Einzelne Komponenten sind voneinander entkoppelt und sind daher horizontal skalierbar.
+  \item Eine Web-Applikation erlaubt Benutzerinnen und Benutzern das Bedienen des Systems über einen Browser.
+  \item Benutzerinnen und Benutzern ist es möglich die Anzahl an Fahrzeugen und Ampeln einer Simulation sowie deren Startzustände zu konfigurieren.
+  \item Für die Geschwindigkeitsberechnung eines Fahrzeuges berücksichtigt der Algorithmus nur Ampeln, in deren Scanreichweite sich das betroffene Fahrzeug befindet.
+  \item Der Algorithmus arbeitet mit realistischen Geschwindigkeiten in dem Bereich von 0 bis 130 km/h. Ein Stillstand (0 km/h) erfolgt nur, wenn ein Fahrzeug vor einer roten Ampel halten muss.
+  \item Die Simulation ist so vereinfacht, dass nur eine Koordinate relevant ist.
+\end{itemize}
+
+Folgende Projektziele werden nicht realisiert:
+
+\begin{itemize}
+  \item Der implementierte Algorithmus entspricht einer optimalen Lösung in Bezug auf Zeit- und Speicherkomplexität.
+  \item Komponenten verwenden Autorisierung und Authentifizierung um Kommunikation abzusichern.
+  \item Der Algorithmus findet die global optimale Lösung, indem auch Ampeln außerhalb der Scanreichweite berücksichtigt werden.
+  \item Das System simuliert realistische Beschleunigungs- und Bremsvorgänge.
+  \item Die Web-Applikation ist für Mobilgeräte optimiert.
+  \item Das System verfügt über Ausfallsicherheit.
+  \item Das Service Mesh wird visualisiert.
+  \item Eine gelbe Ampelphase wird bei der Simulation berücksichtigt.
+\end{itemize}
