@@ -21,12 +21,26 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandschätzun
   		In diesem Arbeitspaket soll das Empfangen und Persistieren von relevanten Fahrzeuginformationen auf Basis der \enquote{MoM} implementiert werden.
   		Dies soll über die \enquote{MoM} geschehen.
   \item EntityService - Registrierung von Ampeln (2 SP)\\
-  		In diesem Arbeitspaket soll das Empfangen und Persistieren von relevanten Ampelinformationen auf Basis der \enquote{MoM} implementiert werden.
+  		In diesem Arbeitspaket wird eine Queue \enquote{traffic-light} von RabbitMQ gelesen und bei eintreffenden Nachrichten die Datenbank aktualisiert.
   \item EntityService - Implementieren eines Endpunktes zum Lesen von Entitätsinformationen (2 SP)\\
   		In diesem Arbeitspaket sollen REST-Endpunkte implementiert werden, welche das Lesen von Ampel- und Fahrzeuginformationen ermöglicht.
   		Es soll insbesondere möglich sein Daten einzelner Entitäten über deren IDs zu lesen.
   \item EntityService- Implementieren eines Endpunktes zum Durchführen von geospatial Queries zu Ampelpositionen (2 SP)\\
   		In diesem Arbeitspaket sollen REST-Endpunkte implementiert werden, welche die Ergebnisse von geospatial Queries zu den Standorten von Ampeln liefern.
-  \item 
+  \item Aufsetzen des TrackingService (2 SP)\\
+  		In diesem Arbeitspaket wird die Grundstruktur des TrackingService auf Basis von TypeScript implementiert damit in späterer Folge darauf aufgebaut werden kann.
+  		Der TrackingService soll sich nach dem Starten beim Eureka Server registrieren.
+  		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
+  \item TrackingService - Anbindung an "MoM" für Ampeln (2 SP)\\
+  		In diesem Arbeitspaket wird eine Queue \enquote{traffic-light-state} von RabbitMQ gelesen und bei eintreffenden Nachrichten die Datenbank aktualisiert.
+  		Ampeln senden neben ihrem Status zusätzlich die verbleibende Zeit bis zur nächsten Statusänderung.
+  \item TrackingService - Anbindung an "MoM" für Fahrzeuge (2 SP)\\
+  		In diesem Arbeitspaket wird eine Queue \enquote{car-state} von RabbitMQ gelesen und bei eintreffenden Nachrichten die Datenbank aktualisiert.
+  		Ein Fahrzeug sendet Standort, Fahrtrichtung, sowie seine aktuelle Geschwindigkeit.
+  \item TrackingService - Lesen von Daten (2 SP)\\
+  		In diesem Arbeitspaket werden REST-Endpunkte implementiert, welcher das Lesen aller Fahrzeugpositionen sowie Ampelzustände ermöglicht.
+  		Insbesondere soll es möglich sein alle Zustände sowie den aktuellsten Zustand einer Entität über deren ID zu lesen.
+  \item TrackingService - Reset (1 SP)\\
+ 		In diesem Arbeitspaket wird ein REST-Endpunkt implementiert, welcher es ermöglicht den gesamten Zustand des Dienstes zurückzusetzen.
+ 		Dafür sollen alle persistierten Daten gelöscht werden.
 \end{enumerate}
-
