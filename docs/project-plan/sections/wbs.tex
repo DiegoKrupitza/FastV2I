@@ -1,3 +1,32 @@
 \section{Work Breakdown Structure (WBS)}
 
-TODO
+Die folgende Aufzählung enthält alle Arbeitspakete.
+Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandschätzung in Story Points (SP).
+
+\begin{enumerate}
+  \item Aufsetzen eines Netflix Eureka Servers (1 SP)\\
+  		In diesem Arbeitspaket wird eine Netflix Eureka Server Instanz aufgesetzt, damit diese in späterer Folge für Service Registrierung sowie Discovery verwendet werden kann.
+  \item Aufsetzen eines RabbitMQ Servers (1 SP)\\
+  		In diesem Arbeitspaket wird mithilfe von Docker Compose eine RabbitMQ Instanz aufgesetzt, welche als \enquote{MoM} dient.
+  \item Aufsetzen einer MongoDB Instanz (1 SP)\\
+  		In diesem Arbeitspaket wird eine MongoDB Instanz für die Entwicklungsumgebung aufgesetzt.
+  \item Konfigurieren eines Spring Cloud Gateways (2 SP)\\
+  		In diesem Arbeitspaket wird ein Gateway implementiert, welcher Anfragen der Web-Applikation an die zugehörigen Dienste weiterleitet.
+  		Beim Starten des Dienstes soll eine Registrierung beim Eureka Server erfolgen.
+  \item Aufsetzen des EntityService (2 SP)\\
+  		In diesem Arbeitspaket wird die Grundstruktur des EntityServices auf Basis von TypeScript implementiert damit in späterer Folge darauf aufgebaut werden kann.
+  		Das EntityService soll sich nach dem Starten beim Eureka Server registrieren.
+  		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
+  \item EntityService - Implementieren eines Endpunktes zur Registrierung von Fahrzeugen (2 SP)\\
+  		In diesem Arbeitspaket soll das Empfangen und Persistieren von relevanten Fahrzeuginformationen auf Basis der \enquote{MoM} implementiert werden.
+  		Dies soll über die \enquote{MoM} geschehen.
+  \item EntityService - Registrierung von Ampeln (2 SP)\\
+  		In diesem Arbeitspaket soll das Empfangen und Persistieren von relevanten Ampelinformationen auf Basis der \enquote{MoM} implementiert werden.
+  \item EntityService - Implementieren eines Endpunktes zum Lesen von Entitätsinformationen (2 SP)\\
+  		In diesem Arbeitspaket sollen REST-Endpunkte implementiert werden, welche das Lesen von Ampel- und Fahrzeuginformationen ermöglicht.
+  		Es soll insbesondere möglich sein Daten einzelner Entitäten über deren IDs zu lesen.
+  \item EntityService- Implementieren eines Endpunktes zum Durchführen von geospatial Queries zu Ampelpositionen (2 SP)\\
+  		In diesem Arbeitspaket sollen REST-Endpunkte implementiert werden, welche die Ergebnisse von geospatial Queries zu den Standorten von Ampeln liefern.
+  \item 
+\end{enumerate}
+
