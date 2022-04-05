@@ -1,4 +1,4 @@
-import type { Channel, ConsumeMessage } from 'amqplib'
+import type { Channel, Connection, ConsumeMessage } from 'amqplib'
 import { connect } from 'amqplib'
 import type { FastifyInstance } from 'fastify'
 
@@ -27,6 +27,16 @@ export async function connectToAmqp(
     amqp.channel.consume(TRAFFIC_LIGHT, (msg) =>
       onTrafficLightMessage(msg, server)
     )
+    connection.on('error', (err) => {
+      server.log.error(`[amqp] Connection lost. Reconnecting. ${err}`)
+      cleanConnection(connection)
+      connectToAmqp(server, 1000)
+    })
+    connection.on('close', () => {
+      server.log.error('[amqp] Connection closed. Reconnecting.')
+      cleanConnection(connection)
+      connectToAmqp(server, 1000)
+    })
   } catch (err) {
     server.log.error(
       `[amqp] Connection failed. Retrying in ${
@@ -95,4 +105,10 @@ async function onTrafficLightMessage(
 function isValidTrafficLight(object: any): object is TrafficLightDto {
   // TODO
   return true
+}
+
+function cleanConnection(connection: Connection) {
+  amqp.channel?.removeAllListeners()
+  amqp.channel = undefined
+  connection.removeAllListeners()
 }
