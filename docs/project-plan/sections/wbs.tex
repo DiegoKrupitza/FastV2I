@@ -40,7 +40,7 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   \item TrackingService - Lesen von Daten (2 SP)\\
   		In diesem Arbeitspaket werden REST-Endpunkte implementiert, welcher das Lesen aller Fahrzeugpositionen sowie Ampelzustände ermöglicht.
   		Insbesondere soll es möglich sein alle Zustände sowie den aktuellsten Zustand einer Entität über deren ID zu lesen.
-  \item TrackingService - Reset (1 SP)\\
+  \item TrackingService - Zurücksetzen (1 SP)\\
  		In diesem Arbeitspaket wird ein REST-Endpunkt implementiert, welcher es ermöglicht den gesamten Zustand des Dienstes zurückzusetzen.
  		Dafür sollen alle persistierten Daten gelöscht werden.
   \item Aufsetzen des FlowControlService (2 SP)\\
@@ -53,7 +53,26 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   		Bei Eintreffen solcher Nachrichten soll die optimale Geschwindigkeiten betroffener Fahrzeuge ermittelt werden, sodass diese noch bei \enquote{grün} die Ampel passieren können beziehungsweise, falls möglich, vor der Ampel nicht zum Stillstand kommen müssen.
   		Die so ermittelten Geschwindigkeiten sollen über die \enquote{MoM} Queue \enquote{car-speed} an die betroffenen Fahrzeuge gesendet werden.
   		Es muss eine zulässige Höchstgeschwindigkeit implementiert werden.
-\end{enumerate}
-
+  \item SimulatorService (Endpoint) - Aufsetzen (3 SP)\\
+  		In diesem Arbeitspaket wird der SimulatorService aufgesetzt.
+  		Bei Startup soll sich der Dienst sich bei Eureka registrieren.
+  		Neben einem Worker, welcher für die Verwaltung der Simulationsentitäten zuständig ist, soll es einen REST-Endpunkte und \enquote{MoM} Anbindungen zur externen Kommunikation geben.
+  \item SimulatorService (Endpoint) - Simulation von Ampeln (2 SP)\\
+  		In diesem Arbeitspaket wird die Simulation von Ampeln implementiert.
+  		Ampeln wechseln periodisch zwischen den Zuständen \enquote{rot} und \enquote{grün} und senden bei jedem Wechsel ihren aktuellen Zustand an die \enquote{MoM} Queue \enquote{traffic-light-state}.
+  \item SimulatorService (Endpoint) - Simulation von Fahrzeugen (3 SP)\\
+  		In diesem Arbeitspaket wird die Simulation von Fahrzeugen implementiert.
+  		Fahrzeuge fahren mit einer gegebenen Geschwindigkeit und melden periodisch ihren aktuellen Zustand an die \enquote{MoM} Queue \enquote{car-state}.
+  		Zudem wird die Queue \enquote{car-speed} auf eingehenden Nachrichten beobachtet und bei Bedarf die Geschwindigkeit von Fahrzeugen angepasst.
+  \item SimulatorService (Endpoint) - Szenario erstellen (2 SP)\\
+  		In diesem Arbeitspaket wird ein REST-Endpunkt zum Erstellen und Starten von Szenarios implementiert.
+  		Dieser soll alle relevanten Informationen empfangen und darauf aufbauend Simulationen für Fahrzeuge und Ampeln starten.
+  \item SimulatorService (Endpoint) - Zurücksetzen (2 SP)\\
+  		In diesem Arbeitspaket wird ein REST-Endpunkt implementiert, welcher beim Aufruf die aktuelle Simulation terminiert.
+  \item SimulatorService (Endpoint) - Flux Kompensator (2 SP)\\
+  		In diesem Arbeitspaket wird ein Zeitraffer für Simulationen implementiert.
+  		Der Faktor einer Zeitraffung soll beim Erstellen eines Szenarios anpassbar sein.
+\endenumerate
 % TODO Complete list
 % TODO Alle "Topic" durch "Queue" ersetzen
+% TODO Reset für EntityService
