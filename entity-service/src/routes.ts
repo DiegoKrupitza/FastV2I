@@ -10,6 +10,12 @@ export async function routes(server: FastifyInstance) {
     }
   })
 
+  server.delete('/all', async () => {
+    await collections.cars?.deleteMany({})
+    await collections.trafficLights?.deleteMany({})
+    return null
+  })
+
   server.get('/cars', async () => {
     const cars = await collections.cars?.find().toArray()
     return (cars ?? []).map(Mappers.carToCarDto)
