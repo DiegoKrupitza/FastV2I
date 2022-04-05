@@ -7,11 +7,17 @@
 % TODO subsection Titel anpassen
 
 \begin{document}
-\title{Projektplan}
-\author{Diego Krupitza, Jan Müller, Kian Pouresmaeil}
-\date{\today}
+
 \maketitle
 
+\fancyfoot[LE,RO]{}
+\pagenumbering{roman}
+\clearpage
+\tableofcontents
+\clearpage
+
+\fancyfoot[LE,RO]{\thepage}
+\pagenumbering{arabic}
 \input{sections/targets.tex}
 \input{sections/organisation.tex}
 \input{sections/wbs.tex}
