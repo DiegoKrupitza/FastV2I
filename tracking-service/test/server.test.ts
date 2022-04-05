@@ -29,7 +29,7 @@ describe('server', () => {
     expect(collections?.trafficLights?.countDocuments()).resolves.not.toBe(0)
     const response = await server.inject({
       method: 'DELETE',
-      url: '/tracking/reset',
+      url: '/tracking/all',
     })
     expect(JSON.parse(response.body)).toMatchInlineSnapshot('null')
     expect(collections?.cars?.countDocuments()).resolves.toBe(0)
