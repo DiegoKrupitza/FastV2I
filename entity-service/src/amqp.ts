@@ -21,21 +21,25 @@ export async function connectToAmqp(
     const connection = await connect({ hostname })
     amqp.channel = await connection.createChannel()
     server.log.info(`[amqp] Connected to ${hostname}.`)
+
     await amqp.channel.assertQueue(CAR)
     await amqp.channel.assertQueue(TRAFFIC_LIGHT)
+
     amqp.channel.consume(CAR, (msg) => onCarMessage(msg, server))
     amqp.channel.consume(TRAFFIC_LIGHT, (msg) =>
       onTrafficLightMessage(msg, server)
     )
+
     connection.on('error', (err) => {
       server.log.error(`[amqp] Connection lost. Reconnecting. ${err}`)
       cleanConnection(connection)
-      connectToAmqp(server, 1000)
+      connection.close()
+      connectToAmqp(server)
     })
     connection.on('close', () => {
       server.log.error('[amqp] Connection closed. Reconnecting.')
       cleanConnection(connection)
-      connectToAmqp(server, 1000)
+      connectToAmqp(server)
     })
   } catch (err) {
     server.log.error(
