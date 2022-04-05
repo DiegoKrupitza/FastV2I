@@ -68,7 +68,11 @@ async function onCarMessage(
     if (!isValidCar(car)) {
       return
     }
-    cars.insertOne(Mappers.carDtoToCar(car))
+    cars.updateOne(
+      { _id: car.vin },
+      { $set: Mappers.carDtoToCar(car) },
+      { upsert: true }
+    )
   } catch (err) {
     server.log.error(
       `[amqp] Could not persist car state "${msg.content.toString()}"`
@@ -98,7 +102,11 @@ async function onTrafficLightMessage(
     if (!isValidTrafficLight(trafficLight)) {
       return
     }
-    trafficLights.insertOne(Mappers.trafficLightDtoToTrafficLight(trafficLight))
+    trafficLights.updateOne(
+      { _id: trafficLight.id },
+      { $set: Mappers.trafficLightDtoToTrafficLight(trafficLight) },
+      { upsert: true }
+    )
   } catch (err) {
     server.log.error(
       `[amqp] Could not persist traffic light state "${msg.content.toString()}"`
