@@ -24,7 +24,7 @@ export async function connectToDatabase(server: FastifyInstance, url: string) {
     collections.cars = db.collection('cars')
     collections.trafficLights = db.collection('traffic-lights')
 
-    server.log.info(`Connected to database at ${url}`)
+    server.log.info(`[MongoDB] Connected to ${url}`)
   } catch (err) {
     server.log.error(err)
   }

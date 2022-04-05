@@ -33,7 +33,7 @@ export async function connectToAmqp(
         retryDelay / 1000
       } second(s). ${err}`
     )
-    setTimeout(() => connectToAmqp(server), retryDelay + 1000)
+    setTimeout(() => connectToAmqp(server, retryDelay + 1000), retryDelay)
   }
 }
 
@@ -84,7 +84,7 @@ async function onTrafficLightStateMessage(
     if (!isValidTrafficLight(trafficLight)) {
       return
     }
-    trafficLights.insertOne(trafficLight)
+    trafficLights.insertOne(Mappers.trafficLightDtoToTrafficLight(trafficLight))
   } catch (err) {
     server.log.error(
       `[amqp] Could not persist traffic light state "${msg.content.toString()}"`

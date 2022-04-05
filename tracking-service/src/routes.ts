@@ -10,7 +10,7 @@ export async function routes(server: FastifyInstance) {
     }
   })
 
-  server.delete('/reset', async () => {
+  server.delete('/all', async () => {
     await collections.cars?.deleteMany({})
     await collections.trafficLights?.deleteMany({})
     return null
