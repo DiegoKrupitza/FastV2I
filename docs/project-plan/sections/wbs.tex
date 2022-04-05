@@ -45,16 +45,6 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   \item TrackingService - Zurücksetzen (1 SP)\\
  		In diesem Arbeitspaket wird ein REST-Endpunkt implementiert, welcher es ermöglicht den gesamten Zustand des Dienstes zurückzusetzen.
  		Dafür sollen alle persistierten Daten gelöscht werden.
-  \item Aufsetzen des FlowControlService (2 SP)\\
-  		In diesem Arbeitspaket wird die Grundstruktur des Spring Boot FlowControlService implementiert damit in späterer Folge darauf aufgebaut werden kann.
-  		Der FlowControlService soll sich nach dem Starten beim Eureka Server registrieren.
-  		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
-  \item FlowControlService - Algorithmus (5 SP)\\
-  		In diesem Arbeitspaket soll der Algorithmus zur Optimierung des Verkehrsflusses implementiert werden.
-  		Dazu soll der FlowControlService bei der \enquote{MoM} auf Nachrichten des Topic \enquote{car-state} achten, welche Standortaktualisierungen von Fahrzeugen melden.
-  		Bei Eintreffen solcher Nachrichten soll die optimale Geschwindigkeiten betroffener Fahrzeuge ermittelt werden, sodass diese noch bei \enquote{grün} die Ampel passieren können beziehungsweise, falls möglich, vor der Ampel nicht zum Stillstand kommen müssen.
-  		Die so ermittelten Geschwindigkeiten sollen über die \enquote{MoM} Queue \enquote{car-speed} an die betroffenen Fahrzeuge gesendet werden.
-  		Es muss eine zulässige Höchstgeschwindigkeit implementiert werden.
   \item SimulatorService (Endpoint) - Aufsetzen (3 SP)\\
   		In diesem Arbeitspaket wird der SimulatorService aufgesetzt.
   		Bei Startup soll sich der Dienst sich bei Eureka registrieren.
@@ -74,6 +64,16 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   \item SimulatorService (Endpoint) - Flux Kompensator (2 SP)\\
   		In diesem Arbeitspaket wird ein Zeitraffer für Simulationen implementiert.
   		Der Faktor einer Zeitraffung soll beim Erstellen eines Szenarios anpassbar sein.
+    \item FlowControlService - Aufsetzen (2 SP)\\
+  		In diesem Arbeitspaket wird die Grundstruktur des Spring Boot FlowControlService implementiert damit in späterer Folge darauf aufgebaut werden kann.
+  		Der FlowControlService soll sich nach dem Starten beim Eureka Server registrieren.
+  		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
+  \item FlowControlService - Algorithmus (5 SP)\\
+  		In diesem Arbeitspaket soll der Algorithmus zur Optimierung des Verkehrsflusses implementiert werden.
+  		Dazu soll der FlowControlService bei der \enquote{MoM} auf Nachrichten einer Queue \enquote{car-state} achten, welche Standortaktualisierungen von Fahrzeugen melden.
+  		Bei Eintreffen solcher Nachrichten soll die optimale Geschwindigkeiten betroffener Fahrzeuge ermittelt werden, sodass diese noch bei \enquote{grün} die Ampel passieren können beziehungsweise, falls möglich, vor der Ampel nicht zum Stillstand kommen müssen.
+  		Die so ermittelten Geschwindigkeiten sollen über die \enquote{MoM} Queue \enquote{car-speed} an die betroffenen Fahrzeuge gesendet werden.
+  		Es muss eine zulässige Höchstgeschwindigkeit implementiert werden.
   \item Cockpit - Aufsetzen (1 SP)\\
   		In diesem Arbeitspaket wird die grundlegende Einrichtung der Web-Applikation durchgeführt.
   		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
@@ -89,6 +89,3 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   \item Deployment auf der GCP (5 SP)\\
   		In diesem Arbeitspaket soll das Deployment, welches während der Entwicklung auf Basis von Docker Compose und Minikube stattfindet, auf die Google Cloud Platform migriert werden.
 \end{enumerate}
-% TODO Complete list
-% TODO Alle "Topic" durch "Queue" ersetzen
-% TODO Reset für EntityService
