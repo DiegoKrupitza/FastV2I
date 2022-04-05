@@ -17,11 +17,10 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   		In diesem Arbeitspaket wird die Grundstruktur des EntityServices auf Basis von TypeScript implementiert damit in späterer Folge darauf aufgebaut werden kann.
   		Das EntityService soll sich nach dem Starten beim Eureka Server registrieren.
   		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
-  \item EntityService - Implementieren eines Endpunktes zur Registrierung von Fahrzeugen (2 SP)\\
-  		In diesem Arbeitspaket soll das Empfangen und Persistieren von relevanten Fahrzeuginformationen auf Basis der \enquote{MoM} implementiert werden.
-  		Dies soll über die \enquote{MoM} geschehen.
+  \item EntityService - Registrierung von Fahrzeugen (2 SP)\\
+  		In diesem Arbeitspaket soll das Empfangen und Persistieren von relevanten Fahrzeuginformationen auf Basis der \enquote{MoM} Queue \enquote{car} implementiert werden.
   \item EntityService - Registrierung von Ampeln (2 SP)\\
-  		In diesem Arbeitspaket wird eine Queue \enquote{traffic-light} von RabbitMQ gelesen und bei eintreffenden Nachrichten die Datenbank aktualisiert.
+  		In diesem Arbeitspaket soll das Empfangen und Persistieren von relevanten Ampelinformationen auf Basis der \enquote{MoM} Queue \enquote{traffic-light} implementiert werden.
   \item EntityService - Implementieren eines Endpunktes zum Lesen von Datensätzen (2 SP)\\
   		In diesem Arbeitspaket sollen REST-Endpunkte implementiert werden, welche das Lesen von Ampel- und Fahrzeuginformationen ermöglicht.
   		Es soll insbesondere möglich sein Daten einzelner Entitäten über deren IDs zu lesen.
