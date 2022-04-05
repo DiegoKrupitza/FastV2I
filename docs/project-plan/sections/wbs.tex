@@ -13,7 +13,7 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   \item Konfigurieren eines Spring Cloud Gateways (2 SP)\\
   		In diesem Arbeitspaket wird ein Gateway implementiert, welcher Anfragen der Web-Applikation an die zugehörigen Dienste weiterleitet.
   		Beim Starten des Dienstes soll eine Registrierung beim Eureka Server erfolgen.
-  \item Aufsetzen des EntityService (2 SP)\\
+  \item EntityService - Aufsetzen (2 SP)\\
   		In diesem Arbeitspaket wird die Grundstruktur des EntityServices auf Basis von TypeScript implementiert damit in späterer Folge darauf aufgebaut werden kann.
   		Das EntityService soll sich nach dem Starten beim Eureka Server registrieren.
   		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
@@ -27,7 +27,9 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   		Es soll insbesondere möglich sein Daten einzelner Entitäten über deren IDs zu lesen.
   \item EntityService- Implementieren eines Endpunktes zum Durchführen von geospatial Queries zu Ampelpositionen (2 SP)\\
   		In diesem Arbeitspaket sollen REST-Endpunkte implementiert werden, welche die Ergebnisse von geospatial Queries zu den Standorten von Ampeln liefern.
-  \item Aufsetzen des TrackingService (2 SP)\\
+  \item EntityService - Zurücksetzen (1 SP)\\
+ 		In diesem Arbeitspaket wird ein REST-Endpunkt implementiert, welcher es ermöglicht den gesamten Zustand des Dienstes zurückzusetzen.
+  \item TrackingService - Aufsetzen (2 SP)\\
   		In diesem Arbeitspaket wird die Grundstruktur des TrackingService auf Basis von TypeScript implementiert damit in späterer Folge darauf aufgebaut werden kann.
   		Der TrackingService soll sich nach dem Starten beim Eureka Server registrieren.
   		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
@@ -72,7 +74,21 @@ Die Zahl hinter dem Titel eines Arbeitspaketes entspricht einer Aufwandsschätzu
   \item SimulatorService (Endpoint) - Flux Kompensator (2 SP)\\
   		In diesem Arbeitspaket wird ein Zeitraffer für Simulationen implementiert.
   		Der Faktor einer Zeitraffung soll beim Erstellen eines Szenarios anpassbar sein.
-\endenumerate
+  \item Cockpit - Aufsetzen (1 SP)\\
+  		In diesem Arbeitspaket wird die grundlegende Einrichtung der Web-Applikation durchgeführt.
+  		Es soll ein Dockerfile zum Bauen eines Docker Images erstellt werden.
+  \item Frontend - Simulationen starten (1 SP)\\
+ 		In diesem Arbeitspaket wird ein Formular zum Starten von Simulationen mit konfigurierbaren Parametern implementiert.
+  \item Frontend - Simulationen visualisieren (3 SP)\\
+		In diesem Arbeitspaket wird eine Visualisierung von laufenden Simulationen in der Web-Applikation implementiert.
+		Es sollen die Positionen von Fahrzeugen und Ampeln in einer schematischen Karte angezeigt werden
+  \item Frontend - Informationen von Entitäten anzeigen (2 SP)\\
+  		In diesem Arbeitspaket wird eine Anzeige von Informationen über Fahrzeuge und Ampeln implementiert.
+  \item Swagger Dokumentation (3 SP)\\
+  		In diesem Arbeitspaket wird der API Gateway mittels Swagger dokumentiert.
+  \item Deployment auf der GCP (5 SP)\\
+  		In diesem Arbeitspaket soll das Deployment, welches während der Entwicklung auf Basis von Docker Compose und Minikube stattfindet, auf die Google Cloud Platform migriert werden.
+\end{enumerate}
 % TODO Complete list
 % TODO Alle "Topic" durch "Queue" ersetzen
 % TODO Reset für EntityService
