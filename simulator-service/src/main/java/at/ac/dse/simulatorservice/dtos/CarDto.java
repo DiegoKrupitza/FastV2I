@@ -13,7 +13,7 @@ import javax.validation.constraints.Min;
 public class CarDto {
 
   @Length(min = 1)
-  private String id;
+  private String vin;
 
   @Length(min = 1)
   private String oem;

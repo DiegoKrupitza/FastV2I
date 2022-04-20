@@ -35,6 +35,7 @@ simulator:
   minCarSpeed: 25
   maxCarSpeed: 130
   carStateMom: car-state
-  trafficLightStateMom: traffic-light-state
   carMom: car
   trafficLightMom: traffic-light
+  trafficLightStateMom: traffic-light-state
+  speedMom: car-speed
