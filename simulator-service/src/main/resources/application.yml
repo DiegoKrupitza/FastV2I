@@ -28,3 +28,13 @@ info:
     description: SimulatorService for our DSE Project
     version: '@project.version@'
     spring-boot-version: '@project.parent.version@'
+
+simulator:
+  minScanLength: 10
+  maxNumberOfLights: 4
+  minCarSpeed: 25
+  maxCarSpeed: 130
+  carStateMom: car-state
+  trafficLightStateMom: traffic-light-state
+  carMom: car
+  trafficLightMom: traffic-light
