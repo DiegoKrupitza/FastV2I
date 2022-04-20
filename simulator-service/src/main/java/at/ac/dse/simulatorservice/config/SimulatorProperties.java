@@ -1,12 +1,12 @@
 package at.ac.dse.simulatorservice.config;
 
-import lombok.Getter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties("simulator")
-@Getter
+@Data
 public class SimulatorProperties {
 
   private Long minScanLength;

@@ -4,8 +4,8 @@ spring:
 
 dse:
   rabbitmq:
-    carQueueName: CAR
-    speedQueueName: SPEED
+    carQueueName: car-state
+    speedQueueName: car-speed
 
 
 server:

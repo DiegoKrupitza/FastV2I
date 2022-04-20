@@ -1,10 +1,12 @@
 package at.ac.dse.simulatorservice.endpoints;
 
+import at.ac.dse.simulatorservice.services.EntityServiceFeign;
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
 import at.ac.dse.simulatorservice.dtos.CarDto;
 import at.ac.dse.simulatorservice.dtos.ScenarioDto;
 import at.ac.dse.simulatorservice.dtos.TrafficLightDto;
 import at.ac.dse.simulatorservice.simulator.CarSimulator;
+import at.ac.dse.simulatorservice.services.FlowControlSpeedService;
 import at.ac.dse.simulatorservice.simulator.TrafficLightSimulator;
 import lombok.RequiredArgsConstructor;
 import org.javatuples.Pair;
@@ -31,6 +33,9 @@ public class ScenarioController {
   private final SimulatorProperties simulatorProperties;
 
   private final List<Future<?>> threads = new ArrayList<>();
+  private final FlowControlSpeedService flowControlSpeedRecommendation;
+
+  private final EntityServiceFeign entityServiceFeign;
 
   @GetMapping
   public boolean simulationActive() {
@@ -40,7 +45,7 @@ public class ScenarioController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void setScenario(ScenarioDto scenario) {
+  public void setScenario(@RequestBody ScenarioDto scenario) {
 
     validateScenario(scenario);
 
@@ -52,7 +57,9 @@ public class ScenarioController {
 
     for (CarDto car : scenario.cars()) {
       threads.add(
-          this.taskExecutor.submit(new CarSimulator(simulatorProperties, rabbitTemplate, car)));
+          this.taskExecutor.submit(
+              new CarSimulator(
+                  simulatorProperties, flowControlSpeedRecommendation, rabbitTemplate, car)));
     }
   }
 
@@ -142,7 +149,7 @@ public class ScenarioController {
 
       // check that current scan does stop before next traffic light
       if (currentTrafficLight.getPosition() + currentTrafficLight.getScanDistance()
-          > next.getPosition()) {
+          >= next.getPosition()) {
         throw new ValidationException(
             "Traffic light %s (P: %d, SC: %d) scan distance overshoots the next traffic light %s (P: %d)"
                 .formatted(
@@ -154,7 +161,7 @@ public class ScenarioController {
       }
 
       // check that next scan line does stop before current traffic light
-      if (next.getPosition() - next.getScanDistance() > currentTrafficLight.getPosition()) {
+      if (next.getPosition() - next.getScanDistance() <= currentTrafficLight.getPosition()) {
         throw new ValidationException(
             "Traffic light %s (P: %d, SC: %d) scan distance overshoots the prev traffic light %s (P: %d)"
                 .formatted(
@@ -185,5 +192,8 @@ public class ScenarioController {
 
     // TODO: logic to kill the threads
     this.threads.forEach(item -> item.cancel(true));
+    this.flowControlSpeedRecommendation.reset();
+
+    this.entityServiceFeign.resetAll();
   }
 }

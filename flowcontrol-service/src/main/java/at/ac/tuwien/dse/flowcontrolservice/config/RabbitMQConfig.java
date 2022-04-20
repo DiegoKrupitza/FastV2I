@@ -12,14 +12,14 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
   @Value("${dse.rabbitmq.carQueueName}")
-  String carQueueName;
+  String carStateQueueName;
 
   @Value("${dse.rabbitmq.speedQueueName}")
   String speedQueueName;
 
   @Bean
   public Queue carQueue() {
-    return new Queue(carQueueName);
+    return new Queue(carStateQueueName);
   }
 
   @Bean
