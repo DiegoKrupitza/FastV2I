@@ -15,7 +15,6 @@ public class CarSpeedListener {
 
   @RabbitListener(queues = "${simulator.speedMom}")
   public void processOrderMessage(SpeedMessageDto message) {
-    log.info("Message is of type: " + message.getClass().getName());
     log.info("Flow control tells car {} to ride with speed {} ",message.vin(),message.speed());
     this.flowControlSpeedRecommendation.set(message.vin(), message.speed());
   }

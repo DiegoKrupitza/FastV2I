@@ -18,4 +18,6 @@ public class SimulatorProperties {
   private String trafficLightStateMom;
   private String carMom;
   private String trafficLightMom;
+
+  private Long timelapseDivider;
 }

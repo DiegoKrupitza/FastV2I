@@ -39,3 +39,4 @@ simulator:
   trafficLightMom: traffic-light
   trafficLightStateMom: traffic-light-state
   speedMom: car-speed
+  timelapseDivider: 10
