@@ -192,7 +192,7 @@ public class ScenarioController {
   @DeleteMapping
   public void reset() {
 
-    // TODO: logic to kill the threads
+    // TODO: check if logic to kill the threads works
     this.threads.forEach(item -> item.cancel(true));
     this.flowControlSpeedRecommendation.reset();
 

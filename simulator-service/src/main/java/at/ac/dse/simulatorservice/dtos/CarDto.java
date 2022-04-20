@@ -28,7 +28,7 @@ public class CarDto {
   private Long speed;
 
   @Min(0)
-  private Long position;
+  private Long location;
 
   @Min(0)
   private Long destination;
