@@ -54,14 +54,19 @@ public class ScenarioController {
     for (TrafficLightDto trafficLight : scenario.trafficLights()) {
       threads.add(
           this.taskExecutor.submit(
-              new TrafficLightSimulator(simulatorProperties, rabbitTemplate, trafficLight)));
+              new TrafficLightSimulator(
+                  simulatorProperties, rabbitTemplate, scenario.timelapse(), trafficLight)));
     }
 
     for (CarDto car : scenario.cars()) {
       threads.add(
           this.taskExecutor.submit(
               new CarSimulator(
-                  simulatorProperties, flowControlSpeedRecommendation, rabbitTemplate, car)));
+                  simulatorProperties,
+                  flowControlSpeedRecommendation,
+                  rabbitTemplate,
+                  scenario.timelapse(),
+                  car)));
     }
   }
 

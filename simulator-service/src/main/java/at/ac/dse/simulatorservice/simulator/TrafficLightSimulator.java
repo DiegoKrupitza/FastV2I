@@ -12,6 +12,7 @@ public class TrafficLightSimulator implements Runnable {
 
   private final SimulatorProperties simulatorProperties;
   private final RabbitTemplate rabbitTemplate;
+  private final boolean timelapse;
   private TrafficLightDto trafficLight;
 
   @Override

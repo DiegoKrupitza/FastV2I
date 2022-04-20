@@ -22,6 +22,7 @@ public class CarSimulator implements Runnable {
   private final SimulatorProperties simulatorProperties;
   private final FlowControlSpeedService flowControlSpeedRecommendation;
   private final RabbitTemplate rabbitTemplate;
+  private final boolean timelapse;
   private CarDto car;
 
   @Override
@@ -47,7 +48,7 @@ public class CarSimulator implements Runnable {
           car.getVin(),
           car.getEntryTime());
       try {
-        Thread.sleep(car.getEntryTime());
+        Thread.sleep(adjustedTime(car.getEntryTime()));
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
       }
@@ -59,8 +60,9 @@ public class CarSimulator implements Runnable {
       // if flow control service told us to speed up or slow down we need to obey
       if (advisedSpeed.isPresent() && !advisedSpeed.get().equals(car.getSpeed())) {
         log.info(
-            "Car {} advised from the flow control service to drive at speed {}",
+            "Car {} advised change speed from {} to {}",
             car.getVin(),
+            car.getSpeed(),
             advisedSpeed.get());
         car.setSpeed(advisedSpeed.get());
       }
@@ -70,21 +72,31 @@ public class CarSimulator implements Runnable {
 
       Long newLocation = car.getLocation() + (direction.getModificator() * pointsToMove);
       car.setLocation(newLocation);
-
-      CarStateMom momObject = toCarStateMom(car);
-      rabbitTemplate.convertAndSend(this.simulatorProperties.getCarStateMom(), momObject);
-
       // stop if we reached our position
       if (car.getDestination() <= (car.getLocation() * direction.getModificator())) {
         log.info("Car {} reached its destinations", car.getVin());
+
+        car.setLocation(car.getDestination());
+        sendCarStateToMom();
         return;
       }
 
+      sendCarStateToMom();
+
       try {
-        Thread.sleep(1000L);
+        Thread.sleep(adjustedTime(1000L));
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
       }
     }
+  }
+
+  private Long adjustedTime(Long timeInMs) {
+    return this.timelapse ? timeInMs / this.simulatorProperties.getTimelapseDivider() : timeInMs;
+  }
+
+  private void sendCarStateToMom() {
+    CarStateMom momObject = toCarStateMom(car);
+    rabbitTemplate.convertAndSend(this.simulatorProperties.getCarStateMom(), momObject);
   }
 }
