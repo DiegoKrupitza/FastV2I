@@ -17,7 +17,7 @@ export async function connectToAmqp(
   retryDelay = 1000
 ) {
   try {
-    const hostname = process.env.RABBIT_MQ_HOST
+    const hostname = process.env.RABBIT_MQ_HOST ?? 'localhost'
     const connection = await connect({ hostname })
     amqp.channel = await connection.createChannel()
     server.log.info(`[amqp] Connected to ${hostname}.`)

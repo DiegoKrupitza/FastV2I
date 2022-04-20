@@ -24,7 +24,7 @@ export function connectToEureka(server: FastifyInstance) {
       },
     },
     eureka: {
-      host: process.env.EUREKA_SERVER_ADDRESS,
+      host: process.env.EUREKA_SERVER_ADDRESS ?? 'localhost',
       port: 8761,
       servicePath: '/eureka/apps',
     },
