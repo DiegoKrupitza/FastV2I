@@ -23,6 +23,10 @@ spring:
           uri: lb://TRACKING-SERVICE
           predicates:
             - Path=/tracking/**
+        - id: SIMULATOR-SERVICE
+          uri: lb://SIMULATOR-SERVICE
+          predicates:
+            - Path=/simulator/**
 
 server:
   port: 8080
