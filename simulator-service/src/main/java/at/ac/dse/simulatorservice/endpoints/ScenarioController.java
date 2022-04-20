@@ -5,6 +5,7 @@ import at.ac.dse.simulatorservice.config.SimulatorProperties;
 import at.ac.dse.simulatorservice.dtos.CarDto;
 import at.ac.dse.simulatorservice.dtos.ScenarioDto;
 import at.ac.dse.simulatorservice.dtos.TrafficLightDto;
+import at.ac.dse.simulatorservice.services.TrackingServiceFeign;
 import at.ac.dse.simulatorservice.simulator.CarSimulator;
 import at.ac.dse.simulatorservice.services.FlowControlSpeedService;
 import at.ac.dse.simulatorservice.simulator.TrafficLightSimulator;
@@ -36,6 +37,7 @@ public class ScenarioController {
   private final FlowControlSpeedService flowControlSpeedRecommendation;
 
   private final EntityServiceFeign entityServiceFeign;
+  private final TrackingServiceFeign trackingServiceFeign;
 
   @GetMapping
   public boolean simulationActive() {
@@ -194,6 +196,8 @@ public class ScenarioController {
     this.threads.forEach(item -> item.cancel(true));
     this.flowControlSpeedRecommendation.reset();
 
+    // propagate the reset to the tracking services
     this.entityServiceFeign.resetAll();
+    this.trackingServiceFeign.resetAll();
   }
 }
