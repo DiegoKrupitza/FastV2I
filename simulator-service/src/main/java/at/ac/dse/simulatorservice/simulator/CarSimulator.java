@@ -72,7 +72,6 @@ public class CarSimulator extends SimulatorBase {
       car.setSpeed(advisedSpeed.get());
     }
 
-    // TODO: consider realtime or timelapse
     Long pointsToMove = car.getSpeed();
 
     Long newLocation = car.getLocation() + (direction.getModificator() * pointsToMove);
