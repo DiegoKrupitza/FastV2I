@@ -25,9 +25,11 @@ export async function connectToAmqp(
     await amqp.channel.assertQueue(CAR_STATE)
     await amqp.channel.assertQueue(TRAFFIC_LIGHT_STATE)
 
-    amqp.channel.consume(CAR_STATE, (msg) => onCarStateMessage(msg, server))
+    amqp.channel.consume(CAR_STATE, (msg) =>
+      onCarStateMessage(msg, server, amqp.channel)
+    )
     amqp.channel.consume(TRAFFIC_LIGHT_STATE, (msg) =>
-      onTrafficLightStateMessage(msg, server)
+      onTrafficLightStateMessage(msg, server, amqp.channel)
     )
 
     connection.on('error', (err) => {
@@ -53,7 +55,8 @@ export async function connectToAmqp(
 
 async function onCarStateMessage(
   msg: ConsumeMessage | null,
-  server: FastifyInstance
+  server: FastifyInstance,
+  channel?: Channel
 ): Promise<void> {
   if (!msg) {
     return
@@ -73,10 +76,12 @@ async function onCarStateMessage(
       { $set: Mappers.carDtoToCar(car) },
       { upsert: true }
     )
+    channel?.ack(msg)
   } catch (err) {
     server.log.error(
       `[amqp] Could not persist car state "${msg.content.toString()}"`
     )
+    channel?.nack(msg)
   }
 }
 
@@ -87,7 +92,8 @@ function isValidCarState(object: any): object is CarDto {
 
 async function onTrafficLightStateMessage(
   msg: ConsumeMessage | null,
-  server: FastifyInstance
+  server: FastifyInstance,
+  channel?: Channel
 ): Promise<void> {
   if (!msg) {
     return
@@ -107,10 +113,12 @@ async function onTrafficLightStateMessage(
       { $set: Mappers.trafficLightDtoToTrafficLight(trafficLight) },
       { upsert: true }
     )
+    channel?.ack(msg)
   } catch (err) {
     server.log.error(
       `[amqp] Could not persist traffic light state "${msg.content.toString()}"`
     )
+    channel?.nack(msg)
   }
 }
 
