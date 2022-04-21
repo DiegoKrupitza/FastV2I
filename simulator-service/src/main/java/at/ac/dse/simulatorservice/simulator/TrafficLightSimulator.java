@@ -2,8 +2,8 @@ package at.ac.dse.simulatorservice.simulator;
 
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
 import at.ac.dse.simulatorservice.dtos.TrafficLightDto;
-import at.ac.dse.simulatorservice.simulator.helper.ColorState;
-import at.ac.dse.simulatorservice.simulator.helper.TrafficLightMapper;
+import at.ac.dse.simulatorservice.simulator.domain.ColorState;
+import at.ac.dse.simulatorservice.simulator.mapper.TrafficLightMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

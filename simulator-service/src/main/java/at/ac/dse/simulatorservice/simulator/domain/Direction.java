@@ -1,4 +1,4 @@
-package at.ac.dse.simulatorservice.simulator.helper;
+package at.ac.dse.simulatorservice.simulator.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

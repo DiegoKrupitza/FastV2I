@@ -1,6 +1,7 @@
-package at.ac.dse.simulatorservice.simulator.helper;
+package at.ac.dse.simulatorservice.simulator.mapper;
 
 import at.ac.dse.simulatorservice.dtos.CarDto;
+import at.ac.dse.simulatorservice.simulator.domain.CarStateMom;
 
 import java.time.LocalDateTime;
 
