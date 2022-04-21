@@ -1,9 +1,9 @@
 package at.ac.dse.simulatorservice.services;
 
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
-import at.ac.dse.simulatorservice.dtos.CarDto;
+import at.ac.dse.simulatorservice.domain.Car;
 import at.ac.dse.simulatorservice.dtos.ScenarioDto;
-import at.ac.dse.simulatorservice.dtos.TrafficLightDto;
+import at.ac.dse.simulatorservice.domain.TrafficLight;
 import lombok.RequiredArgsConstructor;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Service;
@@ -39,10 +39,10 @@ public class ValidatorService {
       throw new ValidationException("You have to provide at least one traffic light");
     }
 
-    scenario.trafficLights().sort(Comparator.comparingLong(TrafficLightDto::getPosition));
+    scenario.trafficLights().sort(Comparator.comparingLong(TrafficLight::getPosition));
 
-    TrafficLightDto firstTrafficLight = scenario.trafficLights().get(0);
-    TrafficLightDto lastTrafficLight =
+    TrafficLight firstTrafficLight = scenario.trafficLights().get(0);
+    TrafficLight lastTrafficLight =
         scenario.trafficLights().get(scenario.trafficLights().size() - 1);
 
     // check that the scan lines of the first and last are not outside the scenario range
@@ -107,7 +107,7 @@ public class ValidatorService {
     }
   }
 
-  private void checkTrafficLightScanDistance(List<TrafficLightDto> trafficLights) {
+  private void checkTrafficLightScanDistance(List<TrafficLight> trafficLights) {
     if (trafficLights.size() == 1) {
       return;
     }
@@ -144,7 +144,7 @@ public class ValidatorService {
     }
   }
 
-  private boolean parkingWrongSpot(CarDto item, List<Pair<Long, Long>> notAllowedToStopPositions) {
+  private boolean parkingWrongSpot(Car item, List<Pair<Long, Long>> notAllowedToStopPositions) {
 
     for (Pair<Long, Long> notAllowedToStopPosition : notAllowedToStopPositions) {
       // inside a not allowed position

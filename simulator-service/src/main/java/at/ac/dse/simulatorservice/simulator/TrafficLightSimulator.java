@@ -1,76 +1,73 @@
 package at.ac.dse.simulatorservice.simulator;
 
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
-import at.ac.dse.simulatorservice.dtos.TrafficLightDto;
+import at.ac.dse.simulatorservice.domain.TrafficLight;
 import at.ac.dse.simulatorservice.simulator.domain.ColorState;
 import at.ac.dse.simulatorservice.simulator.mapper.TrafficLightMapper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
-@AllArgsConstructor
-@Data
 @Slf4j
-public class TrafficLightSimulator implements Runnable {
+public class TrafficLightSimulator extends SimulatorBase {
 
-  private final SimulatorProperties simulatorProperties;
-  private final RabbitTemplate rabbitTemplate;
-  private final boolean timelapse;
-  private TrafficLightDto trafficLight;
+  private final TrafficLight trafficLight;
+  private ColorState colorState;
+  private Long refreshIntervalMs;
+
+  public TrafficLightSimulator(
+      SimulatorProperties simulatorProperties,
+      RabbitTemplate rabbitTemplate,
+      boolean timelapse,
+      TrafficLight trafficLight) {
+    super(simulatorProperties, rabbitTemplate, timelapse);
+    this.trafficLight = trafficLight;
+  }
 
   @Override
-  public void run() {
+  void setup() throws InterruptedException {
     log.info("Started simulation for the traffic light {}", trafficLight.getId());
 
     // Register traffic light in entity-service
-    rabbitTemplate.convertAndSend(
-        simulatorProperties.getTrafficLightMom(),
-        TrafficLightMapper.toTrafficLightMom(trafficLight));
+    getRabbitTemplate()
+        .convertAndSend(
+            getSimulatorProperties().getTrafficLightMom(),
+            TrafficLightMapper.toTrafficLightMom(trafficLight));
 
     // init states
-    var colorState = ColorState.RED;
+    colorState = ColorState.RED;
 
-    rabbitTemplate.convertAndSend(
-        simulatorProperties.getTrafficLightStateMom(),
-        TrafficLightMapper.toTrafficLightStateMom(
-            trafficLight,
-            colorState,
-            adjustedTime(trafficLight.getEntryDelay() + (trafficLight.getStateHoldInMs()))));
+    getRabbitTemplate()
+        .convertAndSend(
+            getSimulatorProperties().getTrafficLightStateMom(),
+            TrafficLightMapper.toTrafficLightStateMom(
+                trafficLight,
+                colorState,
+                adjustedTime(trafficLight.getEntryDelay() + (trafficLight.getStateHoldInMs()))));
 
-    try {
-      Thread.sleep(adjustedTime(trafficLight.getEntryDelay() + trafficLight.getStateHoldInMs()));
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-    }
+    Thread.sleep(adjustedTime(trafficLight.getEntryDelay() + trafficLight.getStateHoldInMs()));
 
     // refreshing interval
     // TODO: find good way to find a dynamic refresh interval
     // since holdtime is always a multiple of a full second we can assume naively here 100ms
-    long refreshIntervalMs = 100;
-
-    while (!Thread.currentThread().isInterrupted()) {
-
-      // update state
-      colorState = (colorState == ColorState.GREEN ? ColorState.RED : ColorState.GREEN);
-
-      for (long remainingTime = trafficLight.getStateHoldInMs();
-          remainingTime > 0 && !Thread.currentThread().isInterrupted();
-          remainingTime -= refreshIntervalMs) {
-
-        rabbitTemplate.convertAndSend(
-            simulatorProperties.getTrafficLightStateMom(),
-            TrafficLightMapper.toTrafficLightStateMom(trafficLight, colorState, remainingTime));
-        try {
-          Thread.sleep(adjustedTime(refreshIntervalMs));
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-        }
-      }
-    }
+    refreshIntervalMs = 100L;
   }
 
-  private Long adjustedTime(Long timeInMs) {
-    return this.timelapse ? timeInMs / this.simulatorProperties.getTimelapseDivider() : timeInMs;
+  @Override
+  void loopBody() throws InterruptedException {
+    // update state
+    colorState = (colorState == ColorState.GREEN ? ColorState.RED : ColorState.GREEN);
+    log.info("Traffic light {} changed to color {}", trafficLight.getId(), colorState.getName());
+
+    for (long remainingTime = trafficLight.getStateHoldInMs();
+        remainingTime > 0 && !isInterrupted();
+        remainingTime -= refreshIntervalMs) {
+
+      getRabbitTemplate()
+          .convertAndSend(
+              getSimulatorProperties().getTrafficLightStateMom(),
+              TrafficLightMapper.toTrafficLightStateMom(trafficLight, colorState, remainingTime));
+
+      Thread.sleep(adjustedTime(refreshIntervalMs));
+    }
   }
 }
