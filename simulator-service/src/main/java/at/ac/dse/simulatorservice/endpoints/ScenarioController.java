@@ -17,8 +17,7 @@ public class ScenarioController {
 
   @GetMapping
   public boolean simulationActive() {
-    // TODO: find a way to get if threads are simulating or not from executor
-    return false;
+    return simulatorService.isSimulationActive();
   }
 
   @PostMapping

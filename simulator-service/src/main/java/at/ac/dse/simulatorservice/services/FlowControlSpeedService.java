@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class FlowControlSpeedService {
 
-  // TODO: is this thread safe and all that fancy stuff????
+  // is this thread safe and all that fancy stuff????
   private ConcurrentHashMap<String, Long> advisedSpeed = new ConcurrentHashMap<>();
 
   /**

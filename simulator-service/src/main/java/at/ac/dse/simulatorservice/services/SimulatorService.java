@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,8 @@ public class SimulatorService {
 
   private final EntityServiceFeign entityServiceFeign;
   private final TrackingServiceFeign trackingServiceFeign;
+
+  private final AtomicBoolean activeSimulation = new AtomicBoolean(false);
 
   /**
    * Stars a given simulation scenario.
@@ -56,6 +59,8 @@ public class SimulatorService {
                   flowControlSpeedRecommendation,
                   car)));
     }
+
+    this.activeSimulation.set(true);
   }
 
   /** Resets the simulation and propagates the reset to all the other services */
@@ -67,5 +72,11 @@ public class SimulatorService {
     // propagate the reset to the tracking services
     this.entityServiceFeign.resetAll();
     this.trackingServiceFeign.resetAll();
+
+    this.activeSimulation.set(false);
+  }
+
+  public boolean isSimulationActive() {
+    return activeSimulation.get();
   }
 }
