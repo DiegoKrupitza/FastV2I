@@ -3,8 +3,8 @@ package at.ac.dse.simulatorservice.simulator;
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
 import at.ac.dse.simulatorservice.dtos.CarDto;
 import at.ac.dse.simulatorservice.services.FlowControlSpeedService;
-import at.ac.dse.simulatorservice.simulator.helper.CarStateMom;
-import at.ac.dse.simulatorservice.simulator.helper.Direction;
+import at.ac.dse.simulatorservice.simulator.domain.CarStateMom;
+import at.ac.dse.simulatorservice.simulator.domain.Direction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.Optional;
 
-import static at.ac.dse.simulatorservice.simulator.helper.CarMapper.toCarStateMom;
+import static at.ac.dse.simulatorservice.simulator.mapper.CarMapper.toCarStateMom;
 
 @AllArgsConstructor
 @Data
