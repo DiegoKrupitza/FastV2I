@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
@@ -18,6 +17,6 @@ import java.util.concurrent.Executors;
 public class ExecutorConfig {
   @Bean
   public ConcurrentTaskExecutor getAsyncExecutor() {
-    return new ConcurrentTaskExecutor(Executors.newFixedThreadPool(10));
+    return new ConcurrentTaskExecutor(Executors.newCachedThreadPool());
   }
 }
