@@ -21,7 +21,6 @@ public class TrafficLightSimulator implements Runnable {
 
   @Override
   public void run() {
-    // TODO: simulator logic for traffic light
     log.info("Started simulation for the traffic light {}", trafficLight.getId());
 
     // Register traffic light in entity-service
@@ -47,6 +46,7 @@ public class TrafficLightSimulator implements Runnable {
 
     // refreshing interval
     // TODO: find good way to find a dynamic refresh interval
+    // since holdtime is always a multiple of a full second we can assume naively here 100ms
     long refreshIntervalMs = 100;
 
     while (!Thread.currentThread().isInterrupted()) {

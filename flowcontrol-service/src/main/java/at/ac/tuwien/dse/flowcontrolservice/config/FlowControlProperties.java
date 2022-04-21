@@ -1,13 +1,13 @@
-package at.ac.dse.simulatorservice.config;
+package at.ac.tuwien.dse.flowcontrolservice.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties("simulator")
+@ConfigurationProperties("flowcontrol")
 @Data
-public class SimulatorProperties {
+public class FlowControlProperties {
 
   private Long minScanLength;
   private Long maxNumberOfLights;
