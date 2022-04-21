@@ -30,6 +30,7 @@ public class CarSimulator implements Runnable {
     log.info("Started simulation for the car {}", car.getVin());
 
     // Register car in entity-service
+    // TODO: send only important data to not waste performance
     rabbitTemplate.convertAndSend(simulatorProperties.getCarMom(), car);
 
     // determine which direction we are going

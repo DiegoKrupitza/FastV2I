@@ -24,6 +24,7 @@ function trafficLightDtoToTrafficLight(
 ): TrafficLight {
   return {
     _id: trafficLight.id as unknown as ObjectId,
+    scanDistance: trafficLight.scanDistance,
     location: {
       type: 'Point',
       coordinates: trafficLight.location,
@@ -36,6 +37,7 @@ function trafficLightToTrafficLightDto(
 ): TrafficLightDto {
   return {
     id: trafficLight._id,
+    scanDistance: trafficLight.scanDistance,
     location: trafficLight.location.coordinates,
   }
 }
