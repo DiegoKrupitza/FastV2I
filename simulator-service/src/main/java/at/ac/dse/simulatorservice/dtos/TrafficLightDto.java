@@ -26,4 +26,8 @@ public class TrafficLightDto {
 
   @Min(1)
   private Long stateHoldSeconds;
+
+  public Long getStateHoldInMs() {
+    return this.stateHoldSeconds * 1000;
+  }
 }
