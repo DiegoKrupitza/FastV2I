@@ -1,9 +1,9 @@
 package at.ac.dse.simulatorservice.services;
 
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
-import at.ac.dse.simulatorservice.dtos.CarDto;
+import at.ac.dse.simulatorservice.domain.Car;
 import at.ac.dse.simulatorservice.dtos.ScenarioDto;
-import at.ac.dse.simulatorservice.dtos.TrafficLightDto;
+import at.ac.dse.simulatorservice.domain.TrafficLight;
 import at.ac.dse.simulatorservice.services.feign.EntityServiceFeign;
 import at.ac.dse.simulatorservice.services.feign.TrackingServiceFeign;
 import at.ac.dse.simulatorservice.simulator.CarSimulator;
@@ -39,21 +39,21 @@ public class SimulatorService {
    */
   public void startScenario(ScenarioDto scenario) {
 
-    for (TrafficLightDto trafficLight : scenario.trafficLights()) {
+    for (TrafficLight trafficLight : scenario.trafficLights()) {
       threads.add(
           this.taskExecutor.submit(
               new TrafficLightSimulator(
                   simulatorProperties, rabbitTemplate, scenario.timelapse(), trafficLight)));
     }
 
-    for (CarDto car : scenario.cars()) {
+    for (Car car : scenario.cars()) {
       threads.add(
           this.taskExecutor.submit(
               new CarSimulator(
                   simulatorProperties,
-                  flowControlSpeedRecommendation,
                   rabbitTemplate,
                   scenario.timelapse(),
+                  flowControlSpeedRecommendation,
                   car)));
     }
   }

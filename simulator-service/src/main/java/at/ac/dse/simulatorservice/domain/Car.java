@@ -1,4 +1,4 @@
-package at.ac.dse.simulatorservice.dtos;
+package at.ac.dse.simulatorservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CarDto {
+public class Car {
 
   @Length(min = 1)
   private String vin;

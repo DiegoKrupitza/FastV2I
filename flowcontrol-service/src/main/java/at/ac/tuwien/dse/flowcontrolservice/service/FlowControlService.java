@@ -13,6 +13,6 @@ public class FlowControlService {
 
   public Long getAdvisedSpeed(CarStateDto car) {
     // TODO: logic
-    return null;
+    return car.speed();
   }
 }

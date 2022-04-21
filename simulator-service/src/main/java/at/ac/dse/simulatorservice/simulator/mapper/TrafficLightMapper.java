@@ -1,6 +1,6 @@
 package at.ac.dse.simulatorservice.simulator.mapper;
 
-import at.ac.dse.simulatorservice.dtos.TrafficLightDto;
+import at.ac.dse.simulatorservice.domain.TrafficLight;
 import at.ac.dse.simulatorservice.simulator.domain.ColorState;
 import at.ac.dse.simulatorservice.simulator.domain.TrafficLightMom;
 import at.ac.dse.simulatorservice.simulator.domain.TrafficLightStateMom;
@@ -9,18 +9,18 @@ import java.time.LocalDateTime;
 
 public abstract class TrafficLightMapper {
 
-  public static TrafficLightMom toTrafficLightMom(TrafficLightDto trafficLightDto) {
+  public static TrafficLightMom toTrafficLightMom(TrafficLight trafficLight) {
     return new TrafficLightMom(
-        trafficLightDto.getId(), //
-        trafficLightDto.getScanDistance(), //
-        new Long[] {trafficLightDto.getPosition(), 0L} //
+        trafficLight.getId(), //
+        trafficLight.getScanDistance(), //
+        new Long[] {trafficLight.getPosition(), 0L} //
         );
   }
 
   public static TrafficLightStateMom toTrafficLightStateMom(
-          TrafficLightDto trafficLightDto, ColorState colorState, Long remainingMs) {
+          TrafficLight trafficLight, ColorState colorState, Long remainingMs) {
     return new TrafficLightStateMom(
-        trafficLightDto.getId(),
+        trafficLight.getId(),
         colorState.getName().toLowerCase(),
         remainingMs,
         LocalDateTime.now() //

@@ -18,7 +18,7 @@ public class RabbitMQConfig {
   @Value("${flowcontrol.carStateMom}")
   String carStateQueueName;
 
-  @Value("flowcontrol.speedMom")
+  @Value("${flowcontrol.speedMom}")
   String speedQueueName;
 
   @Bean

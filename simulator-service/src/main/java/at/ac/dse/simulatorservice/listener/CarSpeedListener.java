@@ -15,6 +15,10 @@ public class CarSpeedListener {
 
   @RabbitListener(queues = "${simulator.speedMom}")
   public void processOrderMessage(SpeedMessageDto message) {
+    if(message.vin() == null || message.speed() == null) {
+      return;
+    }
+
     log.info("Flow control tells car {} to ride with speed {} ",message.vin(),message.speed());
     this.flowControlSpeedRecommendation.set(message.vin(), message.speed());
   }
