@@ -8,7 +8,6 @@ const { simulationLength } = toRefs(props)
 
 const vin = ref(uuidv4())
 
-// TODO: Initialize with random model and oem
 const oem = ref('')
 const model = ref('')
 const speed = ref(50)
@@ -37,16 +36,32 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div>
-    <FormKit v-model="vin" type="text" :label="t('forms.car.vin')" />
-    <FormKit v-model="oem" type="text" :label="t('forms.car.oem')" />
-    <FormKit v-model="model" type="text" :label="t('forms.car.model')" />
+  <FormKit type="form" @submit="onConfirm">
+    <FormKit
+      v-model="vin"
+      type="text"
+      :label="t('forms.car.vin')"
+      validation="required"
+    />
+    <FormKit
+      v-model="oem"
+      type="text"
+      :label="t('forms.car.oem')"
+      validation="required"
+    />
+    <FormKit
+      v-model="model"
+      type="text"
+      :label="t('forms.car.model')"
+      validation="required"
+    />
     <FormKit
       v-model="speed"
       type="number"
       :min="0"
       :step="1"
       :label="t('forms.car.speed')"
+      validation="required"
     />
     <FormKit
       v-model="delay"
@@ -54,6 +69,7 @@ const { t } = useI18n()
       :min="0"
       :step="1"
       :label="t('forms.car.entry-time')"
+      validation="required"
     />
     <FormKit
       v-model="location"
@@ -62,6 +78,7 @@ const { t } = useI18n()
       :max="simulationLength"
       :step="1"
       :label="t('forms.car.location')"
+      validation="required"
     />
     <FormKit
       v-model="destination"
@@ -70,7 +87,7 @@ const { t } = useI18n()
       :max="simulationLength"
       :step="1"
       :label="t('forms.car.destination')"
+      validation="required"
     />
-    <Button @click="onConfirm()">{{ t('button.confirm') }}</Button>
-  </div>
+  </FormKit>
 </template>
