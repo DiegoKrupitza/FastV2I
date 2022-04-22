@@ -3,6 +3,8 @@ spring:
     name: gateway
   cloud:
     gateway:
+      httpclient:
+        wiretap: true
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -27,6 +29,8 @@ spring:
           uri: lb://SIMULATOR-SERVICE
           predicates:
             - Path=/simulator/**
+      httpserver:
+        wiretap: true
 
 server:
   port: 8080

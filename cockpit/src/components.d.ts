@@ -10,6 +10,8 @@ declare module 'vue' {
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
     CarbonTrashCan: typeof import('~icons/carbon/trash-can')['default']
+    CarbonUndo: typeof import('~icons/carbon/undo')['default']
+    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     CarForm: typeof import('./components/forms/CarForm.vue')['default']
     Date: typeof import('./components/Date.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
