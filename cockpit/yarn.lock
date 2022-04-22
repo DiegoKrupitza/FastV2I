@@ -1060,6 +1060,86 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@formkit/core@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/core/-/core-1.0.0-beta.6.tgz#fe15788b62e57ed486b1bab9f49b6aa982e72be5"
+  integrity sha512-xy2Yw5/+WQiLJcrgTbEDWCJPSw6lYgFHTcI1tkU222aFv4G7xDGfoo8bKtQRSZ9NiU3rXfi14wvcaeije+eUmg==
+  dependencies:
+    "@formkit/utils" "1.0.0-beta.6"
+
+"@formkit/dev@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/dev/-/dev-1.0.0-beta.6.tgz#126ccfee894a309a3a0aadd555284159bf342122"
+  integrity sha512-rLobDBnWuxXzCMUvSkdcUWfWDxRV2CTYslu8S0qR3RguIR0eXY3ApfLoHrGj2TDUKdrdPrBnGp5bfUBNhu/iHA==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.6"
+    "@formkit/utils" "1.0.0-beta.6"
+
+"@formkit/i18n@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/i18n/-/i18n-1.0.0-beta.6.tgz#2593522a113ab282855617267438689dd4f28b29"
+  integrity sha512-6SyKLBd/HWkpRZF9DHb8HndOYy7GNohD8ee57pDqwQhFx5MQ6YPD1RcsU1MWjYcRG/ZbRqt+iQuVnLDiIGDfmQ==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.6"
+    "@formkit/utils" "1.0.0-beta.6"
+    "@formkit/validation" "1.0.0-beta.6"
+
+"@formkit/inputs@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/inputs/-/inputs-1.0.0-beta.6.tgz#423c9932be3af2da1d535399c70a12e4d535e1be"
+  integrity sha512-W2FNyitDGJ4S8cpeAMJPyQekuXlYGcSkqTNTIgOgGZSsH7niQVCwPH/7Zjcde53Nhs/M7NmZB2lSxT/gO6+AAw==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.6"
+
+"@formkit/observer@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/observer/-/observer-1.0.0-beta.6.tgz#9a575de4ed0dbbef5c2081928f70b48b1c7a4657"
+  integrity sha512-hKcYJxitN3dAoc/V6WUn+BWFxewmcAWlv2B3fyDAuRqkqsvHPMkl8FJ4xLsMC0e6juCmFjblSGUQFkYGdiWGJA==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.6"
+    "@formkit/utils" "1.0.0-beta.6"
+
+"@formkit/rules@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/rules/-/rules-1.0.0-beta.6.tgz#f56d078521ac8c410ffcee7771eede1b4094730f"
+  integrity sha512-Yd9b+PBaHtNlTUeWGiXvJ8t8UQbOZmi1k0QJpQvlol/V8lvU5FRVuZVTt5ivdgcIXeufrs9T5D+mhEJeNAZ7Tw==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.6"
+    "@formkit/utils" "1.0.0-beta.6"
+    "@formkit/validation" "1.0.0-beta.6"
+
+"@formkit/themes@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/themes/-/themes-1.0.0-beta.6.tgz#0160e7ebf4865a84a0acc154a610e7a878414877"
+  integrity sha512-94KCmLnIOEJxMmD1zRwCblNmjiKJ4b0EIq9zj4S2I6n6T7J8SIjPq6M3BpLnpQo6ptm0ZbeSILf750SCHORrtQ==
+
+"@formkit/utils@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/utils/-/utils-1.0.0-beta.6.tgz#1e697aef4b68aab1ccbc3f2b76dd723b47c1c350"
+  integrity sha512-Xox4XxfDgOucUXugXPZsmZt+2aV3a/z850LNykw9+Xi2iw4D4cxe7/GKqWQdu2Rg+aZkxJWhRPoe+nv81zLs7A==
+
+"@formkit/validation@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/validation/-/validation-1.0.0-beta.6.tgz#199461029fa3c01d9dabda8dcd77c721fb6e559e"
+  integrity sha512-NlnGlvTDMnfM7kXP/hiYOZBfKSB9PwUb9H5BabTz1mAu/qfweUKbCouIAzCUGJEKdf1e+NtBdp0u8UUniLYLQg==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.6"
+    "@formkit/observer" "1.0.0-beta.6"
+
+"@formkit/vue@1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@formkit/vue/-/vue-1.0.0-beta.6.tgz#9408081036c91b17b70fd09d0e44607e39cc6e4a"
+  integrity sha512-EtIhrGXPYvG9cAiT0piZven3ncWC+BM3Ga+0d6ef5kk89q78li9PuHEDKrYlLAgw2BZVuRxIXAiXqriOFZEk7g==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.6"
+    "@formkit/dev" "1.0.0-beta.6"
+    "@formkit/i18n" "1.0.0-beta.6"
+    "@formkit/inputs" "1.0.0-beta.6"
+    "@formkit/observer" "1.0.0-beta.6"
+    "@formkit/rules" "1.0.0-beta.6"
+    "@formkit/utils" "1.0.0-beta.6"
+    "@formkit/validation" "1.0.0-beta.6"
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"
@@ -6151,11 +6231,6 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
-
-qrcode.vue@3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/qrcode.vue/-/qrcode.vue-3.3.3.tgz#00262244311a0ee1956fb7a0e238197ff7e14cfa"
-  integrity sha512-OsD4tQjIbxg/K6D5ZkWjBdYI9eg9K2i8qeYILdEAX5mdAydSAxV7xKmmZSP/hA12olLqEMZ9ryqDQrwa9jEMgw==
 
 qs@6.9.7:
   version "6.9.7"

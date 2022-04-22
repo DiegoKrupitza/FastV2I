@@ -1,6 +1,26 @@
 button:
+  confirm: Confirm
   home: Home
+  start: Start
   toggle_dark: Toggle dark mode
+
+forms:
+  car:
+    destination: Destination (meters)
+    entry-time: Initial delay (milliseconds)
+    location: Initial location (meters)
+    model: Model
+    speed: Speed (m/s)
+    oem: OEM
+    title: Cars
+    vin: VIN
+  traffic-light:
+    entry-delay: Initial delay (milliseconds)
+    id: ID
+    position: Position (meters)
+    scan-distance: Scan distance (meters)
+    state-hold-seconds: Interval (seconds)
+    title: Traffic Lights
 
 meta:
   description: Cockpit
@@ -11,3 +31,11 @@ toasts:
   simulation:
     started: Simulation started
     stopped: Simulation stopped
+
+validation:
+  cars:
+    too-few: Not enough cars
+    too-many: Too many cars
+  traffic-light:
+    too-few: Not enough traffic lights
+    too-many: Too many traffic lights
