@@ -72,6 +72,6 @@ public abstract class SimulatorBase implements Runnable {
   }
 
   void stop() {
-    this.stopped = false;
+    this.stopped = true;
   }
 }
