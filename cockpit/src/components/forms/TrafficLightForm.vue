@@ -31,8 +31,13 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div>
-    <FormKit v-model="id" type="text" :label="t('forms.traffic-light.id')" />
+  <FormKit type="form" @submit="onConfirm">
+    <FormKit
+      v-model="id"
+      type="text"
+      :label="t('forms.traffic-light.id')"
+      validation="required"
+    />
     <FormKit
       v-model="position"
       type="number"
@@ -40,6 +45,7 @@ const { t } = useI18n()
       :max="simulationLength"
       :step="1"
       :label="t('forms.traffic-light.position')"
+      validation="required"
     />
     <FormKit
       v-model="scanDistance"
@@ -47,6 +53,7 @@ const { t } = useI18n()
       :min="0"
       :step="1"
       :label="t('forms.traffic-light.scan-distance')"
+      validation="required"
     />
     <FormKit
       v-model="delay"
@@ -54,6 +61,7 @@ const { t } = useI18n()
       :min="0"
       :step="1"
       :label="t('forms.traffic-light.entry-delay')"
+      validation="required"
     />
     <FormKit
       v-model="interval"
@@ -61,7 +69,7 @@ const { t } = useI18n()
       :min="1"
       :step="1"
       :label="t('forms.traffic-light.state-hold-seconds')"
+      validation="required"
     />
-    <Button @click="onConfirm()">{{ t('button.confirm') }}</Button>
-  </div>
+  </FormKit>
 </template>
