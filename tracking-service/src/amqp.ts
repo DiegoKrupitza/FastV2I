@@ -7,7 +7,7 @@ import type { CarDto } from './model/car'
 import { Mappers } from './model/mappers'
 import type { TrafficLightDto } from './model/traffic-light'
 
-const CAR_STATE = 'car-state'
+const CAR_STATE = 'car-state-tracking'
 const TRAFFIC_LIGHT_STATE = 'traffic-light-state'
 
 export const amqp: { channel?: Channel } = {}
@@ -21,6 +21,9 @@ export async function connectToAmqp(
     const connection = await connect({ hostname })
     amqp.channel = await connection.createChannel()
     server.log.info(`[amqp] Connected to ${hostname}.`)
+
+    server.log.info(`[amqp Listening for queue: ${CAR_STATE}]`)
+    server.log.info(`[amqp Listening for queue: ${TRAFFIC_LIGHT_STATE}]`)
 
     await amqp.channel.assertQueue(CAR_STATE)
     await amqp.channel.assertQueue(TRAFFIC_LIGHT_STATE)

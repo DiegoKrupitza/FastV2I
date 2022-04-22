@@ -5,6 +5,7 @@ import at.ac.dse.simulatorservice.domain.TrafficLight;
 import at.ac.dse.simulatorservice.simulator.domain.ColorState;
 import at.ac.dse.simulatorservice.simulator.mapper.TrafficLightMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 @Slf4j
@@ -17,9 +18,10 @@ public class TrafficLightSimulator extends SimulatorBase {
   public TrafficLightSimulator(
       SimulatorProperties simulatorProperties,
       RabbitTemplate rabbitTemplate,
+      FanoutExchange fanoutExchange,
       boolean timelapse,
       TrafficLight trafficLight) {
-    super(simulatorProperties, rabbitTemplate, timelapse);
+    super(simulatorProperties, rabbitTemplate, fanoutExchange, timelapse);
     this.trafficLight = trafficLight;
   }
 

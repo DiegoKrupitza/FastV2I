@@ -2,6 +2,7 @@ package at.ac.dse.simulatorservice.simulator;
 
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 @RequiredArgsConstructor
@@ -9,6 +10,7 @@ public abstract class SimulatorBase implements Runnable {
 
   private final SimulatorProperties simulatorProperties;
   private final RabbitTemplate rabbitTemplate;
+  private final FanoutExchange fanout;
   private final boolean timelapse;
   private boolean stopped = false;
 
@@ -65,6 +67,10 @@ public abstract class SimulatorBase implements Runnable {
 
   RabbitTemplate getRabbitTemplate() {
     return rabbitTemplate;
+  }
+
+  public FanoutExchange getFanout() {
+    return fanout;
   }
 
   boolean isTimelapse() {
