@@ -5,6 +5,7 @@ import at.ac.dse.simulatorservice.domain.Car;
 import at.ac.dse.simulatorservice.services.FlowControlSpeedService;
 import at.ac.dse.simulatorservice.simulator.domain.CarStateMom;
 import at.ac.dse.simulatorservice.simulator.domain.Direction;
+import at.ac.dse.simulatorservice.simulator.mapper.CarMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
@@ -35,8 +36,8 @@ public class CarSimulator extends SimulatorBase {
     log.info("Started simulation for the car {}", car.getVin());
 
     // Register car in entity-service
-    // TODO: send only important data to not waste performance
-    getRabbitTemplate().convertAndSend(getSimulatorProperties().getCarMom(), car);
+    getRabbitTemplate()
+        .convertAndSend(getSimulatorProperties().getCarMom(), CarMapper.toCarMom(car));
 
     // determine which direction we are going
     direction = Direction.getFromStartAndDestination(car.getLocation(), car.getDestination());
