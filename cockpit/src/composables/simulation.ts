@@ -80,13 +80,15 @@ export function useSimulation() {
   async function startSimulation() {
     await post('/simulator', demoSimulation)
     await getSimulation.load()
-    success(t('toasts.simulation.started'))
+    const message = t('toasts.simulation.started')
+    success(message, { id: message })
   }
 
   async function stopSimulation() {
     await del('/simulator')
     await getSimulation.load()
-    warning(t('toasts.simulation.stopped'))
+    const message = t('toasts.simulation.stopped')
+    warning(message, { id: message })
   }
 
   return {
