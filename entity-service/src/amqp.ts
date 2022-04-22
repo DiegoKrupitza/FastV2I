@@ -22,6 +22,9 @@ export async function connectToAmqp(
     amqp.channel = await connection.createChannel()
     server.log.info(`[amqp] Connected to ${hostname}.`)
 
+    server.log.info(`[amqp Listening for queue: ${CAR}]`)
+    server.log.info(`[amqp Listening for queue: ${TRAFFIC_LIGHT}]`)
+
     await amqp.channel.assertQueue(CAR)
     await amqp.channel.assertQueue(TRAFFIC_LIGHT)
 

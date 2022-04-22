@@ -14,11 +14,15 @@ public class FlowControlProperties {
   private Long minCarSpeed;
   private Long maxCarSpeed;
 
-  private String carStateMom;
+  private String carStateTrackingMom;
+  private String carStateFlowMom;
+
   private String trafficLightStateMom;
   private String carMom;
   private String speedMom;
   private String trafficLightMom;
 
   private Long timelapseDivider;
+
+  private String fanoutName;
 }

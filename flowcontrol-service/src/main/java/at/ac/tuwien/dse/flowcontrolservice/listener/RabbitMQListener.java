@@ -19,9 +19,10 @@ public class RabbitMQListener {
   private final FlowControlService flowControlService;
   private final FlowControlProperties flowControlProperties;
 
-  @RabbitListener(queues = "${flowcontrol.carStateMom}")
+  @RabbitListener(queues = "${flowcontrol.carStateFlowMom}")
   public void carStateMomListener(final CarStateDto car) {
     Long speed = flowControlService.getAdvisedSpeed(car);
-    rabbitTemplate.convertAndSend(flowControlProperties.getSpeedMom(), new SpeedDto(car.vin(),speed));
+    rabbitTemplate.convertAndSend(
+        flowControlProperties.getSpeedMom(), new SpeedDto(car.vin(), speed));
   }
 }

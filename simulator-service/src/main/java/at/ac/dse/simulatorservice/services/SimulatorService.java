@@ -9,6 +9,7 @@ import at.ac.dse.simulatorservice.services.feign.TrackingServiceFeign;
 import at.ac.dse.simulatorservice.simulator.CarSimulator;
 import at.ac.dse.simulatorservice.simulator.TrafficLightSimulator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import java.util.concurrent.atomic.AtomicReference;
 @Service
 @RequiredArgsConstructor
 public class SimulatorService {
+
+  private final FanoutExchange fanout;
 
   private final RabbitTemplate rabbitTemplate;
   private final ConcurrentTaskExecutor taskExecutor;
@@ -46,7 +49,11 @@ public class SimulatorService {
       threads.add(
           this.taskExecutor.submit(
               new TrafficLightSimulator(
-                  simulatorProperties, rabbitTemplate, scenario.timelapse(), trafficLight)));
+                  simulatorProperties,
+                  rabbitTemplate,
+                  fanout,
+                  scenario.timelapse(),
+                  trafficLight)));
     }
 
     for (Car car : scenario.cars()) {
@@ -55,6 +62,7 @@ public class SimulatorService {
               new CarSimulator(
                   simulatorProperties,
                   rabbitTemplate,
+                  fanout,
                   scenario.timelapse(),
                   flowControlSpeedRecommendation,
                   car)));

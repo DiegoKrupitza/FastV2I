@@ -7,6 +7,7 @@ import at.ac.dse.simulatorservice.simulator.domain.CarStateMom;
 import at.ac.dse.simulatorservice.simulator.domain.Direction;
 import at.ac.dse.simulatorservice.simulator.mapper.CarMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.Optional;
@@ -23,10 +24,11 @@ public class CarSimulator extends SimulatorBase {
   public CarSimulator(
       SimulatorProperties simulatorProperties,
       RabbitTemplate rabbitTemplate,
+      FanoutExchange fanoutExchange,
       boolean timelapse,
       FlowControlSpeedService flowControlSpeedRecommendation,
       Car car) {
-    super(simulatorProperties, rabbitTemplate, timelapse);
+    super(simulatorProperties, rabbitTemplate, fanoutExchange, timelapse);
     this.flowControlSpeedRecommendation = flowControlSpeedRecommendation;
     this.car = car;
   }
@@ -95,6 +97,7 @@ public class CarSimulator extends SimulatorBase {
 
   private void sendCarStateToMom() {
     CarStateMom momObject = toCarStateMom(car, direction);
-    getRabbitTemplate().convertAndSend(getSimulatorProperties().getCarStateMom(), momObject);
+
+    getRabbitTemplate().convertAndSend(getFanout().getName(), "", momObject);
   }
 }
