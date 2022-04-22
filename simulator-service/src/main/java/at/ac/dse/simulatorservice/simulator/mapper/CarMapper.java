@@ -13,7 +13,7 @@ public abstract class CarMapper {
         car.getVin(),
         new Long[] {car.getLocation(), 0L},
         car.getSpeed(),
-        direction.getName(),
+        direction.getShortIdentifier(),
         LocalDateTime.now());
   }
 }

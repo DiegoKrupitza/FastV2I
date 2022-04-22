@@ -6,9 +6,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum Direction {
-  TOP_TO_BOTTOM("NORTH TO SOUTH", -1L),
-  BOTTOM_TO_TOP("SOUTH TO NORTH", 1L);
+  TOP_TO_BOTTOM("NTS","NORTH TO SOUTH", -1L),
+  BOTTOM_TO_TOP("STN","SOUTH TO NORTH", 1L);
 
+  private final String shortIdentifier;
   private final String name;
   private final Long modificator;
 
