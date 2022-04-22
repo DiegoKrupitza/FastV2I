@@ -14,7 +14,7 @@ const { t } = useI18n()
 
 <template>
   <div class="flex flex-col gap-2 card">
-    <span class="text-bold">{{ trafficLight.id }}</span>
+    <span class="font-bold">{{ trafficLight.id }}</span>
     <span>
       {{ t('forms.traffic-light.position') }}: {{ trafficLight.position }}
     </span>
