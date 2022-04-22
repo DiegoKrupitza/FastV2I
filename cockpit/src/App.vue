@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useSimulationPolling } from '~/composables'
+
 const { t } = useI18n()
 
 useHead({
@@ -10,6 +12,8 @@ useHead({
     },
   ],
 })
+
+useSimulationPolling()
 </script>
 
 <template>
