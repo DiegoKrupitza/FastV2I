@@ -47,9 +47,7 @@ public class TrafficLightSimulator extends SimulatorBase {
     Thread.sleep(adjustedTime(trafficLight.getEntryDelay() + trafficLight.getStateHoldInMs()));
 
     // refreshing interval
-    // TODO: find good way to find a dynamic refresh interval
-    // since holdtime is always a multiple of a full second we can assume naively here 100ms
-    refreshIntervalMs = 100L;
+    refreshIntervalMs = 500L;
   }
 
   @Override

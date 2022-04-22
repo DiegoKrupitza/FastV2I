@@ -27,6 +27,9 @@ export async function createServer({
   })
   server.log.info(`Starting in ${isTest ? 'test' : 'production'} mode`)
 
+  server.server.keepAliveTimeout = 0
+  server.server.requestTimeout = 6000
+
   server.register(routes, { prefix: '/entities' })
 
   await connectToDatabase(server, mongoDbUrl)
