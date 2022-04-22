@@ -71,11 +71,7 @@ async function onCarStateMessage(
     if (!isValidCarState(car)) {
       return
     }
-    cars.updateOne(
-      { _id: car.vin },
-      { $set: Mappers.carDtoToCar(car) },
-      { upsert: true }
-    )
+    cars.insertOne(Mappers.carDtoToCar(car))
     channel?.ack(msg)
   } catch (err) {
     server.log.error(
@@ -108,11 +104,7 @@ async function onTrafficLightStateMessage(
     if (!isValidTrafficLight(trafficLight)) {
       return
     }
-    trafficLights.updateOne(
-      { _id: trafficLight.id },
-      { $set: Mappers.trafficLightDtoToTrafficLight(trafficLight) },
-      { upsert: true }
-    )
+    trafficLights.insertOne(Mappers.trafficLightDtoToTrafficLight(trafficLight))
     channel?.ack(msg)
   } catch (err) {
     server.log.error(
