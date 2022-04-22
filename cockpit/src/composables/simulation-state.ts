@@ -24,7 +24,9 @@ async function fetchCars() {
   const carEntities = (await get<CarEntity[]>('/entities/cars')).data
   cars.value = await Promise.all(
     carEntities.map(async (car) => {
-      const latest = await get<CarState>(`/tracking/cars/${car.vin}/latest`)
+      const latest = await get<CarState>(`/tracking/cars/${car.vin}/latest`, {
+        silent: true,
+      })
       return { ...car, ...latest.data }
     })
   )
@@ -38,7 +40,8 @@ async function fetchTrafficLights() {
   trafficLights.value = await Promise.all(
     trafficLightEntities.map(async (trafficLight) => {
       const latest = await get<TrafficLightState>(
-        `/tracking/traffic-lights/${trafficLight.id}/latest`
+        `/tracking/traffic-lights/${trafficLight.id}/latest`,
+        { silent: true }
       )
       return { ...trafficLight, ...latest.data }
     })
