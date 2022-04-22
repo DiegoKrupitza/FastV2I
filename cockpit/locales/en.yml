@@ -8,3 +8,6 @@ meta:
 
 toasts:
   backend-error: An error occurred
+  simulation:
+    started: Simulation started
+    stopped: Simulation stopped

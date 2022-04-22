@@ -2,6 +2,12 @@ import type { ViteSSGContext } from 'vite-ssg'
 
 export type UserModule = (ctx: ViteSSGContext) => void
 
+export interface Simulation {
+  /** Length in meters. */
+  scenarioLength: number
+  timelapse: boolean
+}
+
 export interface CarEntity {
   vin: string
   oem: string

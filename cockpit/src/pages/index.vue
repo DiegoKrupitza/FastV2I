@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import { useSimulationState } from '~/composables'
+import { useSimulation, useSimulationState } from '~/composables'
 
+const { isSimulationActive, startSimulation, stopSimulation } = useSimulation()
 const { cars, trafficLights } = useSimulationState()
 </script>
 
 <template>
   <h1>State</h1>
+  <div class="flex gap-2">
+    <Button :disabled="isSimulationActive" @click="startSimulation()">
+      Start
+    </Button>
+    <Button :disabled="!isSimulationActive" @click="stopSimulation()">
+      Stop
+    </Button>
+  </div>
   <div class="pa-4 gap-4">
     <section>
       <h2>Tracking</h2>

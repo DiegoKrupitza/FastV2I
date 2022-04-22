@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
 
 import { useBackend } from '~/composables'
+import { useSimulation } from '~/composables/simulation'
 import type {
   Car,
   CarEntity,
@@ -47,21 +48,36 @@ async function fetchTrafficLights() {
 export function useSimulationState(pollingRate = 5000): UseSimulationState {
   let requestInProgess = false
 
-  useIntervalFn(
-    async () => {
-      if (requestInProgess) {
-        return
+  async function fetchState() {
+    if (requestInProgess) {
+      return
+    }
+    requestInProgess = true
+    try {
+      await Promise.all([fetchCars(), fetchTrafficLights()])
+    } catch (e) {
+      console.error(e)
+    }
+    requestInProgess = false
+  }
+
+  const { pause, resume } = useIntervalFn(async () => fetchState(), pollingRate)
+
+  const { isSimulationActive } = useSimulation()
+
+  watch(
+    isSimulationActive,
+    () => {
+      if (isSimulationActive.value) {
+        fetchState()
+        resume()
+      } else {
+        pause()
+        cars.value = []
+        trafficLights.value = []
       }
-      requestInProgess = true
-      try {
-        await Promise.all([fetchCars(), fetchTrafficLights()])
-      } catch (e) {
-        console.error(e)
-      }
-      requestInProgess = false
     },
-    pollingRate,
-    { immediateCallback: true }
+    { immediate: true }
   )
 
   return {
