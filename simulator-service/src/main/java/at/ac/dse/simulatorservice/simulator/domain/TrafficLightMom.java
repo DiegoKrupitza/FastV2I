@@ -1,25 +1,23 @@
 package at.ac.dse.simulatorservice.simulator.domain;
 
-import java.util.Arrays;
+
 import java.util.Objects;
 
 public record TrafficLightMom(String id,
                               Long scanDistance,
-                              Long[] location) {
+                              Long location) {
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TrafficLightMom)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         TrafficLightMom that = (TrafficLightMom) o;
-        return Objects.equals(id, that.id) && Objects.equals(scanDistance, that.scanDistance) && Arrays.equals(location, that.location);
+        return Objects.equals(id, that.id) && Objects.equals(scanDistance, that.scanDistance) && Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, scanDistance);
-        result = 31 * result + Arrays.hashCode(location);
-        return result;
+        return Objects.hash(id, scanDistance, location);
     }
 
     @Override
@@ -27,7 +25,7 @@ public record TrafficLightMom(String id,
         return "TrafficLightMom{" +
                 "id='" + id + '\'' +
                 ", scanDistance=" + scanDistance +
-                ", location=" + Arrays.toString(location) +
+                ", location=" + location +
                 '}';
     }
 }

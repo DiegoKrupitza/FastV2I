@@ -4,10 +4,7 @@ import type { TrafficLight, TrafficLightDto } from './traffic-light'
 function carDtoToCar(car: CarDto): Car {
   return {
     vin: car.vin,
-    location: {
-      type: 'Point',
-      coordinates: car.location,
-    },
+    location: car.location,
     speed: car.speed,
     timestamp: car.timestamp,
   }
@@ -16,7 +13,7 @@ function carDtoToCar(car: CarDto): Car {
 function carToCarDto(car: Car): CarDto {
   return {
     vin: car.vin,
-    location: car.location.coordinates,
+    location: car.location,
     speed: car.speed,
     timestamp: car.timestamp,
   }

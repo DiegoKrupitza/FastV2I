@@ -1,29 +1,28 @@
 package at.ac.tuwien.dse.flowcontrolservice.dto;
 
-import java.util.Arrays;
 import java.util.Objects;
 
-public record NearestTrafficLightDto(Long id, Long[] position) {
+public record NearestTrafficLightDto(Long id, Long location, Long scanDistance) {
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NearestTrafficLightDto that)) return false;
-        return Objects.equals(id, that.id) && Arrays.equals(position, that.position);
+        if (o == null || getClass() != o.getClass()) return false;
+        NearestTrafficLightDto that = (NearestTrafficLightDto) o;
+        return Objects.equals(id, that.id) && Objects.equals(location, that.location) && Objects.equals(scanDistance, that.scanDistance);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id);
-        result = 31 * result + Arrays.hashCode(position);
-        return result;
+        return Objects.hash(id, location, scanDistance);
     }
 
     @Override
     public String toString() {
         return "NearestTrafficLightDto{" +
                 "id=" + id +
-                ", position=" + Arrays.toString(position) +
+                ", location=" + location +
+                ", scanDistance=" + scanDistance +
                 '}';
     }
 }

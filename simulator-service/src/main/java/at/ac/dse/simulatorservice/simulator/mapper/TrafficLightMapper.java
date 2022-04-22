@@ -13,7 +13,7 @@ public abstract class TrafficLightMapper {
     return new TrafficLightMom(
         trafficLight.getId(), //
         trafficLight.getScanDistance(), //
-        new Long[] {trafficLight.getPosition(), 0L} //
+        trafficLight.getPosition() //
         );
   }
 

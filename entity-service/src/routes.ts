@@ -1,4 +1,5 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify'
+import type { Filter } from 'mongodb'
 
 import { collections } from './database'
 import { Mappers } from './model/mappers'
@@ -60,23 +61,26 @@ export async function routes(server: FastifyInstance) {
       req: FastifyRequest<{ Params: { location: number; direction: string } }>,
       res
     ) => {
-      const location = req.params.location
+      const locationPoint = req.params.location
       const direction = req.params.direction
 
-      server.log.info('Location: ', location)
-
-      // mongodb logic stuff
-      const trafficLight = await collections.trafficLights?.findOne({})
+      server.log.info(`Location: ${locationPoint}`)
+      server.log.info(`Direction: ${direction}`)
+      let query: Filter<any>
 
       if (direction === 'NTS') {
-        // make `<=` check
+        query = { location: { $lte: Number(locationPoint) } }
       } else if (direction === 'STN') {
-        // make `>=` check
+        query = { location: { $gte: Number(locationPoint) } }
       } else {
         res.statusCode = 400
         return null
       }
+      const trafficLight = await collections.trafficLights?.findOne(query, {
+        sort: { location: direction === 'STN' ? 1 : -1 },
+      })
 
+      server.log.info(trafficLight)
       if (!trafficLight) {
         return null
       }
@@ -84,7 +88,8 @@ export async function routes(server: FastifyInstance) {
       // TODO: mapper dto stuff
       return {
         id: trafficLight._id,
-        position: trafficLight.location.coordinates,
+        location: trafficLight.location,
+        scanDistance: trafficLight.scanDistance,
       }
     }
   )
