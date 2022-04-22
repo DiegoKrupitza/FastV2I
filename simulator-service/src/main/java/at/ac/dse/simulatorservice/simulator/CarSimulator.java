@@ -93,7 +93,7 @@ public class CarSimulator extends SimulatorBase {
   }
 
   private void sendCarStateToMom() {
-    CarStateMom momObject = toCarStateMom(car);
+    CarStateMom momObject = toCarStateMom(car, direction);
     getRabbitTemplate().convertAndSend(getSimulatorProperties().getCarStateMom(), momObject);
   }
 }
