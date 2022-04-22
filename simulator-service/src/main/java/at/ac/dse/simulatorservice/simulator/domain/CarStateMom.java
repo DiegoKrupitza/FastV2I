@@ -15,7 +15,7 @@ public record CarStateMom(String vin,
         if (this == o) return true;
         if (!(o instanceof CarStateMom)) return false;
         CarStateMom that = (CarStateMom) o;
-        return Objects.equals(vin, that.vin) && Arrays.equals(location, that.location) && Objects.equals(speed, that.speed) && Objects.equals(direction, that.direction) && Objects.equals(timestamp, that.timestamp);
+        return Objects.equals(vin, that.vin) && Arrays.equals(location, that.location) && Objects.equals(speed, that.speed) && Objects.equals(directionCode, that.directionCode) && Objects.equals(timestamp, that.timestamp);
     }
 
     @Override
