@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import { useSimulation, useSimulationState } from '~/composables'
 
-const { isSimulationActive, startSimulation, stopSimulation } = useSimulation()
+const { isSimulationActive, stopSimulation } = useSimulation()
 const { cars, trafficLights } = useSimulationState()
+
+const router = useRouter()
+
+watch(
+  isSimulationActive,
+  () => {
+    if (isSimulationActive.value === false) {
+      router.push('/new')
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
   <h1>State</h1>
   <div class="flex gap-2">
-    <Button :disabled="isSimulationActive" @click="startSimulation()">
-      Start
-    </Button>
     <Button :disabled="!isSimulationActive" @click="stopSimulation()">
       Stop
     </Button>

@@ -1,3 +1,5 @@
+import type { UseMemoizedFn } from '@vueuse/core'
+
 import { useBackend } from '~/composables'
 import type { Simulation } from '~/types'
 
@@ -52,27 +54,20 @@ const demoSimulation = {
   timelapse: false,
 }
 
+let getSimulation: UseMemoizedFn<Promise<Simulation | undefined>, []>
+
 export function useSimulation() {
   const { delete: del, get, post } = useBackend()
 
-  const getSimulation = useMemoize(
-    async () => (await get<Simulation>('/simulator'))?.data
-  )
+  if (!getSimulation) {
+    getSimulation = useMemoize(
+      async () => (await get<Simulation>('/simulator'))?.data
+    )
+  }
 
   const isSimulationActive = asyncComputed(
     async () => !!(await getSimulation())
   )
-
-  const pollingRate = ref(FAST_POLLING_RATE)
-
-  useIntervalFn(async () => {
-    const activeSimulation = await getSimulation.load()
-    if (activeSimulation) {
-      pollingRate.value = SLOW_POLLING_RATE
-    } else {
-      pollingRate.value = FAST_POLLING_RATE
-    }
-  }, pollingRate)
 
   const { success, warning } = useToast()
   const { t } = useI18n()
@@ -97,4 +92,16 @@ export function useSimulation() {
     startSimulation,
     stopSimulation,
   }
+}
+
+export function useSimulationPolling() {
+  const pollingRate = ref(FAST_POLLING_RATE)
+  useIntervalFn(async () => {
+    const activeSimulation = await getSimulation.load()
+    if (activeSimulation) {
+      pollingRate.value = SLOW_POLLING_RATE
+    } else {
+      pollingRate.value = FAST_POLLING_RATE
+    }
+  }, pollingRate)
 }
