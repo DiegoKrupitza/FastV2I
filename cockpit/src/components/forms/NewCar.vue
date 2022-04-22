@@ -14,10 +14,10 @@ const { t } = useI18n()
 
 <template>
   <div class="flex flex-col gap-2 card">
-    <span class="text-bold">{{ car.vin }}</span>
+    <span class="font-bold">{{ car.vin }}</span>
     <span> {{ t('forms.car.oem') }}: {{ car.oem }} </span>
     <span> {{ t('forms.car.model') }}: {{ car.model }} </span>
-    <span> {{ t('forms.car.entryTime') }}: {{ car.entryTime }} </span>
+    <span> {{ t('forms.car.entry-time') }}: {{ car.entryTime }} </span>
     <span> {{ t('forms.car.speed') }}: {{ car.speed }} </span>
     <span> {{ t('forms.car.location') }}: {{ car.location }} </span>
     <span> {{ t('forms.car.destination') }}: {{ car.destination }} </span>
