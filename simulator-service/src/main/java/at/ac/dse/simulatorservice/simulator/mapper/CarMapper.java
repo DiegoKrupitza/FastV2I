@@ -16,7 +16,7 @@ public abstract class CarMapper {
   public static CarStateMom toCarStateMom(Car car, Direction direction) {
     return new CarStateMom(
         car.getVin(),
-        new Long[] {car.getLocation(), 0L},
+        car.getLocation(),
         car.getSpeed(),
         direction.getShortIdentifier(),
         LocalDateTime.now());

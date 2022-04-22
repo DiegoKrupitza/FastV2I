@@ -1,11 +1,10 @@
 package at.ac.dse.simulatorservice.simulator.domain;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Objects;
 
 public record CarStateMom(String vin,
-                          Long[] location,
+                          Long location,
                           Long speed,
                           String directionCode,
                           LocalDateTime timestamp) {
@@ -13,23 +12,21 @@ public record CarStateMom(String vin,
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CarStateMom)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         CarStateMom that = (CarStateMom) o;
-        return Objects.equals(vin, that.vin) && Arrays.equals(location, that.location) && Objects.equals(speed, that.speed) && Objects.equals(directionCode, that.directionCode) && Objects.equals(timestamp, that.timestamp);
+        return Objects.equals(vin, that.vin) && Objects.equals(location, that.location) && Objects.equals(speed, that.speed) && Objects.equals(directionCode, that.directionCode) && Objects.equals(timestamp, that.timestamp);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(vin, speed, directionCode, timestamp);
-        result = 31 * result + Arrays.hashCode(location);
-        return result;
+        return Objects.hash(vin, location, speed, directionCode, timestamp);
     }
 
     @Override
     public String toString() {
         return "CarStateMom{" +
                 "vin='" + vin + '\'' +
-                ", location=" + Arrays.toString(location) +
+                ", location=" + location +
                 ", speed=" + speed +
                 ", directionCode='" + directionCode + '\'' +
                 ", timestamp=" + timestamp +

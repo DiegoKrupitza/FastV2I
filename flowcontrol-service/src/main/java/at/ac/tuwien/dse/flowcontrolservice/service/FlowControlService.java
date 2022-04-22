@@ -23,14 +23,24 @@ public class FlowControlService {
    */
   public Long getAdvisedSpeed(CarStateDto car) {
     Optional<NearestTrafficLightDto> nearestTrafficLight =
-        entityServiceFeign.getNearestTrafficLight(car.location()[0], car.directionCode());
+        entityServiceFeign.getNearestTrafficLight(car.location(), car.directionCode());
 
-    if (nearestTrafficLight.isEmpty()) {
+    if (nearestTrafficLight.isEmpty() || isCarNotInScanDistance(car,nearestTrafficLight.get())) {
       return car.speed();
     }
+
+    // request an tracking service um remaining time und state von ampel zu kriegen (über feign)
+    // wenn ampel rot und auto und ampel location  dann 0 speed
 
     // TODO: logic für fancy stuff
 
     return car.speed();
   }
+
+  private boolean isCarNotInScanDistance(CarStateDto car, NearestTrafficLightDto nearestTrafficLight) {
+    if (car.directionCode().equals("NTS") && car.location() > (nearestTrafficLight.location()) + nearestTrafficLight.scanDistance())
+      return true;
+    return car.directionCode().equals("STN") && car.location() < (nearestTrafficLight.location()) - nearestTrafficLight.scanDistance();
+  }
+
 }
