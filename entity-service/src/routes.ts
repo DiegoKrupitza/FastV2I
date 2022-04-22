@@ -54,5 +54,40 @@ export async function routes(server: FastifyInstance) {
     }
   )
 
+  server.get(
+    '/traffic-lights/near/:location/:direction',
+    async (
+      req: FastifyRequest<{ Params: { location: number; direction: string } }>,
+      res
+    ) => {
+      const location = req.params.location
+      const direction = req.params.direction
+
+      server.log.info('Location: ', location)
+
+      // mongodb logic stuff
+      const trafficLight = await collections.trafficLights?.findOne({})
+
+      if (direction === 'NTS') {
+        // make `<=` check
+      } else if (direction === 'STN') {
+        // make `>=` check
+      } else {
+        res.statusCode = 400
+        return null
+      }
+
+      if (!trafficLight) {
+        return null
+      }
+
+      // TODO: mapper dto stuff
+      return {
+        id: trafficLight._id,
+        position: trafficLight.location.coordinates,
+      }
+    }
+  )
+
   server.log.info('Routes registered')
 }
