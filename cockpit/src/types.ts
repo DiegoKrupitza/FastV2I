@@ -21,6 +21,16 @@ export interface CarState {
 
 export type Car = CarEntity & CarState
 
+export interface NewCar {
+  vin: string
+  oem: string
+  model: string
+  entryTime: number
+  speed: number
+  location: number
+  destination: number
+}
+
 export interface TrafficLightEntity {
   id: string
   location: [number, number]
@@ -33,3 +43,15 @@ export interface TrafficLightState {
 }
 
 export type TrafficLight = TrafficLightEntity & TrafficLightState
+
+export interface NewTrafficLight {
+  id: string
+  /** Position in meters. */
+  position: number
+  /** Scan distance in meters. */
+  scanDistance: number
+  /** Delay of initial state change in milliseconds. */
+  entryDelay: number
+  /** Interval of state changes in seconds. */
+  stateHoldSeconds: number
+}

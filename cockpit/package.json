@@ -16,6 +16,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@formkit/themes": "1.0.0-beta.6",
+    "@formkit/vue": "1.0.0-beta.6",
     "@unocss/reset": "0.27.2",
     "@vueuse/core": "7.7.1",
     "@vueuse/head": "0.7.5",
@@ -25,7 +27,6 @@
     "nprogress": "0.2.0",
     "pinia": "2.0.11",
     "prism-theme-vars": "0.2.2",
-    "qrcode.vue": "3.3.3",
     "uuid": "8.3.2",
     "vue": "3.2.31",
     "vue-demi": "0.12.1",
