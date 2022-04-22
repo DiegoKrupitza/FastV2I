@@ -16,8 +16,8 @@ public class ScenarioController {
   private final ValidatorService validatorService;
 
   @GetMapping
-  public boolean simulationActive() {
-    return simulatorService.isSimulationActive();
+  public ScenarioDto activeSimulation() {
+    return simulatorService.getActiveSimulation();
   }
 
   @PostMapping

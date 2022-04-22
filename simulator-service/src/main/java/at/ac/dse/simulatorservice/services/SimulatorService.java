@@ -2,8 +2,8 @@ package at.ac.dse.simulatorservice.services;
 
 import at.ac.dse.simulatorservice.config.SimulatorProperties;
 import at.ac.dse.simulatorservice.domain.Car;
-import at.ac.dse.simulatorservice.dtos.ScenarioDto;
 import at.ac.dse.simulatorservice.domain.TrafficLight;
+import at.ac.dse.simulatorservice.dtos.ScenarioDto;
 import at.ac.dse.simulatorservice.services.feign.EntityServiceFeign;
 import at.ac.dse.simulatorservice.services.feign.TrackingServiceFeign;
 import at.ac.dse.simulatorservice.simulator.CarSimulator;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +33,7 @@ public class SimulatorService {
   private final EntityServiceFeign entityServiceFeign;
   private final TrackingServiceFeign trackingServiceFeign;
 
-  private final AtomicBoolean activeSimulation = new AtomicBoolean(false);
+  private final AtomicReference<ScenarioDto> activeSimulation = new AtomicReference<>(null);
 
   /**
    * Stars a given simulation scenario.
@@ -60,7 +60,7 @@ public class SimulatorService {
                   car)));
     }
 
-    this.activeSimulation.set(true);
+    this.activeSimulation.set(scenario);
   }
 
   /** Resets the simulation and propagates the reset to all the other services */
@@ -73,10 +73,10 @@ public class SimulatorService {
     this.entityServiceFeign.resetAll();
     this.trackingServiceFeign.resetAll();
 
-    this.activeSimulation.set(false);
+    this.activeSimulation.set(null);
   }
 
-  public boolean isSimulationActive() {
-    return activeSimulation.get();
+  public ScenarioDto getActiveSimulation() {
+    return this.activeSimulation.get();
   }
 }
