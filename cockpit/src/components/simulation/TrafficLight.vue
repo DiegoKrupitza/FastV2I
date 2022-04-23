@@ -34,6 +34,7 @@ const emit = defineEmits<{
         'fill-green400': trafficLight.color === 'green',
         'fill-red': trafficLight.color === 'red',
       }"
+      class="stroke-16 stroke-black"
       @click="emit('select', trafficLight)"
     />
   </g>

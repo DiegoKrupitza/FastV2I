@@ -15,7 +15,7 @@ const emit = defineEmits<{
       :cx="car.location"
       :cy="50"
       :r="100"
-      class="fill-blue"
+      class="fill-blue stroke-16 stroke-black"
       @click="emit('select', car)"
     />
   </g>

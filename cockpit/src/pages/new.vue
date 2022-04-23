@@ -68,7 +68,7 @@ async function startRandom() {
       {
         id: 'T1',
         position: 4000, // m
-        scanDistance: 2000, // m
+        scanDistance: 1500, // m
         entryDelay: 0, // ms
         stateHoldSeconds: 10, // s
       },
@@ -82,7 +82,7 @@ async function startRandom() {
       {
         id: 'T3',
         position: 12000,
-        scanDistance: 2000,
+        scanDistance: 1000,
         entryDelay: 0,
         stateHoldSeconds: 10,
       },
