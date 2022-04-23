@@ -98,7 +98,7 @@ const { t } = useI18n()
       <section>
         <h2>{{ t('forms.traffic-light.title') }}</h2>
         <TrafficLightForm
-          :simulation-length="simulationLength"
+          :simulation-length="scenarioLength"
           @create="addTrafficLight"
         />
         <masonry-wall
@@ -115,7 +115,7 @@ const { t } = useI18n()
       </section>
       <section>
         <h2>{{ t('forms.car.title') }}</h2>
-        <CarForm :simulation-length="simulationLength" @create="addCar" />
+        <CarForm :simulation-length="scenarioLength" @create="addCar" />
         <masonry-wall
           v-slot="{ item: car }"
           :items="Object.values(cars)"
