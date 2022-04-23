@@ -20,6 +20,21 @@ const emit = defineEmits<{
 
 <template>
   <g>
+    <rect
+      :y="-2500"
+      :height="5000"
+      :x="trafficLight.location - 100"
+      :width="200"
+      class="fill-gray dark:filter-invert"
+    />
+    <line
+      :x1="trafficLight.location"
+      :x2="trafficLight.location"
+      :y1="-2500"
+      :y2="2500"
+      class="stroke-16 stroke-yellow"
+      :style="{ 'stroke-dasharray': 50 }"
+    />
     <circle
       :cx="trafficLight.location"
       :cy="50"
