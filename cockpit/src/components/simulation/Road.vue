@@ -19,7 +19,6 @@ const { simulation } = toRefs(props)
       :x2="simulation?.scenarioLength"
       :y1="50"
       :y2="50"
-      :rx="50"
       class="stroke-16 stroke-yellow"
       :style="{ 'stroke-dasharray': 50 }"
     />
