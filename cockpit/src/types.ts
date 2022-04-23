@@ -33,7 +33,8 @@ export interface NewCar {
 
 export interface TrafficLightEntity {
   id: string
-  location: [number, number]
+  location: number
+  scanRadius: number
 }
 
 export interface TrafficLightState {
