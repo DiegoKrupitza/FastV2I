@@ -8,7 +8,7 @@ const props = defineProps<{
   trafficLights: TrafficLight[]
 }>()
 const { simulation, cars, trafficLights } = toRefs(props)
-const config = useSimulationVisualization()
+const config = useSimulationVisualization(simulation)
 
 const selectedCarVin = ref<string | undefined>()
 const selectedCar = computed(() =>
@@ -35,7 +35,6 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
 <template>
   <svg
     v-if="simulation"
-    class="flex-1"
     :viewBox="`${config.start} 0 ${config.end} ${config.height}`"
   >
     <Road :config="config" :simulation="simulation" />
