@@ -4,12 +4,14 @@ import at.ac.tuwien.dse.flowcontrolservice.config.FlowControlProperties;
 import at.ac.tuwien.dse.flowcontrolservice.dto.CarStateDto;
 import at.ac.tuwien.dse.flowcontrolservice.dto.NearestTrafficLightDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FlowControlService {
 
   private final FlowControlProperties flowControlProperties;
@@ -26,11 +28,13 @@ public class FlowControlService {
         entityServiceFeign.getNearestTrafficLight(car.location(), car.directionCode());
 
     if (nearestTrafficLight.isEmpty() || isCarNotInScanDistance(car,nearestTrafficLight.get())) {
+      log.info("hit easy way");
       return car.speed();
     }
 
     // request an tracking service um remaining time und state von ampel zu kriegen (über feign)
-    // wenn ampel rot und auto und ampel location  dann 0 speed
+    // wenn ampel rot und auto und ampel location > 130m distance ist (weil max 130m/s ist) dann 0 speed
+    // ansonsten normal berechnen
 
     // TODO: logic für fancy stuff
 
