@@ -48,7 +48,7 @@ const emit = defineEmits<{
         'fill-green400': trafficLight.color === 'green',
         'fill-red': trafficLight.color === 'red',
       }"
-      class="stroke-$background cursor-pointer"
+      class="stroke-black cursor-pointer"
       :style="{
         'stroke-width': config.actorSize / 5,
       }"
