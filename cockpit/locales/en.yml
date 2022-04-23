@@ -15,7 +15,7 @@ forms:
     title: Cars
     vin: VIN
   simulation:
-    enable-timelapse: Teimelapse
+    enable-timelapse: Timelapse
     length: Simulation length (meters)
   traffic-light:
     entry-delay: Initial delay (milliseconds)
