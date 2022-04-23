@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSimulation, useValidation } from '~/composables'
-import type { NewCar, NewTrafficLight } from '~/types'
+import type { NewCar, NewSimulation, NewTrafficLight } from '~/types'
 
 const { isSimulationActive, startSimulation } = useSimulation()
 
@@ -16,7 +16,7 @@ watch(
   { immediate: true }
 )
 
-const simulationLength = ref(15000)
+const scenarioLength = ref(15000)
 const enableTimelapse = ref(false)
 
 const trafficLights = ref<Record<string, NewTrafficLight>>({})
@@ -51,6 +51,16 @@ function removeCar(vin: string) {
 
 const validationError = useValidation({ cars, trafficLights })
 
+async function submit() {
+  const config: NewSimulation = {
+    cars: Object.values(cars.value),
+    scenarioLength: scenarioLength.value,
+    timelapse: enableTimelapse.value,
+    trafficLights: Object.values(trafficLights.value),
+  }
+  await startSimulation(config)
+}
+
 const { t } = useI18n()
 </script>
 
@@ -61,7 +71,7 @@ const { t } = useI18n()
         <Button
           :disabled="isSimulationActive || validationError"
           class="max-w-16"
-          @click="startSimulation()"
+          @click="submit()"
         >
           {{ t('button.start') }}
         </Button>
@@ -71,7 +81,7 @@ const { t } = useI18n()
       </div>
       <div class="flex flex-col gap-2 pa-4">
         <FormKit
-          v-model="simulationLength"
+          v-model="scenarioLength"
           type="number"
           :label="t('forms.simulation.length')"
         />

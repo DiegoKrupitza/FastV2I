@@ -16,7 +16,7 @@ forms:
     vin: VIN
   simulation:
     enable-timelapse: Timelapse
-    length: Simulation length (meters)
+    length: Scenario length (meters)
   traffic-light:
     entry-delay: Initial delay (milliseconds)
     id: ID

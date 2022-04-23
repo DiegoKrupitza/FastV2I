@@ -55,3 +55,11 @@ export interface NewTrafficLight {
   /** Interval of state changes in seconds. */
   stateHoldSeconds: number
 }
+
+export interface NewSimulation {
+  cars: NewCar[]
+  /** Scenario length in meters */
+  scenarioLength: number
+  timelapse: boolean
+  trafficLights: NewTrafficLight[]
+}
