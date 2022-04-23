@@ -19,9 +19,12 @@ export interface UseSimulationState {
   trafficLights: Ref<TrafficLight[]>
 }
 
+let carEntities: CarEntity[] | undefined
 async function fetchCars() {
   const { get } = useBackend()
-  const carEntities = (await get<CarEntity[]>('/entities/cars')).data
+  if (!carEntities) {
+    carEntities = (await get<CarEntity[]>('/entities/cars')).data
+  }
   cars.value = await Promise.all(
     carEntities.map(async (car) => {
       const latest = await get<CarState>(`/tracking/cars/${car.vin}/latest`, {
@@ -32,11 +35,14 @@ async function fetchCars() {
   )
 }
 
+let trafficLightEntities: TrafficLightEntity[] | undefined
 async function fetchTrafficLights() {
   const { get } = useBackend()
-  const trafficLightEntities = (
-    await get<TrafficLightEntity[]>('/entities/traffic-lights')
-  ).data
+  if (!trafficLightEntities) {
+    trafficLightEntities = (
+      await get<TrafficLightEntity[]>('/entities/traffic-lights')
+    ).data
+  }
   trafficLights.value = await Promise.all(
     trafficLightEntities.map(async (trafficLight) => {
       const latest = await get<TrafficLightState>(
@@ -76,7 +82,9 @@ export function useSimulationState(pollingRate = 500): UseSimulationState {
         resume()
       } else {
         pause()
+        carEntities = undefined
         cars.value = []
+        trafficLightEntities = undefined
         trafficLights.value = []
       }
     },
