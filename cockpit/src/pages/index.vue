@@ -17,7 +17,7 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 pa-4 w-full h-full">
+  <div class="simulation flex flex-col gap-2 pa-4 h-full">
     <Button
       :disabled="!isSimulationActive"
       class="max-w-16"
@@ -28,3 +28,8 @@ watch(
     <Simulation />
   </div>
 </template>
+<style scoped>
+.simulation {
+  width: calc(100% - 2rem);
+}
+</style>
