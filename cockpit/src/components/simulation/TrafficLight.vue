@@ -12,6 +12,10 @@ const radius = computed(() => {
     return trafficLight.value.scanDistance - 1
   }
 })
+
+const emit = defineEmits<{
+  (eventName: 'select', trafficLight: TrafficLight): void
+}>()
 </script>
 
 <template>
@@ -30,6 +34,7 @@ const radius = computed(() => {
         'fill-green400': trafficLight.color === 'green',
         'fill-red': trafficLight.color === 'red',
       }"
+      @click="emit('select', trafficLight)"
     />
   </g>
 </template>
