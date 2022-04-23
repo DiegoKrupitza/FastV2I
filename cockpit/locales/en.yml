@@ -3,6 +3,7 @@ button:
   home: Home
   random: Random
   start: Start
+  stop: Stop
   toggle_dark: Toggle dark mode
 
 forms:
