@@ -59,7 +59,7 @@ export function useSimulationPolling() {
   }, pollingRate)
 }
 
-export interface VisualizationSettings {
+export interface VisualizationConfig {
   actorSize: number
   end: number
   height: number
@@ -69,7 +69,7 @@ export interface VisualizationSettings {
   start: number
 }
 
-export function useSimulationVisualization(): ComputedRef<VisualizationSettings> {
+export function useSimulationVisualization(): ComputedRef<VisualizationConfig> {
   const { getSimulation } = useSimulation()
   const simulation = asyncComputed(async () => await getSimulation())
   return computed(() => {

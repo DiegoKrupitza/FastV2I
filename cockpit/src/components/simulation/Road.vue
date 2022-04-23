@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { useSimulationVisualization } from '~/composables'
-const config = useSimulationVisualization()
+import type { VisualizationConfig } from '~/composables'
+
+const props = defineProps<{ config: VisualizationConfig }>()
+const { config } = toRefs(props)
 </script>
 
 <template>
