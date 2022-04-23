@@ -54,9 +54,14 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
       @select="onCarSelected"
     />
   </svg>
-  <CarEntity v-if="selectedCar" :car="selectedCar" />
+  <CarEntity
+    v-if="selectedCar"
+    class="position-fixed top-2 right-2"
+    :car="selectedCar"
+  />
   <TrafficLightEntity
     v-if="selectedTrafficLight"
+    class="position-fixed top-2 right-2"
     :config="config"
     :traffic-light="selectedTrafficLight"
   />

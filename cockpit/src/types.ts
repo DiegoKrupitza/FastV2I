@@ -17,6 +17,7 @@ export interface CarEntity {
 export interface CarState {
   vin: string
   location: number
+  speed: number
   timestamp: string
 }
 
@@ -41,6 +42,7 @@ export interface TrafficLightEntity {
 export interface TrafficLightState {
   id: string
   color: 'green' | 'red'
+  remainingMilliseconds: number
   timestamp: string
 }
 

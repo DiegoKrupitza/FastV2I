@@ -6,6 +6,11 @@ button:
   stop: Stop
   toggle_dark: Toggle dark mode
 
+entities:
+  traffic-light:
+    next-change: '{seconds}s until next change'
+    scan-radius: '{radius}m scan radius'
+
 forms:
   car:
     destination: Destination (meters)
