@@ -1,14 +1,8 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const router = useRouter()
+onMounted(() => router.push('/'))
 </script>
 
 <template>
-  <div class="text-xl text-light">
-    {{ t('not-found') }}
-  </div>
+  <span>404</span>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: 404
-</route>

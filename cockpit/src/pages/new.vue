@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { useSimulation, useValidation } from '~/composables'
-import type {
-  Car,
-  NewCar,
-  NewSimulation,
-  NewTrafficLight,
-  Simulation,
-  TrafficLight,
-} from '~/types'
+import type { NewCar, NewSimulation, NewTrafficLight } from '~/types'
 
 const { isSimulationActive, startSimulation } = useSimulation()
 
@@ -120,35 +113,6 @@ async function startRandom() {
   await startSimulation(config)
 }
 
-const preview = computed<{
-  cars: Car[]
-  simulation: Simulation
-  trafficLights: TrafficLight[]
-}>(() => {
-  const now = new Date().toString()
-  const carPreviews: Car[] = Object.values(cars.value).map((car) => ({
-    ...car,
-    timestamp: now,
-  }))
-  const trafficLightPreviews: TrafficLight[] = Object.values(
-    trafficLights.value
-  ).map((trafficLight) => ({
-    ...trafficLight,
-    location: trafficLight.position,
-    color: 'red',
-    timestamp: now,
-  }))
-  const simulation: Simulation = {
-    scenarioLength: scenarioLength.value,
-    timelapse: enableTimelapse.value,
-  }
-  return {
-    cars: carPreviews,
-    simulation,
-    trafficLights: trafficLightPreviews,
-  }
-})
-
 const { t } = useI18n()
 </script>
 
@@ -175,13 +139,6 @@ const { t } = useI18n()
         <span v-if="validationError" class="color-red">
           {{ validationError }}
         </span>
-      </div>
-      <div class="h-32 w-full">
-        <Simulation
-          :cars="preview.cars"
-          :simulation="preview.simulation"
-          :traffic-lights="preview.trafficLights"
-        />
       </div>
       <div class="flex flex-col gap-2 pa-4">
         <FormKit
