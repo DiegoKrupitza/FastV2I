@@ -21,6 +21,7 @@ declare module 'vue' {
     Navigation: typeof import('./components/Navigation.vue')['default']
     NewCar: typeof import('./components/forms/NewCar.vue')['default']
     NewTrafficLight: typeof import('./components/forms/NewTrafficLight.vue')['default']
+    Road: typeof import('./components/simulation/Road.vue')['default']
     Simulation: typeof import('./components/simulation/Simulation.vue')['default']
     Spacer: typeof import('./components/Spacer.vue')['default']
     TrafficLight: typeof import('./components/simulation/TrafficLight.vue')['default']

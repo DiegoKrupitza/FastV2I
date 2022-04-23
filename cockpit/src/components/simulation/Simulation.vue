@@ -44,6 +44,7 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
       simulation?.scenarioLength + 2 * simulationPadding
     } 100`"
   >
+    <Road :simulation="simulation" />
     <TrafficLight
       v-for="trafficLight of trafficLights"
       :key="trafficLight.id"
