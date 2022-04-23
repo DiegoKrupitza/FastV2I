@@ -38,11 +38,11 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
     class="flex-1"
     :viewBox="`${config.start} 0 ${config.end} ${config.height}`"
   >
-    <Road :simulation="simulation" />
+    <Road :config="config" :simulation="simulation" />
     <TrafficLight
       v-for="trafficLight of trafficLights"
       :key="trafficLight.id"
-      :simulation="simulation"
+      :config="config"
       :traffic-light="trafficLight"
       @select="onTrafficLightSelected"
     />
@@ -50,13 +50,14 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
       v-for="car of cars"
       :key="car.vin"
       :car="car"
-      :simulation="simulation"
+      :config="config"
       @select="onCarSelected"
     />
   </svg>
   <CarEntity v-if="selectedCar" :car="selectedCar" />
   <TrafficLightEntity
     v-if="selectedTrafficLight"
+    :config="config"
     :traffic-light="selectedTrafficLight"
   />
 </template>

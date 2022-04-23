@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { useSimulationVisualization } from '~/composables'
-import type { Car, Simulation } from '~/types'
+import type { VisualizationConfig } from '~/composables'
+import type { Car } from '~/types'
 
-const props = defineProps<{ car: Car; simulation: Simulation }>()
-const { car } = toRefs(props)
+const props = defineProps<{ car: Car; config: VisualizationConfig }>()
+const { car, config } = toRefs(props)
 
 const emit = defineEmits<{
   (eventName: 'select', car: Car): void
 }>()
-
-const config = useSimulationVisualization()
 </script>
 
 <template>

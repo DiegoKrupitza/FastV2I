@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { useSimulationVisualization } from '~/composables'
-import type { Simulation, TrafficLight } from '~/types'
+import type { VisualizationConfig } from '~/composables'
+import type { TrafficLight } from '~/types'
 
 const props =
-  defineProps<{ simulation: Simulation; trafficLight: TrafficLight }>()
-const { trafficLight } = toRefs(props)
+  defineProps<{ config: VisualizationConfig; trafficLight: TrafficLight }>()
+const { config, trafficLight } = toRefs(props)
 
 const emit = defineEmits<{
   (eventName: 'select', trafficLight: TrafficLight): void
 }>()
-
-const config = useSimulationVisualization()
 </script>
 
 <template>
