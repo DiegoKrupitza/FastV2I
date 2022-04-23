@@ -23,13 +23,16 @@ const selectedTrafficLight = computed(() =>
 )
 
 function onCarSelected(car: Car) {
-  selectedCarVin.value = car.vin
+  selectedCarVin.value = selectedCarVin.value === car.vin ? undefined : car.vin
   selectedTrafficLightId.value = undefined
 }
 
 function onTrafficLightSelected(trafficLight: TrafficLight) {
   selectedCarVin.value = undefined
-  selectedTrafficLightId.value = trafficLight.id
+  selectedTrafficLightId.value =
+    selectedTrafficLightId.value === trafficLight.id
+      ? undefined
+      : trafficLight.id
 }
 </script>
 
@@ -43,6 +46,7 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
       v-for="trafficLight of trafficLights"
       :key="trafficLight.id"
       :config="config"
+      :is-selected="selectedTrafficLightId === trafficLight.id"
       :traffic-light="trafficLight"
       @select="onTrafficLightSelected"
     />
@@ -51,6 +55,7 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
       :key="car.vin"
       :car="car"
       :config="config"
+      :is-selected="selectedCarVin === car.vin"
       @select="onCarSelected"
     />
   </svg>

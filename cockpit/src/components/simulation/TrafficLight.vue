@@ -2,9 +2,12 @@
 import type { VisualizationConfig } from '~/composables'
 import type { TrafficLight } from '~/types'
 
-const props =
-  defineProps<{ config: VisualizationConfig; trafficLight: TrafficLight }>()
-const { config, trafficLight } = toRefs(props)
+const props = defineProps<{
+  config: VisualizationConfig
+  isSelected: boolean
+  trafficLight: TrafficLight
+}>()
+const { config, isSelected, trafficLight } = toRefs(props)
 
 const emit = defineEmits<{
   (eventName: 'select', trafficLight: TrafficLight): void
@@ -40,13 +43,15 @@ const emit = defineEmits<{
     <circle
       :cx="trafficLight.location"
       :cy="0.5 * config.height"
-      :r="config.actorSize"
+      :r="isSelected ? 2 * config.actorSize : config.actorSize"
       :class="{
         'fill-green400': trafficLight.color === 'green',
         'fill-red': trafficLight.color === 'red',
       }"
-      class="stroke-black cursor-pointer"
-      :style="{ 'stroke-width': config.actorSize / 5 }"
+      class="stroke-$background cursor-pointer"
+      :style="{
+        'stroke-width': config.actorSize / 5,
+      }"
       @click="emit('select', trafficLight)"
     />
   </g>
