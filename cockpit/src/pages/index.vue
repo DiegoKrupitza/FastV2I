@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSimulation } from '~/composables'
+import { useSimulation, useSimulationState } from '~/composables'
 
 const { isSimulationActive, stopSimulation } = useSimulation()
 
@@ -14,6 +14,10 @@ watch(
   },
   { immediate: true }
 )
+
+const { getSimulation } = useSimulation()
+const simulation = asyncComputed(() => getSimulation())
+const { cars, trafficLights } = useSimulationState()
 </script>
 
 <template>
@@ -25,7 +29,12 @@ watch(
     >
       Stop
     </Button>
-    <Simulation />
+    <Simulation
+      v-if="simulation"
+      :simulation="simulation"
+      :cars="cars"
+      :traffic-lights="trafficLights"
+    />
   </div>
 </template>
 <style scoped>

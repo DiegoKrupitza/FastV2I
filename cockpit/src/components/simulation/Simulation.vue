@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import {
-  useSimulation,
-  useSimulationState,
-  useSimulationVisualization,
-} from '~/composables'
-import type { Car, TrafficLight } from '~/types'
+import { useSimulationVisualization } from '~/composables'
+import type { Car, Simulation, TrafficLight } from '~/types'
 
-const { getSimulation } = useSimulation()
-const simulation = asyncComputed(() => getSimulation())
-const { cars, trafficLights } = useSimulationState()
-const { end, height, start } = useSimulationVisualization()
+const props = defineProps<{
+  simulation: Simulation
+  cars: Car[]
+  trafficLights: TrafficLight[]
+}>()
+const { simulation, cars, trafficLights } = toRefs(props)
+const config = useSimulationVisualization()
+
 const selectedCarVin = ref<string | undefined>()
 const selectedCar = computed(() =>
   cars.value.find((car) => car.vin === selectedCarVin.value)
@@ -36,7 +36,7 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
   <svg
     v-if="simulation"
     class="flex-1"
-    :viewBox="`${start} 0 ${end} ${height}`"
+    :viewBox="`${config.start} 0 ${config.end} ${config.height}`"
   >
     <Road :simulation="simulation" />
     <TrafficLight
