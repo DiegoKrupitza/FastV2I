@@ -11,6 +11,8 @@ declare module 'vue' {
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
     CarbonTrashCan: typeof import('~icons/carbon/trash-can')['default']
+    CarEntity: typeof import('./components/simulation/CarEntity.vue')['default']
+    'CarEntity copy': typeof import('./components/simulation/CarEntity copy.vue')['default']
     CarForm: typeof import('./components/forms/CarForm.vue')['default']
     Date: typeof import('./components/Date.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
@@ -22,6 +24,7 @@ declare module 'vue' {
     Simulation: typeof import('./components/simulation/Simulation.vue')['default']
     Spacer: typeof import('./components/Spacer.vue')['default']
     TrafficLight: typeof import('./components/simulation/TrafficLight.vue')['default']
+    TrafficLightEntity: typeof import('./components/simulation/TrafficLightEntity.vue')['default']
     TrafficLightForm: typeof import('./components/forms/TrafficLightForm.vue')['default']
   }
 }
