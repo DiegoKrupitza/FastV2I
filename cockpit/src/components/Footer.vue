@@ -5,9 +5,9 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <footer class="pa-4 text-center text-sm">
+  <footer class="position-fixed bottom-2 right-2">
     <button
-      class="icon-btn mx-2"
+      class="icon-btn"
       :title="t('button.toggle_dark')"
       @click="toggleDark()"
     >

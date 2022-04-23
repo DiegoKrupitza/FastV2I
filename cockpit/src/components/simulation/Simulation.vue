@@ -6,9 +6,10 @@ const props = defineProps<{
   simulation: Simulation
   cars: Car[]
   trafficLights: TrafficLight[]
+  fullscreen: boolean
 }>()
-const { simulation, cars, trafficLights } = toRefs(props)
-const config = useSimulationVisualization(simulation)
+const { cars, fullscreen, simulation, trafficLights } = toRefs(props)
+const config = useSimulationVisualization(simulation, fullscreen)
 
 const selectedCarVin = ref<string | undefined>()
 const selectedCar = computed(() =>
@@ -37,7 +38,7 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
     v-if="simulation"
     :viewBox="`${config.start} 0 ${config.end} ${config.height}`"
   >
-    <Road :config="config" :simulation="simulation" />
+    <Road :config="config" />
     <TrafficLight
       v-for="trafficLight of trafficLights"
       :key="trafficLight.id"

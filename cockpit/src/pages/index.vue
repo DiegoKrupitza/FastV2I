@@ -18,27 +18,25 @@ watch(
 const { getSimulation } = useSimulation()
 const simulation = asyncComputed(() => getSimulation())
 const { cars, trafficLights } = useSimulationState()
+
+const { t } = useI18n()
 </script>
 
 <template>
-  <div class="simulation flex flex-col gap-2 pa-4 h-full">
-    <Button
-      :disabled="!isSimulationActive"
-      class="max-w-16"
-      @click="stopSimulation()"
-    >
-      Stop
-    </Button>
+  <div class="position-fixed inset-0 h-full w-full">
     <Simulation
       v-if="simulation"
-      :simulation="simulation"
       :cars="cars"
+      :fullscreen="true"
+      :simulation="simulation"
       :traffic-lights="trafficLights"
     />
   </div>
+  <Button
+    :disabled="!isSimulationActive"
+    class="position-fixed top-4 left-4"
+    @click="stopSimulation()"
+  >
+    {{ t('button.stop') }}
+  </Button>
 </template>
-<style scoped>
-.simulation {
-  width: calc(100% - 2rem);
-}
-</style>

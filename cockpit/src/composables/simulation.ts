@@ -70,8 +70,10 @@ export interface VisualizationConfig {
 }
 
 export function useSimulationVisualization(
-  simulation: Ref<Simulation>
+  simulation: Ref<Simulation>,
+  fullscreen: Ref<boolean>
 ): ComputedRef<VisualizationConfig> {
+  const { height: windowHeight, width: windowWidth } = useWindowSize()
   return computed(() => {
     const length = simulation.value?.scenarioLength ?? 0
     const roadSize = length / 75
@@ -81,7 +83,11 @@ export function useSimulationVisualization(
 
     const start = -padding
     const end = length + 2 * padding
-    const height = length / 2
+
+    let height = length / 2
+    if (fullscreen.value) {
+      height = ((end - start) / windowWidth.value) * windowHeight.value
+    }
 
     return {
       actorSize,
