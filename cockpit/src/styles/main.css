@@ -8,8 +8,19 @@ body,
   padding: 0;
 }
 
+:root {
+  --background: #fff;
+  --primary: #007afe;
+  --c-link: var(--primary);
+}
+
 html.dark {
-  background: #121212;
+  --background: #121212;
+  --primary: #fdd888;
+}
+
+html {
+  background: var(--background);
 }
 
 #nprogress {
@@ -27,15 +38,6 @@ mark {
   color: inherit;
   font-style: italic;
   font-weight: bold;
-}
-
-:root {
-  --primary: #007afe;
-  --c-link: var(--primary);
-}
-
-html.dark {
-  --primary: #fdd888;
 }
 
 a {
