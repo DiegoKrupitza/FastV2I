@@ -1,55 +1,51 @@
 <script setup lang="ts">
-import type { TrafficLight } from '~/types'
+import { useSimulationVisualization } from '~/composables'
+import type { Simulation, TrafficLight } from '~/types'
 
-const props = defineProps<{ trafficLight: TrafficLight }>()
+const props =
+  defineProps<{ simulation: Simulation; trafficLight: TrafficLight }>()
 const { trafficLight } = toRefs(props)
-
-const MAX_RADIUS = 100
-const radius = computed(() => {
-  if (trafficLight.value.scanDistance > MAX_RADIUS) {
-    return MAX_RADIUS
-  } else {
-    return trafficLight.value.scanDistance - 1
-  }
-})
 
 const emit = defineEmits<{
   (eventName: 'select', trafficLight: TrafficLight): void
 }>()
+
+const { actorSize, roadSize, height } = useSimulationVisualization()
 </script>
 
 <template>
   <g>
     <rect
-      :y="-2500"
-      :height="5000"
-      :x="trafficLight.location - 100"
-      :width="200"
+      :y="0"
+      :height="height"
+      :x="trafficLight.location - 0.5 * roadSize"
+      :width="roadSize"
       class="fill-gray dark:filter-invert"
     />
     <line
       :x1="trafficLight.location"
       :x2="trafficLight.location"
-      :y1="-2500"
-      :y2="2500"
-      class="stroke-16 stroke-yellow"
-      :style="{ 'stroke-dasharray': 50 }"
+      :y1="0"
+      :y2="height"
+      class="stroke-yellow"
+      :style="{ 'stroke-width': roadSize / 5, 'stroke-dasharray': roadSize }"
     />
     <circle
       :cx="trafficLight.location"
-      :cy="50"
+      :cy="0.5 * height"
       :r="trafficLight.scanDistance"
       class="fill-black dark:filter-invert op25"
     />
     <circle
       :cx="trafficLight.location"
-      :cy="50"
-      :r="radius"
+      :cy="0.5 * height"
+      :r="actorSize"
       :class="{
         'fill-green400': trafficLight.color === 'green',
         'fill-red': trafficLight.color === 'red',
       }"
-      class="stroke-16 stroke-black"
+      class="stroke-black"
+      :style="{ 'stroke-width': actorSize / 5 }"
       @click="emit('select', trafficLight)"
     />
   </g>

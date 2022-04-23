@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { useSimulation, useSimulationState } from '~/composables'
+import {
+  useSimulation,
+  useSimulationState,
+  useSimulationVisualization,
+} from '~/composables'
 import type { Car, TrafficLight } from '~/types'
 
 const { getSimulation } = useSimulation()
 const simulation = asyncComputed(() => getSimulation())
 const { cars, trafficLights } = useSimulationState()
-const simulationPadding = computed(() => {
-  const scenarioLength = simulation.value?.scenarioLength ?? 0
-  if (scenarioLength <= 1000) {
-    return 100
-  } else {
-    return 0.1 * scenarioLength
-  }
-})
-
+const { end, height, start } = useSimulationVisualization()
 const selectedCarVin = ref<string | undefined>()
 const selectedCar = computed(() =>
   cars.value.find((car) => car.vin === selectedCarVin.value)
@@ -40,14 +36,13 @@ function onTrafficLightSelected(trafficLight: TrafficLight) {
   <svg
     v-if="simulation"
     class="flex-1"
-    :viewBox="`${-simulationPadding} 0 ${
-      simulation?.scenarioLength + 2 * simulationPadding
-    } 100`"
+    :viewBox="`${start} 0 ${end} ${height}`"
   >
     <Road :simulation="simulation" />
     <TrafficLight
       v-for="trafficLight of trafficLights"
       :key="trafficLight.id"
+      :simulation="simulation"
       :traffic-light="trafficLight"
       @select="onTrafficLightSelected"
     />

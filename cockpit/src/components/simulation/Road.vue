@@ -1,26 +1,24 @@
 <script setup lang="ts">
-import type { Simulation } from '~/types'
-
-const props = defineProps<{ simulation: Simulation }>()
-const { simulation } = toRefs(props)
+import { useSimulationVisualization } from '~/composables'
+const { end, height, roadSize, start } = useSimulationVisualization()
 </script>
 
 <template>
   <g>
     <rect
-      :y="-50"
-      :height="200"
-      :width="simulation?.scenarioLength"
-      :rx="50"
+      :x="start"
+      :y="height / 2 - 0.5 * roadSize"
+      :height="roadSize"
+      :width="end - start"
       class="fill-gray dark:filter-invert"
     />
     <line
-      :x1="0"
-      :x2="simulation?.scenarioLength"
-      :y1="50"
-      :y2="50"
-      class="stroke-16 stroke-yellow"
-      :style="{ 'stroke-dasharray': 50 }"
+      :x1="start"
+      :x2="end"
+      :y1="height / 2"
+      :y2="height / 2"
+      class="stroke-yellow"
+      :style="{ 'stroke-width': roadSize / 5, 'stroke-dasharray': roadSize }"
     />
   </g>
 </template>

@@ -57,3 +57,24 @@ export function useSimulationPolling() {
     }
   }, pollingRate)
 }
+
+export function useSimulationVisualization() {
+  const { getSimulation } = useSimulation()
+  const simulation = asyncComputed(async () => await getSimulation())
+  const length = computed(() => simulation?.value?.scenarioLength ?? 0)
+  const roadSize = computed(() => length.value / 75)
+  const actorSize = computed(() => 0.5 * roadSize.value)
+  const padding = computed(() => actorSize.value)
+  const start = computed(() => -padding.value)
+  const end = computed(() => length.value + 2 * padding.value)
+  const height = computed(() => length.value * 0.5)
+
+  return {
+    actorSize,
+    end,
+    height,
+    padding,
+    roadSize,
+    start,
+  }
+}

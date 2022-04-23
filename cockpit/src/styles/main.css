@@ -84,6 +84,6 @@ h6 {
   line-height: 1.5em;
 }
 
-.formkit-input {
+.dark .formkit-input {
   color: unset;
 }
