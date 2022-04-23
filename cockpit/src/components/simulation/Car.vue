@@ -9,17 +9,17 @@ const emit = defineEmits<{
   (eventName: 'select', car: Car): void
 }>()
 
-const { actorSize, height } = useSimulationVisualization()
+const config = useSimulationVisualization()
 </script>
 
 <template>
   <g>
     <circle
       :cx="car.location"
-      :cy="0.5 * height"
-      :r="actorSize"
+      :cy="0.5 * config.height"
+      :r="config.actorSize"
       class="fill-blue stroke-8 stroke-black"
-      :style="{ 'stroke-width': actorSize / 5 }"
+      :style="{ 'stroke-width': config.actorSize / 5 }"
       @click="emit('select', car)"
     />
   </g>

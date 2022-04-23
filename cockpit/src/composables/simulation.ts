@@ -1,4 +1,5 @@
 import type { UseMemoizedFn } from '@vueuse/core'
+import type { ComputedRef } from 'vue'
 
 import { useBackend } from '~/composables'
 import type { NewSimulation, Simulation } from '~/types'
@@ -58,23 +59,39 @@ export function useSimulationPolling() {
   }, pollingRate)
 }
 
-export function useSimulationVisualization() {
+export interface VisualizationSettings {
+  actorSize: number
+  end: number
+  height: number
+  padding: number
+  roadMarkingSize: number
+  roadSize: number
+  start: number
+}
+
+export function useSimulationVisualization(): ComputedRef<VisualizationSettings> {
   const { getSimulation } = useSimulation()
   const simulation = asyncComputed(async () => await getSimulation())
-  const length = computed(() => simulation?.value?.scenarioLength ?? 0)
-  const roadSize = computed(() => length.value / 75)
-  const actorSize = computed(() => 0.5 * roadSize.value)
-  const padding = computed(() => actorSize.value)
-  const start = computed(() => -padding.value)
-  const end = computed(() => length.value + 2 * padding.value)
-  const height = computed(() => length.value * 0.5)
+  return computed(() => {
+    const length = simulation.value?.scenarioLength ?? 0
+    const roadSize = length / 75
+    const roadMarkingSize = roadSize / 10
+    const actorSize = roadSize / 2
+    const padding = actorSize
 
-  return {
-    actorSize,
-    end,
-    height,
-    padding,
-    roadSize,
-    start,
-  }
+    const start = -padding
+    const end = length + 2 * padding
+    const height = length / 2
+
+    return {
+      actorSize,
+      end,
+      height,
+      length,
+      padding,
+      roadMarkingSize,
+      roadSize,
+      start,
+    }
+  })
 }

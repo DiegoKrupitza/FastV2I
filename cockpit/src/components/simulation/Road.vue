@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import { useSimulationVisualization } from '~/composables'
-const { end, height, roadSize, start } = useSimulationVisualization()
+const config = useSimulationVisualization()
 </script>
 
 <template>
   <g>
     <rect
-      :x="start"
-      :y="height / 2 - 0.5 * roadSize"
-      :height="roadSize"
-      :width="end - start"
+      :x="config.start"
+      :y="config.height / 2 - 0.5 * config.roadSize"
+      :height="config.roadSize"
+      :width="config.end - config.start"
       class="fill-gray dark:filter-invert"
     />
     <line
-      :x1="start"
-      :x2="end"
-      :y1="height / 2"
-      :y2="height / 2"
+      :x1="config.start"
+      :x2="config.end"
+      :y1="config.height / 2"
+      :y2="config.height / 2"
       class="stroke-yellow"
-      :style="{ 'stroke-width': roadSize / 5, 'stroke-dasharray': roadSize }"
+      :style="{
+        'stroke-width': config.roadMarkingSize,
+        'stroke-dasharray': config.roadSize,
+      }"
     />
   </g>
 </template>
