@@ -61,6 +61,58 @@ async function submit() {
   await startSimulation(config)
 }
 
+// TODO: Randomize config
+async function startRandom() {
+  const config: NewSimulation = {
+    trafficLights: [
+      {
+        id: 'T1',
+        position: 4000, // m
+        scanDistance: 2000, // m
+        entryDelay: 0, // ms
+        stateHoldSeconds: 10, // s
+      },
+      {
+        id: 'T2',
+        position: 8000,
+        scanDistance: 2000,
+        entryDelay: 0,
+        stateHoldSeconds: 10,
+      },
+      {
+        id: 'T3',
+        position: 12000,
+        scanDistance: 2000,
+        entryDelay: 0,
+        stateHoldSeconds: 10,
+      },
+    ],
+    cars: [
+      {
+        vin: 'V1',
+        oem: 'VW',
+        model: 'Caddy',
+        entryTime: 0, // ms
+        speed: 50, // m/s
+        location: 0, // m
+        destination: 18000, // m
+      },
+      {
+        vin: 'V2',
+        oem: 'BMW',
+        model: 'Z4',
+        entryTime: 0,
+        speed: 30,
+        location: 18000,
+        destination: 0,
+      },
+    ],
+    scenarioLength: 18000, // m
+    timelapse: false,
+  }
+  await startSimulation(config)
+}
+
 const { t } = useI18n()
 </script>
 
@@ -68,13 +120,22 @@ const { t } = useI18n()
   <div class="w-full">
     <div>
       <div class="flex flex-col gap-2 pa-4">
-        <Button
-          :disabled="isSimulationActive || validationError"
-          class="max-w-16"
-          @click="submit()"
-        >
-          {{ t('button.start') }}
-        </Button>
+        <div class="flex gap-2">
+          <Button
+            :disabled="isSimulationActive || validationError"
+            class="max-w-16"
+            @click="submit()"
+          >
+            {{ t('button.start') }}
+          </Button>
+          <Button
+            :disabled="isSimulationActive"
+            class="max-w-16"
+            @click="startRandom()"
+          >
+            {{ t('button.random') }}
+          </Button>
+        </div>
         <span v-if="validationError" class="color-red">
           {{ validationError }}
         </span>

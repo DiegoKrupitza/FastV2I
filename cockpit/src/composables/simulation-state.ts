@@ -48,7 +48,7 @@ async function fetchTrafficLights() {
   )
 }
 
-export function useSimulationState(pollingRate = 5000): UseSimulationState {
+export function useSimulationState(pollingRate = 500): UseSimulationState {
   let requestInProgess = false
 
   async function fetchState() {

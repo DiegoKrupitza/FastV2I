@@ -16,6 +16,7 @@ export interface CarEntity {
 
 export interface CarState {
   vin: string
+  location: number
   timestamp: string
 }
 
@@ -34,7 +35,7 @@ export interface NewCar {
 export interface TrafficLightEntity {
   id: string
   location: number
-  scanRadius: number
+  scanDistance: number
 }
 
 export interface TrafficLightState {
