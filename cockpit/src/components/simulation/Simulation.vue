@@ -4,15 +4,22 @@ import { useSimulation, useSimulationState } from '~/composables'
 const { getSimulation } = useSimulation()
 const simulation = asyncComputed(() => getSimulation())
 const { cars, trafficLights } = useSimulationState()
-const SIMULATION_PADDING = 200
+const simulationPadding = computed(() => {
+  const scenarioLength = simulation.value?.scenarioLength ?? 0
+  if (scenarioLength <= 1000) {
+    return 100
+  } else {
+    return 0.1 * scenarioLength
+  }
+})
 </script>
 
 <template>
   <svg
     v-if="simulation"
     class="flex-1"
-    :viewBox="`${-SIMULATION_PADDING} 0 ${
-      simulation?.scenarioLength + SIMULATION_PADDING
+    :viewBox="`${-simulationPadding} 0 ${
+      simulation?.scenarioLength + 2 * simulationPadding
     } 100`"
   >
     <TrafficLight
