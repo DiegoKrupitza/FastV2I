@@ -7,7 +7,6 @@ import Toast from 'vue-toastification'
 
 import App from './App.vue'
 
-import '@formkit/themes/genesis'
 import '@unocss/reset/normalize.css'
 import 'uno.css'
 import 'vue-toastification/dist/index.css'
@@ -24,6 +23,10 @@ export const createApp = ViteSSG(
     Object.values(import.meta.globEager('./modules/*.ts')).map((i) =>
       i.install?.(ctx)
     )
+    if (!import.meta.env.SSR) {
+      // @ts-expect-error Workaround
+      import('@formkit/themes/genesis')
+    }
     ctx.app.use(plugin, defaultConfig)
     ctx.app.use(MasonryWall)
     ctx.app.use(Toast)
