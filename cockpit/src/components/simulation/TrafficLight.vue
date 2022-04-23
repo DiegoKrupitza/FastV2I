@@ -45,7 +45,7 @@ const emit = defineEmits<{
         'fill-green400': trafficLight.color === 'green',
         'fill-red': trafficLight.color === 'red',
       }"
-      class="stroke-black"
+      class="stroke-black cursor-pointer"
       :style="{ 'stroke-width': config.actorSize / 5 }"
       @click="emit('select', trafficLight)"
     />

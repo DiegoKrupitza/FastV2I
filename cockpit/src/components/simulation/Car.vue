@@ -16,7 +16,7 @@ const emit = defineEmits<{
       :cx="car.location"
       :cy="0.5 * config.height"
       :r="config.actorSize"
-      class="fill-blue stroke-8 stroke-black"
+      class="fill-blue stroke-8 stroke-black cursor-pointer"
       :style="{ 'stroke-width': config.actorSize / 5 }"
       @click="emit('select', car)"
     />

@@ -1,5 +1,5 @@
 import type { UseMemoizedFn } from '@vueuse/core'
-import type { ComputedRef } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 
 import { useBackend } from '~/composables'
 import type { NewSimulation, Simulation } from '~/types'
@@ -69,9 +69,9 @@ export interface VisualizationConfig {
   start: number
 }
 
-export function useSimulationVisualization(): ComputedRef<VisualizationConfig> {
-  const { getSimulation } = useSimulation()
-  const simulation = asyncComputed(async () => await getSimulation())
+export function useSimulationVisualization(
+  simulation: Ref<Simulation>
+): ComputedRef<VisualizationConfig> {
   return computed(() => {
     const length = simulation.value?.scenarioLength ?? 0
     const roadSize = length / 75
