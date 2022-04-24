@@ -32,7 +32,7 @@ export async function routes(server: FastifyInstance) {
 
   server.get(
     '/cars/:vin/latest',
-    async (req: FastifyRequest<{ Params: { vin: string } }>, res) => {
+    async (req: FastifyRequest<{ Params: { vin: string } }>) => {
       const vin = req.params.vin
       const [car] =
         (await collections.cars
@@ -43,8 +43,7 @@ export async function routes(server: FastifyInstance) {
           .limit(1)
           .toArray()) ?? []
       if (!car) {
-        res.statusCode = 404
-        return null
+        return {}
       }
       return Mappers.carToCarDto(car)
     }
@@ -70,7 +69,7 @@ export async function routes(server: FastifyInstance) {
 
   server.get(
     '/traffic-lights/:id/latest',
-    async (req: FastifyRequest<{ Params: { id: string } }>, res) => {
+    async (req: FastifyRequest<{ Params: { id: string } }>) => {
       const id = req.params.id
       const [trafficLight] =
         (await collections.trafficLights
@@ -81,8 +80,7 @@ export async function routes(server: FastifyInstance) {
           .limit(1)
           .toArray()) ?? []
       if (!trafficLight) {
-        res.statusCode = 404
-        return null
+        return {}
       }
       return Mappers.trafficLightToTrafficLightDto(trafficLight)
     }

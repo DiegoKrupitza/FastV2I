@@ -35,11 +35,13 @@ async function insertTestData() {
     [
       {
         id: 'tl-1',
-        location: [1, 1],
+        location: 7,
+        scanDistance: 1,
       },
       {
         id: 'tl-2',
-        location: [42, 7],
+        location: 42,
+        scanDistance: 1,
       },
     ].map(Mappers.trafficLightDtoToTrafficLight)
   )

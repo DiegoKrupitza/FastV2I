@@ -54,8 +54,8 @@ describe('traffic lights', () => {
         method: 'GET',
         url: '/tracking/traffic-lights/does-not-exist/latest',
       })
-      expect(response.statusCode).toEqual(404)
-      expect(JSON.parse(response.body)).toEqual(null)
+      expect(response.statusCode).toEqual(200)
+      expect(JSON.parse(response.body)).toEqual({})
     })
   })
 })
