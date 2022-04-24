@@ -16,13 +16,6 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class RabbitMQConfig {
 
-  /*
-  @Value("${flowcontrol.carStateMom}")
-  String carStateQueueName;
-
-  @Value("${flowcontrol.speedMom}")
-  String speedQueueName;
-   */
 
   private final FlowControlProperties flowControlProperties;
 

@@ -54,6 +54,14 @@ public class FlowControlService {
     return speed;
   }
 
+  /**
+   * Calculates the optimal speed for the car depending on the remaining time of the red traffic light and its distance to the car.
+   * @param car the current state of the car
+   * @param remainingTimeInSeconds how long the traffic light remains red
+   * @param distance the distance between car and traffic light
+   * @return keeps the speed if the car will not reach the traffic light before traffic light state changes, decreases speed up to min speed
+   * if the car would cross the red line with its current speed or accelerates for smoother crossing of traffic light after state change
+   */
   private long calculateCarSpeedRedTrafficLight(CarStateDto car, double remainingTimeInSeconds, double distance) {
     long speed;
     long speedNeeded = (long) ((distance - flowControlProperties.getTrafficLightPadding())/ remainingTimeInSeconds); // -PADDING, so you do not cross the red traffic light
@@ -67,6 +75,14 @@ public class FlowControlService {
     return speed;
   }
 
+  /**
+   * Calculates the optimal speed for the car depending on the remaining time of the green traffic light and its distance to the car.
+   * @param car the current state of the car
+   * @param remainingTimeInSeconds how long the traffic light remains green
+   * @param distance the distance between car and traffic light
+   * @return max speed if car was standing still. Returns min speed if the car is not able to cross the traffic light with max speed.
+   * If needed accelerates in order to cross the traffic light before state changes, otherwise no acceleration
+   */
   private long calculateCarSpeedGreenTrafficLight(CarStateDto car, double remainingTimeInSeconds, double distance) {
     long speed;
     long speedNeeded = (long) ((distance + flowControlProperties.getTrafficLightPadding())/ remainingTimeInSeconds); // +PADDING, so you arrive at traffic light when it is still green
