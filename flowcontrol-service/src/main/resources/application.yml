@@ -34,6 +34,7 @@ flowcontrol:
   maxNumberOfLights: 4
   minCarSpeed: 25
   maxCarSpeed: 130
+  trafficLightPadding: 10
   carStateTrackingMom: car-state-tracking
   carStateFlowMom: car-state-flow
   carMom: car
