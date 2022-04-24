@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { useSimulation, useSimulationState } from '~/composables'
+import {
+  useRandomSimulation,
+  useSimulation,
+  useSimulationState,
+} from '~/composables'
 
-const { isSimulationActive, stopSimulation } = useSimulation()
+const { isSimulationActive, startSimulation, stopSimulation } = useSimulation()
 
 const router = useRouter()
 
@@ -23,6 +27,13 @@ watch(
 const { canRestart, getSimulation, restartSimulation } = useSimulation()
 const simulation = asyncComputed(() => getSimulation())
 const { cars, trafficLights } = useSimulationState()
+
+const createRandomSimulation = useRandomSimulation(
+  computed(() => simulation.value?.timelapse ?? false)
+)
+async function startRandom() {
+  await startSimulation(createRandomSimulation())
+}
 </script>
 
 <template>
@@ -36,15 +47,23 @@ const { cars, trafficLights } = useSimulationState()
     />
   </div>
   <div class="position-fixed top-4 left-4 flex gap-2">
-    <Button :disabled="!isSimulationActive" @click="stopSimulation()">
+    <Button
+      :disabled="!isSimulationActive"
+      class="btn-red"
+      @click="stopSimulation()"
+    >
       {{ t('button.stop') }}
     </Button>
     <Button
       v-if="canRestart"
+      class="btn-yellow"
       :disabled="!isSimulationActive"
       @click="restartSimulation()"
     >
       {{ t('button.restart') }}
+    </Button>
+    <Button class="btn-green" @click="startRandom()">
+      {{ t('button.random') }}
     </Button>
   </div>
 </template>

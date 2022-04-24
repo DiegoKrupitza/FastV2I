@@ -114,8 +114,11 @@ export default defineConfig({
         ['icon-btn', 'btn-base leading-30px'],
         [
           'text-btn',
-          'btn-base text-sm op-90 px-4 py-2 bg-green dark:bg-green500 enabled:hover:shadow-xl',
+          'btn-base text-sm op-90 px-4 py-2 enabled:hover:shadow-xl',
         ],
+        ['btn-green', ' bg-green dark:bg-green500 '],
+        ['btn-red', ' bg-red dark:bg-red500 '],
+        ['btn-yellow', ' bg-yellow dark:bg-yellow600 '],
         ['prose', 'text-light fw400 lh-7'],
         ['flex-center', 'flex items-center'],
         [

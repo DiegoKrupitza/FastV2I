@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { v4 } from 'uuid'
+
 import {
   useRandomSimulation,
   useSimulation,
@@ -62,6 +64,7 @@ const validationError = useValidation({ cars, trafficLights })
 
 async function submit() {
   const config: NewSimulation = {
+    id: v4(),
     cars: Object.values(cars.value),
     scenarioLength: scenarioLength.value,
     timelapse: enableTimelapse.value,
@@ -83,14 +86,14 @@ async function startRandom() {
         <div class="flex gap-2">
           <Button
             :disabled="isSimulationActive || validationError"
-            class="max-w-16"
+            class="btn-green"
             @click="submit()"
           >
             {{ t('button.start') }}
           </Button>
           <Button
             :disabled="isSimulationActive"
-            class="max-w-16"
+            class="btn-green"
             @click="startRandom()"
           >
             {{ t('button.random') }}

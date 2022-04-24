@@ -7,6 +7,27 @@ function randomInRange(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+function randomizeTrafficLights(scenarioLength: number): NewTrafficLight[] {
+  const total = randomInRange(1, 4)
+  const trafficLights: NewTrafficLight[] = []
+  const sectionLength = scenarioLength / total
+  new Array(total).fill(undefined).forEach(() => {
+    const sectionStart = sectionLength * trafficLights.length
+    const sectionEnd = sectionStart + sectionLength
+    const position = randomInRange(sectionStart, sectionEnd)
+    const scanDistance =
+      Math.min(sectionEnd - position, position - sectionStart) - 1
+    trafficLights.push({
+      id: `TL-${trafficLights.length + 1}`,
+      position,
+      scanDistance,
+      entryDelay: randomInRange(0, 5000),
+      stateHoldSeconds: randomInRange(5, 15),
+    })
+  })
+  return trafficLights
+}
+
 const MODELS: Record<string, string[]> = {
   VW: ['Golf', 'Passat'],
   Ford: ['Focus', 'Fiesta'],
@@ -24,7 +45,22 @@ function getRandomModel(oem: OEM): string {
   return models[randomInRange(0, models.length - 1)]
 }
 
-function randomizeCars(scenarioLength: number): NewCar[] {
+function isInAnyRadius(
+  location: number,
+  trafficLights: NewTrafficLight[]
+): boolean {
+  return trafficLights.some((trafficLight) => {
+    return (
+      trafficLight.position - trafficLight.scanDistance <= location &&
+      location <= trafficLight.position + trafficLight.scanDistance
+    )
+  })
+}
+
+function randomizeCars(
+  scenarioLength: number,
+  trafficLights: NewTrafficLight[]
+): NewCar[] {
   const vinCounters = Object.fromEntries(
     Object.entries(MODELS).map(([oem, models]) => [
       oem,
@@ -35,7 +71,10 @@ function randomizeCars(scenarioLength: number): NewCar[] {
     const oem = getRandomOEM()
     const model = getRandomModel(oem)
     const location = randomInRange(0, scenarioLength)
-    const destination = randomInRange(0, scenarioLength)
+    let destination = randomInRange(0, scenarioLength)
+    while (isInAnyRadius(destination, trafficLights)) {
+      destination = randomInRange(0, scenarioLength)
+    }
     const vin = `${oem}-${model}-${++vinCounters[oem][model]}`
     return {
       vin,
@@ -49,28 +88,16 @@ function randomizeCars(scenarioLength: number): NewCar[] {
   })
 }
 
-function randomizeTrafficLights(scenarioLength: number): NewTrafficLight[] {
-  const trafficLights: NewTrafficLight[] = []
-  new Array(randomInRange(1, 4)).fill(undefined).forEach(() => {
-    trafficLights.push({
-      id: v4(),
-      position: randomInRange(2, scenarioLength - 2),
-      scanDistance: 1,
-      entryDelay: randomInRange(0, 5000),
-      stateHoldSeconds: randomInRange(5, 15),
-    })
-  })
-  return trafficLights
-}
-
 export function useRandomSimulation(
   timelapse: Ref<boolean>
 ): () => NewSimulation {
   return () => {
-    const scenarioLength = 15000
+    const scenarioLength = randomInRange(500, 15000)
+    const trafficLights = randomizeTrafficLights(scenarioLength)
     return {
-      cars: randomizeCars(scenarioLength),
-      trafficLights: randomizeTrafficLights(scenarioLength),
+      id: v4(),
+      cars: randomizeCars(scenarioLength, trafficLights),
+      trafficLights,
       scenarioLength,
       timelapse: timelapse.value,
     }
