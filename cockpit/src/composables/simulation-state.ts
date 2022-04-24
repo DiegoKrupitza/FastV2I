@@ -11,47 +11,50 @@ import type {
   TrafficLightState,
 } from '~/types'
 
-const cars = ref<Car[]>([])
-const trafficLights = ref<TrafficLight[]>([])
-
 export interface UseSimulationState {
   cars: Ref<Car[]>
   trafficLights: Ref<TrafficLight[]>
 }
 
+const cars = ref<Car[]>([])
 let carEntities: CarEntity[] | undefined
-async function fetchCars() {
+async function fetchCars(done?: boolean) {
   const { get } = useBackend()
   if (!carEntities) {
     carEntities = (await get<CarEntity[]>('/entities/cars')).data
   }
-  cars.value = await Promise.all(
-    carEntities.map(async (car) => {
-      const latest = await get<CarState>(`/tracking/cars/${car.vin}/latest`, {
-        silent: true,
+  if (cars.value.length !== carEntities.length || !done) {
+    cars.value = await Promise.all(
+      carEntities.map(async (car) => {
+        const latest = await get<CarState>(`/tracking/cars/${car.vin}/latest`, {
+          silent: true,
+        })
+        return { ...car, ...latest.data }
       })
-      return { ...car, ...latest.data }
-    })
-  )
+    )
+  }
 }
 
+const trafficLights = ref<TrafficLight[]>([])
 let trafficLightEntities: TrafficLightEntity[] | undefined
-async function fetchTrafficLights() {
+async function fetchTrafficLights(done?: boolean) {
   const { get } = useBackend()
   if (!trafficLightEntities) {
     trafficLightEntities = (
       await get<TrafficLightEntity[]>('/entities/traffic-lights')
     ).data
   }
-  trafficLights.value = await Promise.all(
-    trafficLightEntities.map(async (trafficLight) => {
-      const latest = await get<TrafficLightState>(
-        `/tracking/traffic-lights/${trafficLight.id}/latest`,
-        { silent: true }
-      )
-      return { ...trafficLight, ...latest.data }
-    })
-  )
+  if (trafficLights.value.length !== trafficLightEntities.length || !done) {
+    trafficLights.value = await Promise.all(
+      trafficLightEntities.map(async (trafficLight) => {
+        const latest = await get<TrafficLightState>(
+          `/tracking/traffic-lights/${trafficLight.id}/latest`,
+          { silent: true }
+        )
+        return { ...trafficLight, ...latest.data }
+      })
+    )
+  }
 }
 
 function clearState() {
@@ -64,13 +67,19 @@ function clearState() {
 export function useSimulationState(pollingRate = 500): UseSimulationState {
   let requestInProgess = false
 
+  const { getSimulation } = useSimulation()
+  const simulation = asyncComputed(async () => getSimulation())
+
   async function fetchState() {
     if (requestInProgess) {
       return
     }
     requestInProgess = true
     try {
-      await Promise.all([fetchCars(), fetchTrafficLights()])
+      await Promise.all([
+        fetchCars(simulation.value?.done),
+        fetchTrafficLights(simulation.value?.done),
+      ])
     } catch (e) {
       console.error(e)
     }
@@ -78,9 +87,6 @@ export function useSimulationState(pollingRate = 500): UseSimulationState {
   }
 
   const { pause, resume } = useIntervalFn(async () => fetchState(), pollingRate)
-
-  const { getSimulation } = useSimulation()
-  const simulation = asyncComputed(async () => getSimulation())
 
   watch(
     simulation,
