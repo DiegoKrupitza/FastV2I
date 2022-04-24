@@ -47,6 +47,7 @@ const emit = defineEmits<{
       :class="{
         'fill-green400': trafficLight.color === 'green',
         'fill-red': trafficLight.color === 'red',
+        'fill-yellow': !trafficLight.color,
       }"
       class="stroke-black cursor-pointer"
       :style="{

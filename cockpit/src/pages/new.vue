@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { useSimulation, useValidation } from '~/composables'
+import {
+  useRandomSimulation,
+  useSimulation,
+  useValidation,
+} from '~/composables'
 import type { NewCar, NewSimulation, NewTrafficLight } from '~/types'
 
 const { isSimulationActive, startSimulation } = useSimulation()
@@ -66,56 +70,9 @@ async function submit() {
   await startSimulation(config)
 }
 
-// TODO: Randomize config
+const createRandomSimulation = useRandomSimulation(enableTimelapse)
 async function startRandom() {
-  const config: NewSimulation = {
-    trafficLights: [
-      {
-        id: 'T1',
-        position: 4000, // m
-        scanDistance: 1500, // m
-        entryDelay: 0, // ms
-        stateHoldSeconds: 10, // s
-      },
-      {
-        id: 'T2',
-        position: 8000,
-        scanDistance: 2000,
-        entryDelay: 0,
-        stateHoldSeconds: 10,
-      },
-      {
-        id: 'T3',
-        position: 12000,
-        scanDistance: 1000,
-        entryDelay: 0,
-        stateHoldSeconds: 10,
-      },
-    ],
-    cars: [
-      {
-        vin: 'V1',
-        oem: 'VW',
-        model: 'Caddy',
-        entryTime: 0, // ms
-        speed: 50, // m/s
-        location: 0, // m
-        destination: 18000, // m
-      },
-      {
-        vin: 'V2',
-        oem: 'BMW',
-        model: 'Z4',
-        entryTime: 0,
-        speed: 30,
-        location: 18000,
-        destination: 0,
-      },
-    ],
-    scenarioLength: 18000, // m
-    timelapse: false,
-  }
-  await startSimulation(config)
+  await startSimulation(createRandomSimulation())
 }
 </script>
 
