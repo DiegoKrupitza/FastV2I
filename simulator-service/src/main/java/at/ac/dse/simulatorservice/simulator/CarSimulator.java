@@ -83,6 +83,7 @@ public class CarSimulator extends SimulatorBase {
     if (car.getDestination() <= (car.getLocation() * direction.getModificator())) {
       log.info("Car {} reached its destinations", car.getVin());
 
+      car.setSpeed(0L);
       car.setLocation(car.getDestination());
       sendCarStateToMom();
 
