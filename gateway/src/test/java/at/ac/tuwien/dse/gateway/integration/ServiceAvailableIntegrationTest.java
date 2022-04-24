@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
-class CustomServicesIntegrationTest {
+class ServiceAvailableIntegrationTest {
 
   @MockBean
   private DiscoveryClient discoveryClient;
