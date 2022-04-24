@@ -85,7 +85,7 @@ public class CarSimulator extends SimulatorBase {
     Long newLocation = car.getLocation() + (direction.getModificator() * pointsToMove);
     car.setLocation(newLocation);
     // stop if we reached our position
-    if (car.getDestination() <= (car.getLocation() * direction.getModificator())) {
+    if (reachedDestination()) {
       log.info("Car {} reached its destinations", car.getVin());
 
       car.setSpeed(0L);
@@ -100,6 +100,21 @@ public class CarSimulator extends SimulatorBase {
     sendCarStateToMom();
 
     Thread.sleep(adjustedTime(1000L));
+  }
+
+  /**
+   * Checks whether the car reached its destination or not
+   *
+   * @return <code>true</code> if reacher otherwise <code>false</code>.
+   */
+  private boolean reachedDestination() {
+    if (direction.equals(Direction.BOTTOM_TO_TOP)) {
+      return this.car.getLocation() >= this.car.getDestination();
+    } else if (direction.equals(Direction.TOP_TO_BOTTOM)) {
+      return this.car.getLocation() <= this.car.getDestination();
+    }
+
+    return false;
   }
 
   private void sendCarStateToMom() {
