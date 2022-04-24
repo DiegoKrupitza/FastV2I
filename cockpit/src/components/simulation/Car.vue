@@ -14,6 +14,7 @@ const emit = defineEmits<{
 <template>
   <g>
     <circle
+      v-if="car.location"
       :cx="car.location"
       :cy="0.5 * config.height"
       :r="isSelected ? 2 * config.actorSize : config.actorSize"
