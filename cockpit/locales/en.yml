@@ -8,6 +8,9 @@ button:
   toggle_dark: Toggle dark mode
 
 entities:
+  simulation:
+    done: Done
+    in-progress: In progress
   traffic-light:
     next-change: '{seconds}s until next change'
     scan-radius: '{radius}m scan radius'

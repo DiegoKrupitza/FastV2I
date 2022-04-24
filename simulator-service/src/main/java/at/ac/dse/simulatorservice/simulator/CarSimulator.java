@@ -20,6 +20,7 @@ public class CarSimulator extends SimulatorBase {
   private final FlowControlSpeedService flowControlSpeedRecommendation;
   private final Car car;
   private Direction direction;
+  private boolean done;
 
   public CarSimulator(
       SimulatorProperties simulatorProperties,
@@ -31,6 +32,10 @@ public class CarSimulator extends SimulatorBase {
     super(simulatorProperties, rabbitTemplate, fanoutExchange, timelapse);
     this.flowControlSpeedRecommendation = flowControlSpeedRecommendation;
     this.car = car;
+  }
+
+  public boolean isDone() {
+    return done;
   }
 
   @Override
@@ -86,6 +91,7 @@ public class CarSimulator extends SimulatorBase {
       car.setSpeed(0L);
       car.setLocation(car.getDestination());
       sendCarStateToMom();
+      done = true;
 
       stop();
       return;

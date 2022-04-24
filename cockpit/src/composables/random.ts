@@ -105,6 +105,7 @@ export function useRandomSimulation(
       trafficLights,
       scenarioLength,
       timelapse: timelapse.value,
+      done: false,
     }
   }
 }

@@ -31,6 +31,7 @@ public class SimulatorService {
 
   private final SimulatorProperties simulatorProperties;
 
+  private final List<CarSimulator> carSimulators = new ArrayList<>();
   private final List<Future<?>> threads = new ArrayList<>();
   private final FlowControlSpeedService flowControlSpeedRecommendation;
 
@@ -63,15 +64,15 @@ public class SimulatorService {
     }
 
     for (Car car : scenario.cars()) {
-      threads.add(
-          this.taskExecutor.submit(
-              new CarSimulator(
+      final var simulator = new CarSimulator(
                   simulatorProperties,
                   rabbitTemplate,
                   fanout,
                   scenario.timelapse(),
                   flowControlSpeedRecommendation,
-                  car)));
+          car);
+      carSimulators.add(simulator);
+      threads.add(this.taskExecutor.submit(simulator));
     }
 
     this.activeSimulation.set(scenario);
@@ -81,7 +82,9 @@ public class SimulatorService {
   public void resetSimulation() {
     // TODO: check if logic to kill the threads works
     this.threads.forEach(item -> item.cancel(true));
+    this.threads.clear();
     this.flowControlSpeedRecommendation.reset();
+    this.carSimulators.clear();
 
     // propagate the reset to the tracking services
     this.entityServiceFeign.resetAll();
@@ -91,6 +94,12 @@ public class SimulatorService {
   }
 
   public ScenarioDto getActiveSimulation() {
+    final var simulation = this.activeSimulation.get();
+    if (simulation != null && !simulation.done() && this.carSimulators.stream().allMatch(CarSimulator::isDone)) {
+      this.threads.forEach(item -> item.cancel(true));
+      return this.activeSimulation.updateAndGet(scenario -> scenario == null ? null : new ScenarioDto(scenario.id(), scenario.trafficLights(),
+          scenario.cars(), scenario.scenarioLength(), scenario.timelapse(), true));
+    }
     return this.activeSimulation.get();
   }
 }

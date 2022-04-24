@@ -46,6 +46,13 @@ async function startRandom() {
       :traffic-lights="trafficLights"
     />
   </div>
+  <span class="position-fixed bottom-4 left-4 text-sm text-lighter">
+    {{
+      simulation?.done
+        ? t('entities.simulation.done')
+        : t('entities.simulation.in-progress')
+    }}
+  </span>
   <div class="position-fixed top-4 left-4 flex gap-2">
     <Button
       :disabled="!isSimulationActive"
