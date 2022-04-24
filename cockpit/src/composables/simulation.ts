@@ -11,12 +11,16 @@ const createdSimulation = ref<Simulation | undefined>()
 let getSimulation: UseMemoizedFn<Promise<Simulation | undefined>, []>
 
 export function useSimulation() {
-  const { delete: del, get, post } = useBackend()
+  const { delete: del, get, post, getIsReady } = useBackend()
 
   if (!getSimulation) {
-    getSimulation = useMemoize(
-      async () => (await get<Simulation>('/simulator'))?.data
-    )
+    getSimulation = useMemoize(async () => {
+      const isReady = await getIsReady()
+      if (!isReady) {
+        return undefined
+      }
+      return (await get<Simulation>('/simulator'))?.data
+    })
   }
 
   const isSimulationActive = asyncComputed(
@@ -55,15 +59,8 @@ export function useSimulation() {
 }
 
 export function useSimulationPolling() {
-  const { get } = useBackend()
   const pollingRate = ref(FAST_POLLING_RATE)
   useIntervalFn(async () => {
-    const services = (
-      await get<{ up: boolean }[]>('/services', { silent: true })
-    ).data
-    if (services.some((service) => !service.up)) {
-      return
-    }
     const activeSimulation = await getSimulation.load()
     if (activeSimulation) {
       pollingRate.value = SLOW_POLLING_RATE
