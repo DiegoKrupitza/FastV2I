@@ -13,6 +13,7 @@ const { t } = useI18n()
         :class="{
           'color-green400': trafficLight.color === 'green',
           'color-red': trafficLight.color === 'red',
+          'color-yellow': !trafficLight.color,
         }"
       />
       {{ trafficLight.id }}
@@ -25,7 +26,7 @@ const { t } = useI18n()
         })
       }}
     </span>
-    <span>
+    <span v-if="trafficLight.remainingMilliseconds">
       {{
         t('entities.traffic-light.next-change', {
           seconds: (trafficLight.remainingMilliseconds / 1000).toFixed(1),

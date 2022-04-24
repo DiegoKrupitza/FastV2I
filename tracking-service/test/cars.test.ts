@@ -54,8 +54,8 @@ describe('cars', () => {
         method: 'GET',
         url: '/tracking/cars/does-not-exist/latest',
       })
-      expect(response.statusCode).toEqual(404)
-      expect(JSON.parse(response.body)).toEqual(null)
+      expect(response.statusCode).toEqual(200)
+      expect(JSON.parse(response.body)).toEqual({})
     })
   })
 })
