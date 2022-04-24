@@ -10,5 +10,6 @@ import java.util.List;
  * @version 1.0
  * @date 20.04.22
  */
-public record ScenarioDto(String id, List<TrafficLight> trafficLights, List<Car> cars, Long scenarioLength, boolean timelapse) {
+public record ScenarioDto(String id, List<TrafficLight> trafficLights, List<Car> cars, Long scenarioLength,
+    boolean timelapse, boolean done) {
 }

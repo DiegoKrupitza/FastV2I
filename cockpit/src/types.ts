@@ -7,6 +7,7 @@ export interface Simulation {
   /** Length in meters. */
   scenarioLength: number
   timelapse: boolean
+  done: boolean
 }
 
 export interface CarEntity {
@@ -68,4 +69,5 @@ export interface NewSimulation {
   scenarioLength: number
   timelapse: boolean
   trafficLights: NewTrafficLight[]
+  done: false
 }

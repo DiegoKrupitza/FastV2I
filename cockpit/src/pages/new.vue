@@ -69,6 +69,7 @@ async function submit() {
     scenarioLength: scenarioLength.value,
     timelapse: enableTimelapse.value,
     trafficLights: Object.values(trafficLights.value),
+    done: false,
   }
   await startSimulation(config)
 }
