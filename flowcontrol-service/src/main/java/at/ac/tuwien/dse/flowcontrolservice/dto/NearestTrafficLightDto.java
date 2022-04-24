@@ -2,7 +2,7 @@ package at.ac.tuwien.dse.flowcontrolservice.dto;
 
 import java.util.Objects;
 
-public record NearestTrafficLightDto(Long id, Long location, Long scanDistance) {
+public record NearestTrafficLightDto(String id, Long location, Long scanDistance) {
 
     @Override
     public boolean equals(Object o) {
