@@ -22,7 +22,7 @@ export interface CarState {
   timestamp: string
 }
 
-export type Car = CarEntity & CarState
+export type Car = CarEntity & Partial<CarState>
 
 export interface NewCar {
   vin: string
@@ -47,7 +47,7 @@ export interface TrafficLightState {
   timestamp: string
 }
 
-export type TrafficLight = TrafficLightEntity & TrafficLightState
+export type TrafficLight = TrafficLightEntity & Partial<TrafficLightState>
 
 export interface NewTrafficLight {
   id: string

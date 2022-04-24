@@ -21,19 +21,19 @@ async function insertTestData() {
       {
         vin: 'vw-passat-1',
         speed: 30,
-        location: [42, 7],
+        location: 42,
         timestamp: 12,
       },
       {
         vin: 'vw-passat-1',
         speed: 40,
-        location: [62, 7],
+        location: 7,
         timestamp: 15,
       },
       {
         vin: 'vw-polo-1',
         speed: 50,
-        location: [123, 321],
+        location: 123,
         timestamp: 10,
       },
     ].map(Mappers.carDtoToCar)
