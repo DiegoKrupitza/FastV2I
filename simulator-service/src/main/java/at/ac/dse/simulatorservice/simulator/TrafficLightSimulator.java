@@ -36,7 +36,7 @@ public class TrafficLightSimulator extends SimulatorBase {
             TrafficLightMapper.toTrafficLightMom(trafficLight));
 
     // init states
-    colorState = ColorState.RED;
+    colorState = ColorState.GREEN;
 
     getRabbitTemplate()
         .convertAndSend(
@@ -46,7 +46,7 @@ public class TrafficLightSimulator extends SimulatorBase {
                 colorState,
                 adjustedTime(trafficLight.getEntryDelay() + (trafficLight.getStateHoldInMs()))));
 
-    Thread.sleep(adjustedTime(trafficLight.getEntryDelay() + trafficLight.getStateHoldInMs()));
+    Thread.sleep(adjustedTime(trafficLight.getEntryDelay()));
 
     // refreshing interval
     refreshIntervalMs = 500L;
