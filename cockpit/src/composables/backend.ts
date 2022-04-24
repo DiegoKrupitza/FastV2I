@@ -1,4 +1,5 @@
 import axios from 'axios'
+import type { Ref } from 'vue'
 
 import type {
   HttpClient,
@@ -36,13 +37,18 @@ export async function useHttpInterceptor(client: HttpClient) {
   interceptorApplied = true
 }
 
-export function useBackend(): HttpMethods {
+export function useBackend(): HttpMethods & {
+  isReady: Ref<boolean>
+  getIsReady: () => Promise<boolean>
+} {
   if (import.meta.env.VITE_SSG) {
     return {
       get: () => undefined as unknown as any,
       post: () => undefined as unknown as any,
       delete: () => undefined as unknown as any,
       put: () => undefined as unknown as any,
+      isReady: computed(() => false),
+      getIsReady: () => Promise.resolve(false),
     }
   }
 
@@ -61,5 +67,20 @@ export function useBackend(): HttpMethods {
   const put = <T, U>(path: string, body: T, config?: HttpRequestConfig) =>
     client.put<T, HttpResponse<U>>(path, body, config)
 
-  return { delete: del, get, post, put }
+  const getIsReady = useMemoize(async () => {
+    const services = (
+      await get<{ up: boolean }[] | undefined>('/services', { silent: true })
+    ).data
+    return services?.every((service) => service.up) ?? false
+  })
+  const isReady = asyncComputed(async () => await getIsReady())
+
+  return {
+    delete: del,
+    get,
+    post,
+    put,
+    isReady,
+    getIsReady: async () => await getIsReady.load(),
+  }
 }

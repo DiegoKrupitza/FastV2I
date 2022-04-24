@@ -2,6 +2,7 @@
 import { v4 } from 'uuid'
 
 import {
+  useBackend,
   useRandomSimulation,
   useSimulation,
   useValidation,
@@ -78,6 +79,8 @@ const createRandomSimulation = useRandomSimulation(enableTimelapse)
 async function startRandom() {
   await startSimulation(createRandomSimulation())
 }
+
+const { isReady } = useBackend()
 </script>
 
 <template>
@@ -86,14 +89,14 @@ async function startRandom() {
       <div class="flex flex-col gap-2 pa-4">
         <div class="flex gap-2">
           <Button
-            :disabled="isSimulationActive || validationError"
+            :disabled="!isReady || isSimulationActive || validationError"
             class="btn-green"
             @click="submit()"
           >
             {{ t('button.start') }}
           </Button>
           <Button
-            :disabled="isSimulationActive"
+            :disabled="!isReady || isSimulationActive"
             class="btn-green"
             @click="startRandom()"
           >
