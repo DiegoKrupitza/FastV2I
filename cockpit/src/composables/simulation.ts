@@ -11,12 +11,16 @@ const createdSimulation = ref<Simulation | undefined>()
 let getSimulation: UseMemoizedFn<Promise<Simulation | undefined>, []>
 
 export function useSimulation() {
-  const { delete: del, get, post } = useBackend()
+  const { delete: del, get, post, getIsReady } = useBackend()
 
   if (!getSimulation) {
-    getSimulation = useMemoize(
-      async () => (await get<Simulation>('/simulator'))?.data
-    )
+    getSimulation = useMemoize(async () => {
+      const isReady = await getIsReady()
+      if (!isReady) {
+        return undefined
+      }
+      return (await get<Simulation>('/simulator'))?.data
+    })
   }
 
   const isSimulationActive = asyncComputed(
