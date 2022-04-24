@@ -25,8 +25,7 @@ export function useSimulation() {
 
   async function startSimulation(config: NewSimulation) {
     createdSimulation.value = config
-    await post('/simulator', config)
-    await getSimulation.load()
+    await restartSimulation()
   }
 
   async function stopSimulation() {

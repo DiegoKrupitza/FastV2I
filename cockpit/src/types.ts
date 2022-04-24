@@ -3,6 +3,7 @@ import type { ViteSSGContext } from 'vite-ssg'
 export type UserModule = (ctx: ViteSSGContext) => void
 
 export interface Simulation {
+  id: string
   /** Length in meters. */
   scenarioLength: number
   timelapse: boolean
@@ -61,6 +62,7 @@ export interface NewTrafficLight {
 }
 
 export interface NewSimulation {
+  id: string
   cars: NewCar[]
   /** Scenario length in meters */
   scenarioLength: number

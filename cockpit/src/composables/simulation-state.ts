@@ -54,6 +54,13 @@ async function fetchTrafficLights() {
   )
 }
 
+function clearState() {
+  carEntities = undefined
+  cars.value = []
+  trafficLightEntities = undefined
+  trafficLights.value = []
+}
+
 export function useSimulationState(pollingRate = 500): UseSimulationState {
   let requestInProgess = false
 
@@ -72,20 +79,21 @@ export function useSimulationState(pollingRate = 500): UseSimulationState {
 
   const { pause, resume } = useIntervalFn(async () => fetchState(), pollingRate)
 
-  const { isSimulationActive } = useSimulation()
+  const { getSimulation } = useSimulation()
+  const simulation = asyncComputed(async () => getSimulation())
 
   watch(
-    isSimulationActive,
-    () => {
-      if (isSimulationActive.value) {
+    simulation,
+    async (newValue, oldValue) => {
+      if (newValue) {
+        if (newValue.id !== oldValue?.id) {
+          clearState()
+        }
         fetchState()
         resume()
       } else {
         pause()
-        carEntities = undefined
-        cars.value = []
-        trafficLightEntities = undefined
-        trafficLights.value = []
+        clearState()
       }
     },
     { immediate: true }
