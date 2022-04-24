@@ -15,9 +15,12 @@ import java.util.Optional;
 @Slf4j
 public class FlowControlService {
 
+  private static final int PADDING = 10;
+
   private final FlowControlProperties flowControlProperties;
   private final EntityServiceFeign entityServiceFeign;
   private final TrackingServiceFeign trackingServiceFeign;
+
 
   /**
    * Calculates the perfect speed for the car to drive
@@ -40,7 +43,7 @@ public class FlowControlService {
 
     long speed = car.speed();
     // < maxCarSpeed because one tick is maxCarSpeed meters
-    if (distance < flowControlProperties.getMaxCarSpeed() && trafficLightState.equals("red")){
+    if (distance < flowControlProperties.getMaxCarSpeed()+PADDING && trafficLightState.equals("red")){
       speed = 0L;
     }
     else if (trafficLightState.equals("green")){
@@ -55,7 +58,7 @@ public class FlowControlService {
 
   private long calculateCarSpeedRedTrafficLight(CarStateDto car, double remainingTimeInSeconds, double distance) {
     long speed;
-    long speedNeeded = (long) ((distance -10)/ remainingTimeInSeconds); // -10 so you do not cross the red traffic light
+    long speedNeeded = (long) ((distance - PADDING)/ remainingTimeInSeconds); // -PADDING, so you do not cross the red traffic light
     if (speedNeeded < car.speed()) {
       speed = speedNeeded > flowControlProperties.getMinCarSpeed() ? speedNeeded : flowControlProperties.getMinCarSpeed();
     }
@@ -68,7 +71,7 @@ public class FlowControlService {
 
   private long calculateCarSpeedGreenTrafficLight(CarStateDto car, double remainingTimeInSeconds, double distance) {
     long speed;
-    long speedNeeded = (long) ((distance +10)/ remainingTimeInSeconds); // +10 so you arrive at traffic light when it is still green
+    long speedNeeded = (long) ((distance +PADDING)/ remainingTimeInSeconds); // +PADDING, so you arrive at traffic light when it is still green
     if (speedNeeded < car.speed())
       speed = car.speed();
     else if (speedNeeded > flowControlProperties.getMaxCarSpeed()) // will not reach traffic light before state change
