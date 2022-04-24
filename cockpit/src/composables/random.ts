@@ -7,16 +7,21 @@ function randomInRange(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+const MIN_SCAN_RADIUS = 200
 function randomizeTrafficLights(scenarioLength: number): NewTrafficLight[] {
   const total = randomInRange(1, 4)
   const trafficLights: NewTrafficLight[] = []
-  const sectionLength = scenarioLength / total
+  const sectionLength = Math.floor(scenarioLength / total)
   new Array(total).fill(undefined).forEach(() => {
     const sectionStart = sectionLength * trafficLights.length
     const sectionEnd = sectionStart + sectionLength
-    const position = randomInRange(sectionStart, sectionEnd)
+    const position = randomInRange(
+      sectionStart + MIN_SCAN_RADIUS,
+      sectionEnd - MIN_SCAN_RADIUS
+    )
     const scanDistance =
-      Math.min(sectionEnd - position, position - sectionStart) - 1
+      Math.min(position - sectionStart, sectionEnd - position) - 1
+
     trafficLights.push({
       id: `TL-${trafficLights.length + 1}`,
       position,
@@ -92,7 +97,7 @@ export function useRandomSimulation(
   timelapse: Ref<boolean>
 ): () => NewSimulation {
   return () => {
-    const scenarioLength = randomInRange(500, 15000)
+    const scenarioLength = randomInRange(2000, 15000)
     const trafficLights = randomizeTrafficLights(scenarioLength)
     return {
       id: v4(),
