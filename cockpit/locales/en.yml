@@ -2,6 +2,7 @@ button:
   confirm: Confirm
   home: Home
   random: Random
+  restart: Restart
   start: Start
   stop: Stop
   toggle_dark: Toggle dark mode
