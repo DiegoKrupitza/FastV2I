@@ -13,6 +13,7 @@ public class FlowControlProperties {
   private Long maxNumberOfLights;
   private Long minCarSpeed;
   private Long maxCarSpeed;
+  private Long trafficLightPadding;
 
   private String carStateTrackingMom;
   private String carStateFlowMom;
