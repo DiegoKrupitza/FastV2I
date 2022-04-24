@@ -7,6 +7,7 @@ import type { NewSimulation, Simulation } from '~/types'
 const FAST_POLLING_RATE = 1000
 const SLOW_POLLING_RATE = 5000
 
+const createdSimulation = ref<Simulation | undefined>()
 let getSimulation: UseMemoizedFn<Promise<Simulation | undefined>, []>
 
 export function useSimulation() {
@@ -22,26 +23,33 @@ export function useSimulation() {
     async () => !!(await getSimulation())
   )
 
-  const { success, warning } = useToast()
-  const { t } = useI18n()
-
   async function startSimulation(config: NewSimulation) {
+    createdSimulation.value = config
     await post('/simulator', config)
     await getSimulation.load()
-    const message = t('toasts.simulation.started')
-    success(message, { id: message })
   }
 
   async function stopSimulation() {
     await del('/simulator')
     await getSimulation.load()
-    const message = t('toasts.simulation.stopped')
-    warning(message, { id: message })
+  }
+
+  const canRestart = computed(() => !!createdSimulation.value)
+
+  async function restartSimulation() {
+    if (!createdSimulation.value) {
+      return
+    }
+    await del('/simulator')
+    await post('/simulator', createdSimulation.value)
+    await getSimulation.load()
   }
 
   return {
+    canRestart,
     getSimulation,
     isSimulationActive,
+    restartSimulation,
     startSimulation,
     stopSimulation,
   }

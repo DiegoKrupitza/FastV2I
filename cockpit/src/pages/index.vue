@@ -5,21 +5,24 @@ const { isSimulationActive, stopSimulation } = useSimulation()
 
 const router = useRouter()
 
+const { t } = useI18n()
+const { warning } = useToast()
+
 watch(
   isSimulationActive,
   () => {
     if (isSimulationActive.value === false) {
+      const message = t('toasts.simulation.stopped')
+      warning(message, { id: message })
       router.push('/new')
     }
   },
   { immediate: true }
 )
 
-const { getSimulation } = useSimulation()
+const { canRestart, getSimulation, restartSimulation } = useSimulation()
 const simulation = asyncComputed(() => getSimulation())
 const { cars, trafficLights } = useSimulationState()
-
-const { t } = useI18n()
 </script>
 
 <template>
@@ -32,11 +35,16 @@ const { t } = useI18n()
       :traffic-lights="trafficLights"
     />
   </div>
-  <Button
-    :disabled="!isSimulationActive"
-    class="position-fixed top-4 left-4"
-    @click="stopSimulation()"
-  >
-    {{ t('button.stop') }}
-  </Button>
+  <div class="position-fixed top-4 left-4 flex gap-2">
+    <Button :disabled="!isSimulationActive" @click="stopSimulation()">
+      {{ t('button.stop') }}
+    </Button>
+    <Button
+      v-if="canRestart"
+      :disabled="!isSimulationActive"
+      @click="restartSimulation()"
+    >
+      {{ t('button.restart') }}
+    </Button>
+  </div>
 </template>

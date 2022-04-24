@@ -6,10 +6,15 @@ const { isSimulationActive, startSimulation } = useSimulation()
 
 const router = useRouter()
 
+const { t } = useI18n()
+const { success } = useToast()
+
 watch(
   isSimulationActive,
   () => {
     if (isSimulationActive.value) {
+      const message = t('toasts.simulation.started')
+      success(message, { id: message })
       router.push('/')
     }
   },
@@ -112,8 +117,6 @@ async function startRandom() {
   }
   await startSimulation(config)
 }
-
-const { t } = useI18n()
 </script>
 
 <template>
