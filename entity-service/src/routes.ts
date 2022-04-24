@@ -3,6 +3,7 @@ import type { Filter } from 'mongodb'
 
 import { collections } from './database'
 import { Mappers } from './model/mappers'
+import type { TrafficLight } from './model/traffic-light'
 
 export async function routes(server: FastifyInstance) {
   server.get('/health', async () => {
@@ -84,15 +85,30 @@ export async function routes(server: FastifyInstance) {
       if (!trafficLight) {
         return null
       }
-
-      // TODO: mapper dto stuff
-      return {
-        id: trafficLight._id,
-        location: trafficLight.location,
-        scanDistance: trafficLight.scanDistance,
+      if (!isCarInScanDistance(trafficLight, direction, locationPoint)) {
+        return null
       }
+
+      return Mappers.trafficLightToTrafficLightDto(trafficLight)
     }
   )
 
   server.log.info('Routes registered')
+}
+
+function isCarInScanDistance(
+  trafficLight: TrafficLight,
+  carDirection: string,
+  carLocation: number
+): boolean {
+  if (
+    carDirection === 'NTS' &&
+    carLocation < trafficLight.location + trafficLight.scanDistance
+  ) {
+    return true
+  }
+  return (
+    carDirection === 'STN' &&
+    carLocation > trafficLight.location - trafficLight.scanDistance
+  )
 }
