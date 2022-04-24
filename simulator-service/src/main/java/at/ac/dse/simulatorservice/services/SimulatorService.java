@@ -14,6 +14,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -44,6 +45,11 @@ public class SimulatorService {
    * @param scenario the scenario to simulate. The scenario has to valid.
    */
   public void startScenario(ScenarioDto scenario) {
+
+    if (activeSimulation.get() != null) {
+      throw new ValidationException(
+          "A scenario is currently running! Please stop the scenario before!");
+    }
 
     for (TrafficLight trafficLight : scenario.trafficLights()) {
       threads.add(
