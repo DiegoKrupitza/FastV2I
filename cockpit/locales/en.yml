@@ -40,6 +40,8 @@ meta:
   description: Cockpit
   title: Cockpit
 
+service-unavailable: Service unavailable
+
 toasts:
   backend-error: An error occurred
   simulation:
