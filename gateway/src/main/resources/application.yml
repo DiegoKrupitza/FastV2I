@@ -32,10 +32,10 @@ spring:
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
-            - Path=/v3/api-docs/**
+            - Path=/v3/api-docs/**, /documentation/entity/**
           filters:
+            - RewritePath=/documentation/entity, /entities/documentation/entity
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-
       httpserver:
         wiretap: true
 
@@ -66,3 +66,11 @@ info:
     version: '@project.version@'
     spring-cloud-version: '@spring-cloud.version@'
     spring-boot-version: '@project.parent.version@'
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: gateway
+        url: /v3/api-docs
+      - name: entity
+        url: /documentation/entity/json
