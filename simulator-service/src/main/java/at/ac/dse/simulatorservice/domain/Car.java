@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 
+/** Describes a car in our simulation */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

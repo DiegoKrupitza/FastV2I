@@ -11,34 +11,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author Diego Krupitza
- * @version 1.0
- * @date 28.03.22
- */
+/** Configuration for our rabbitmq listeners. */
 @Configuration
 @RequiredArgsConstructor
 public class RabbitMQConfig {
 
   private final SimulatorProperties simulatorProperties;
-
-  /*@Value("${simulator.carMom}")
-  String carQueueName;
-
-  @Value("${simulator.carStateTrackingMom}")
-  String carStateTrackingQueueName;
-
-  @Value("${simulator.carStateFlowMom}")
-  String carStateFlowQueueName;
-
-  @Value("${simulator.trafficLightStateMom}")
-  String trafficLightStateQueueName;
-
-  @Value("${simulator.trafficLightMom}")
-  String trafficLightQueueName;
-
-  @Value("${simulator.speedMom}")
-  String speedQueueName;*/
 
   @Bean
   public FanoutExchange fanout() {

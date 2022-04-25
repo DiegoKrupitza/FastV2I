@@ -2,6 +2,12 @@ package at.ac.tuwien.dse.flowcontrolservice.dto;
 
 import java.util.Objects;
 
+/**
+ * This dto is responsible for wrapping a response from the entity-service
+ * @param id the id of the traffic light
+ * @param location the location of the traffic light
+ * @param scanDistance the scan distance of the traffic light
+ */
 public record NearestTrafficLightDto(String id, Long location, Long scanDistance) {
 
     @Override

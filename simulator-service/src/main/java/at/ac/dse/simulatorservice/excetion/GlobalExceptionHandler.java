@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ValidationException;
 
+/** Responsible for handling errors in the application. */
 @ControllerAdvice
 @Slf4j
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   private final ObjectMapper objectMapper;
 
   @ExceptionHandler(ValidationException.class)
-  protected ResponseEntity<Object> handleNotFound(RuntimeException ex, WebRequest request) {
+  protected ResponseEntity<Object> handleValidationError(RuntimeException ex, WebRequest request) {
     return handleExceptionWithStatus(ex, request, HttpStatus.BAD_REQUEST);
   }
 

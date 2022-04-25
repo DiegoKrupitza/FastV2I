@@ -1,3 +1,4 @@
+import type { UseMemoizedFn } from '@vueuse/core'
 import axios from 'axios'
 import type { Ref } from 'vue'
 
@@ -37,6 +38,8 @@ export async function useHttpInterceptor(client: HttpClient) {
   interceptorApplied = true
 }
 
+let getIsReady: UseMemoizedFn<Promise<boolean>, []>
+
 export function useBackend(): HttpMethods & {
   isReady: Ref<boolean>
   getIsReady: () => Promise<boolean>
@@ -67,12 +70,14 @@ export function useBackend(): HttpMethods & {
   const put = <T, U>(path: string, body: T, config?: HttpRequestConfig) =>
     client.put<T, HttpResponse<U>>(path, body, config)
 
-  const getIsReady = useMemoize(async () => {
-    const services = (
-      await get<{ up: boolean }[] | undefined>('/services', { silent: true })
-    ).data
-    return services?.every((service) => service.up) ?? false
-  })
+  if (!getIsReady) {
+    getIsReady = useMemoize(async () => {
+      const services = (
+        await get<{ up: boolean }[] | undefined>('/services', { silent: true })
+      ).data
+      return services?.every((service) => service.up) ?? false
+    })
+  }
   const isReady = asyncComputed(async () => await getIsReady())
 
   return {

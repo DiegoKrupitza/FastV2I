@@ -10,6 +10,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
+/** The main class for listening on the rabbitmq queues. */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -19,6 +20,12 @@ public class RabbitMQListener {
   private final FlowControlService flowControlService;
   private final FlowControlProperties flowControlProperties;
 
+  /**
+   * Listens on the car state queue and calculate the speed a car has to drive. The result is then
+   * written back to the car-speed queue.
+   *
+   * @param car the car for which we want to calculate the advised speed.
+   */
   @RabbitListener(queues = "${flowcontrol.carStateFlowMom}")
   public void carStateMomListener(final CarStateDto car) {
     Long speed = flowControlService.getAdvisedSpeed(car);

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid'
 
+import { SimulationConstants } from '~/composables'
 import type { NewCar } from '~/types'
 
 const props = defineProps<{ simulationLength: number }>()
@@ -58,7 +59,8 @@ const { t } = useI18n()
     <FormKit
       v-model="speed"
       type="number"
-      :min="0"
+      :min="SimulationConstants.MIN_SPEED"
+      :max="SimulationConstants.MAX_SPEED"
       :step="1"
       :label="t('forms.car.speed')"
       validation="required"

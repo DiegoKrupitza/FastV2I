@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+/** Base class for objects in our simulation. */
 @RequiredArgsConstructor
 public abstract class SimulatorBase implements Runnable {
 

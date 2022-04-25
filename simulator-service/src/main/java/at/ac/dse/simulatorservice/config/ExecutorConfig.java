@@ -7,11 +7,7 @@ import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 
 import java.util.concurrent.Executors;
 
-/**
- * @author Diego Krupitza
- * @version 1.0
- * @date 28.03.22
- */
+/** Configuration of the simulator executor. */
 @Configuration
 @EnableScheduling
 public class ExecutorConfig {

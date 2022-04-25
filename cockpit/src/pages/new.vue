@@ -61,7 +61,7 @@ function removeCar(vin: string) {
   cars.value = localCars
 }
 
-const validationError = useValidation({ cars, trafficLights })
+const validationErrors = useValidation({ cars, scenarioLength, trafficLights })
 
 async function submit() {
   const config: NewSimulation = {
@@ -87,9 +87,11 @@ const { isReady } = useBackend()
   <div class="w-full">
     <div>
       <div class="flex flex-col gap-2 pa-4">
-        <div class="flex gap-2">
+        <div class="flex gap-2 items-center">
           <Button
-            :disabled="!isReady || isSimulationActive || validationError"
+            :disabled="
+              !isReady || isSimulationActive || validationErrors.length > 0
+            "
             class="btn-green"
             @click="submit()"
           >
@@ -102,9 +104,12 @@ const { isReady } = useBackend()
           >
             {{ t('button.random') }}
           </Button>
+          <span v-if="!isReady" class="color-yellow">
+            {{ t('service-unavailable') }}
+          </span>
         </div>
-        <span v-if="validationError" class="color-red">
-          {{ validationError }}
+        <span v-for="error of validationErrors" :key="error" class="color-red">
+          {{ error }}
         </span>
       </div>
       <div class="flex flex-col gap-2 pa-4">
