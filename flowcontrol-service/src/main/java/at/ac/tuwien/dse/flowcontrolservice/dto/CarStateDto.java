@@ -4,6 +4,14 @@ import java.time.LocalDateTime;
 
 import java.util.Objects;
 
+/**
+ * This dto resembles the car state that is read from the MoM.
+ * @param vin the vin of the car.
+ * @param location the current location of the car.
+ * @param speed the current speed the car is driving.
+ * @param directionCode the direction of the car.
+ * @param timestamp the timestamp the data point was generated.
+ */
 public record CarStateDto(String vin,
                           Long location,
                           Long speed,

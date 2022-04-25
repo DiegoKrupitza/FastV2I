@@ -1,6 +1,7 @@
 import { v4 } from 'uuid'
 import type { Ref } from 'vue'
 
+import { SimulationConstants } from '~/composables/validation'
 import type { NewCar, NewSimulation, NewTrafficLight } from '~/types'
 
 function randomInRange(min: number, max: number): number {
@@ -9,7 +10,10 @@ function randomInRange(min: number, max: number): number {
 
 const MIN_SCAN_RADIUS = 200
 function randomizeTrafficLights(scenarioLength: number): NewTrafficLight[] {
-  const total = randomInRange(1, 4)
+  const total = randomInRange(
+    SimulationConstants.MIN_TRAFFIC_LIGHTS,
+    SimulationConstants.MAX_TRAFFIC_LIGHTS
+  )
   const trafficLights: NewTrafficLight[] = []
   const sectionLength = Math.floor(scenarioLength / total)
   new Array(total).fill(undefined).forEach(() => {
@@ -72,25 +76,32 @@ function randomizeCars(
       Object.fromEntries(models.map((model) => [model, 0])),
     ])
   )
-  return new Array(randomInRange(1, 4)).fill(undefined).map(() => {
-    const oem = getRandomOEM()
-    const model = getRandomModel(oem)
-    const location = randomInRange(0, scenarioLength)
-    let destination = randomInRange(0, scenarioLength)
-    while (isInAnyRadius(destination, trafficLights)) {
-      destination = randomInRange(0, scenarioLength)
-    }
-    const vin = `${oem}-${model}-${++vinCounters[oem][model]}`
-    return {
-      vin,
-      oem,
-      model,
-      entryTime: randomInRange(0, 5000),
-      speed: randomInRange(25, 130),
-      location,
-      destination,
-    }
-  })
+  return new Array(
+    randomInRange(SimulationConstants.MIN_CARS, SimulationConstants.MAX_CARS)
+  )
+    .fill(undefined)
+    .map(() => {
+      const oem = getRandomOEM()
+      const model = getRandomModel(oem)
+      const location = randomInRange(0, scenarioLength)
+      let destination = randomInRange(0, scenarioLength)
+      while (isInAnyRadius(destination, trafficLights)) {
+        destination = randomInRange(0, scenarioLength)
+      }
+      const vin = `${oem}-${model}-${++vinCounters[oem][model]}`
+      return {
+        vin,
+        oem,
+        model,
+        entryTime: randomInRange(0, 5000),
+        speed: randomInRange(
+          SimulationConstants.MIN_SPEED,
+          SimulationConstants.MAX_SPEED
+        ),
+        location,
+        destination,
+      }
+    })
 }
 
 export function useRandomSimulation(

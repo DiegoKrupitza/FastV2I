@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static at.ac.dse.simulatorservice.simulator.mapper.CarMapper.toCarStateMom;
 
+/** Implementation of {@link SimulatorBase} that represents a car. */
 @Slf4j
 public class CarSimulator extends SimulatorBase {
 

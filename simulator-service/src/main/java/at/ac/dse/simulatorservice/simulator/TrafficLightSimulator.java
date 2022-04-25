@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+/** Implementation of {@link SimulatorBase} that represents a traffic light. */
 @Slf4j
 public class TrafficLightSimulator extends SimulatorBase {
 
