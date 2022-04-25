@@ -14,6 +14,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Controller for the service resource
+ */
 @RequestMapping("services")
 @RequiredArgsConstructor
 @Slf4j
@@ -25,6 +28,10 @@ public class ServiceAvailableController {
 
     private final List<String> serviceNames = List.of("ENTITY-SERVICE","TRACKING-SERVICE","SIMULATOR-SERVICE", "FLOWCONTROL-SERVICE");
 
+    /**
+     * Lists the health status of the services our gateway is interacting with.
+     * @return the status of our services.
+     */
     @GetMapping
     public Stream<ServiceDto> getAllHealthyServices() {
 
@@ -42,5 +49,9 @@ public class ServiceAvailableController {
 
 }
 
-
+/**
+ * Descirbes the state of a service.
+ * @param name the name of the service.
+ * @param up <code>true</code> if the service is alive otherwise <code>false</code>.
+ */
 record ServiceDto(String name, boolean up) { }
