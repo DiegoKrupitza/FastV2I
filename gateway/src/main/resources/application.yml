@@ -72,5 +72,7 @@ springdoc:
     urls:
       - name: gateway
         url: /v3/api-docs
+      - name: simulator
+        url: /v3/api-docs/simulator
       - name: entity
         url: /documentation/entity/json
