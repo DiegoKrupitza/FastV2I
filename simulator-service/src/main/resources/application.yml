@@ -42,3 +42,6 @@ simulator:
   speedMom: car-speed
   timelapseDivider: 4
   fanoutName: fanout.carState
+springdoc:
+  api-docs:
+    path: simulator/v3/api-docs
