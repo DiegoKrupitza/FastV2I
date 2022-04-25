@@ -53,5 +53,8 @@ validation:
     too-few: Not enough cars
     too-many: Too many cars
   traffic-light:
+    out-of-bounds: The position of traffic light {id} is out of bounds
+    overlap: The scan areas of the traffic lights {first} and {second} are overlapping
+    scan-distance-out-of-bounds: The scan distance of traffic light {id} is out of bounds
     too-few: Not enough traffic lights
     too-many: Too many traffic lights
