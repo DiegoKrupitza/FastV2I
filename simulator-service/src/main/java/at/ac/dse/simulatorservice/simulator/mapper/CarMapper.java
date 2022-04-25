@@ -7,13 +7,16 @@ import at.ac.dse.simulatorservice.simulator.domain.Direction;
 
 import java.time.LocalDateTime;
 
-public abstract class CarMapper {
+/** Interface that is responsible for mapping various carobjects. */
+public interface CarMapper {
 
-  public static CarMom toCarMom(Car car) {
+  /** Maps a {@link Car} to a {@link CarMom} */
+  static CarMom toCarMom(Car car) {
     return new CarMom(car.getVin(), car.getOem(), car.getModel());
   }
 
-  public static CarStateMom toCarStateMom(Car car, Direction direction) {
+  /** Maps a {@link Car} with a given {@link Direction} to a {@link CarStateMom} */
+  static CarStateMom toCarStateMom(Car car, Direction direction) {
     return new CarStateMom(
         car.getVin(),
         car.getLocation(),

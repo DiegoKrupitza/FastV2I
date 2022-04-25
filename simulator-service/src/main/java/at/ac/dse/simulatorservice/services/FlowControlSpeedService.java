@@ -5,10 +5,13 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * This class is responsible for holding the advised speed information of the flow control service.
+ * Simulation threads read from this class.
+ */
 @Component
 public class FlowControlSpeedService {
 
-  // is this thread safe and all that fancy stuff????
   private ConcurrentHashMap<String, Long> advisedSpeed = new ConcurrentHashMap<>();
 
   /**
