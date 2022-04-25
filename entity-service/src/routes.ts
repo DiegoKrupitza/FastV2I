@@ -6,11 +6,30 @@ import { Mappers } from './model/mappers'
 import type { TrafficLight } from './model/traffic-light'
 
 export async function routes(server: FastifyInstance) {
-  server.get('/health', async () => {
-    return {
-      status: 'UP',
+  server.get(
+    '/health',
+    {
+      schema: {
+        description: 'Returns "UP" when entity server is running',
+        tags: ['actuator'],
+        summary: 'health check',
+        response: {
+          200: {
+            content: 'application/json',
+            type: 'object',
+            properties: {
+              status: { type: 'string' },
+            },
+          },
+        },
+      },
+    },
+    async () => {
+      return {
+        status: 'UP',
+      }
     }
-  })
+  )
 
   server.delete('/all', async () => {
     await collections.cars?.deleteMany({})

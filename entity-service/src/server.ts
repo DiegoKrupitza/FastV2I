@@ -1,11 +1,12 @@
 import type { FastifyInstance } from 'fastify'
 import fastify from 'fastify'
+import fastifySwagger from 'fastify-swagger'
 
 import { connectToAmqp } from './amqp'
 import { connectToDatabase } from './database'
+import { env } from './env'
 import { connectToEureka } from './eureka'
 import { routes } from './routes'
-
 export interface Options {
   isTest: boolean
   mongoDbUrl: string
@@ -25,6 +26,27 @@ export async function createServer({
       },
     },
   })
+  server.register(fastifySwagger, {
+    routePrefix: 'entities/documentation/entity',
+    swagger: {
+      info: {
+        title: 'Entity Service',
+        version: '1.0',
+      },
+      host: `${env.host}:${env.port}`,
+      // schemes: [`Local: ${env.host}:${env.port}`],
+      consumes: ['application/json'],
+      produces: ['application/json'],
+    },
+    uiConfig: {
+      docExpansion: 'full',
+      deepLinking: false,
+    },
+    staticCSP: true,
+    transformStaticCSP: (header: any) => header,
+    exposeRoute: true,
+  })
+
   server.log.info(`Starting in ${isTest ? 'test' : 'production'} mode`)
 
   server.server.keepAliveTimeout = 0
@@ -33,7 +55,11 @@ export async function createServer({
   server.register(routes, { prefix: '/entities' })
 
   await connectToDatabase(server, mongoDbUrl)
-
+  server.ready((err: any) => {
+    if (err) throw err
+    const t = server.swagger()
+    server.log.info(t)
+  })
   if (isTest) {
     return server
   }
