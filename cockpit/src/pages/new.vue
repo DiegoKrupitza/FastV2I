@@ -103,6 +103,9 @@ const { isReady } = useBackend()
             {{ t('button.random') }}
           </Button>
         </div>
+        <span v-if="!isReady" class="color-red">
+          {{ t('service-unavailable') }}
+        </span>
         <span v-if="validationError" class="color-red">
           {{ validationError }}
         </span>
