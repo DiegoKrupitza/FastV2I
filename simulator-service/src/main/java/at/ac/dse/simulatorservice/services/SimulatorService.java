@@ -64,13 +64,14 @@ public class SimulatorService {
     }
 
     for (Car car : scenario.cars()) {
-      final var simulator = new CarSimulator(
-                  simulatorProperties,
-                  rabbitTemplate,
-                  fanout,
-                  scenario.timelapse(),
-                  flowControlSpeedRecommendation,
-          car);
+      final var simulator =
+          new CarSimulator(
+              simulatorProperties,
+              rabbitTemplate,
+              fanout,
+              scenario.timelapse(),
+              flowControlSpeedRecommendation,
+              car);
       carSimulators.add(simulator);
       threads.add(this.taskExecutor.submit(simulator));
     }
@@ -80,7 +81,6 @@ public class SimulatorService {
 
   /** Resets the simulation and propagates the reset to all the other services */
   public void resetSimulation() {
-    // TODO: check if logic to kill the threads works
     this.threads.forEach(item -> item.cancel(true));
     this.threads.clear();
     this.flowControlSpeedRecommendation.reset();
@@ -93,12 +93,30 @@ public class SimulatorService {
     this.activeSimulation.set(null);
   }
 
+  /**
+   * Checks if the simulation is still active or not. This method has as side effect that if the
+   * simulation is not marked as finished although all the cars reached their destination, the
+   * simulation will be terminated and marked as finished.
+   *
+   * @return the scenario information.
+   */
   public ScenarioDto getActiveSimulation() {
     final var simulation = this.activeSimulation.get();
-    if (simulation != null && !simulation.done() && this.carSimulators.stream().allMatch(CarSimulator::isDone)) {
+    if (simulation != null
+        && !simulation.done()
+        && this.carSimulators.stream().allMatch(CarSimulator::isDone)) {
       this.threads.forEach(item -> item.cancel(true));
-      return this.activeSimulation.updateAndGet(scenario -> scenario == null ? null : new ScenarioDto(scenario.id(), scenario.trafficLights(),
-          scenario.cars(), scenario.scenarioLength(), scenario.timelapse(), true));
+      return this.activeSimulation.updateAndGet(
+          scenario ->
+              scenario == null
+                  ? null
+                  : new ScenarioDto(
+                      scenario.id(),
+                      scenario.trafficLights(),
+                      scenario.cars(),
+                      scenario.scenarioLength(),
+                      scenario.timelapse(),
+                      true));
     }
     return this.activeSimulation.get();
   }
