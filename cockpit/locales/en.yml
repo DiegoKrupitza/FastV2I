@@ -49,7 +49,12 @@ toasts:
     stopped: Simulation stopped
 
 validation:
-  cars:
+  car:
+    destination-out-of-bounds: The destination of car {vin} is out of bounds
+    forbidden-destination: The destination of car {vin} is withing scanning range of a traffic light
+    out-of-bounds: The location of car {vin} is out of bounds
+    speed-too-high: The speed of car {vin} is too high
+    speed-too-low: The speed of car {vin} is too low
     too-few: Not enough cars
     too-many: Too many cars
   traffic-light:
