@@ -12,18 +12,23 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration for the rabbitmq client of our flow control service. Here we also register all the
+ * queue the flow control service interacts.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class RabbitMQConfig {
 
-
   private final FlowControlProperties flowControlProperties;
 
+  /** Register the queue for listening to the car state */
   @Bean
   public Queue carQueue() {
     return new Queue(flowControlProperties.getCarStateFlowMom());
   }
 
+  /** Register the queue for writing the car speed */
   @Bean
   public Queue speedQueue() {
     return new Queue(flowControlProperties.getSpeedMom());

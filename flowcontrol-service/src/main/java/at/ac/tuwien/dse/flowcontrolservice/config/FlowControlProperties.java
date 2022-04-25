@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+/** Holds the configuration properties of the flow controll service */
 @Configuration
 @ConfigurationProperties("flowcontrol")
 @Data
