@@ -61,7 +61,7 @@ function removeCar(vin: string) {
   cars.value = localCars
 }
 
-const validationError = useValidation({ cars, trafficLights })
+const validationError = useValidation({ cars, scenarioLength, trafficLights })
 
 async function submit() {
   const config: NewSimulation = {
