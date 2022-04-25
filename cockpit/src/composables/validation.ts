@@ -8,23 +8,30 @@ export interface Input {
   trafficLights: Ref<Record<string, NewTrafficLight>>
 }
 
-const MIN_TRAFFIC_LIGHTS = 1
-const MAX_TRAFFIC_LIGHTS = 4
+export const SimulationConstants = {
+  MIN_TRAFFIC_LIGHTS: 1,
+  MAX_TRAFFIC_LIGHTS: 4,
+  MIN_CARS: 1,
+  MAX_CARS: 4,
+  MIN_SPEED: 25,
+  MAX_SPEED: 130,
+}
 function validateTrafficLights({
   scenarioLength,
   trafficLights,
 }: Input): string | undefined {
-  const numberOfTrafficLights = Object.values(trafficLights.value).length
+  const trafficLightList = Object.values(trafficLights.value)
+  const numberOfTrafficLights = trafficLightList.length
   const { t } = useI18n()
 
-  if (numberOfTrafficLights < MIN_TRAFFIC_LIGHTS) {
+  if (numberOfTrafficLights < SimulationConstants.MIN_TRAFFIC_LIGHTS) {
     return t('validation.traffic-light.too-few')
   }
-  if (numberOfTrafficLights > MAX_TRAFFIC_LIGHTS) {
+  if (numberOfTrafficLights > SimulationConstants.MAX_TRAFFIC_LIGHTS) {
     return t('validation.traffic-light.too-many')
   }
 
-  const sortedTrafficLights = Object.values(trafficLights.value).sort(
+  const sortedTrafficLights = trafficLightList.sort(
     (a, b) => a.position - b.position
   )
 
@@ -80,18 +87,73 @@ function validateTrafficLights({
   return undefined
 }
 
-const MIN_CARS = 1
-const MAX_CARS = 4
-function validateCars({ cars }: Input): string | undefined {
-  const numberOfCars = Object.values(cars.value).length
+function validateCars({
+  cars,
+  scenarioLength,
+  trafficLights,
+}: Input): string | undefined {
+  const carList = Object.values(cars.value)
+  const numberOfCars = carList.length
   const { t } = useI18n()
-  if (numberOfCars < MIN_CARS) {
-    return t('validation.cars.too-few')
+
+  if (numberOfCars < SimulationConstants.MIN_CARS) {
+    return t('validation.car.too-few')
   }
-  if (numberOfCars > MAX_CARS) {
-    return t('validation.cars.too-many')
+  if (numberOfCars > SimulationConstants.MAX_CARS) {
+    return t('validation.car.too-many')
   }
-  // TODO: Complete validation
+
+  let outOfBoundsError: string | undefined
+  carList.forEach((car) => {
+    if (car.location < 0 || car.location > scenarioLength.value) {
+      outOfBoundsError = t('validation.car.out-of-bounds', {
+        vin: car.vin,
+      })
+    }
+  })
+  if (outOfBoundsError) {
+    return outOfBoundsError
+  }
+
+  const trafficLightList = Object.values(trafficLights.value)
+
+  let destinationError: string | undefined
+  carList.forEach((car) => {
+    if (car.destination < 0 || car.destination > scenarioLength.value) {
+      destinationError = t('validation.car.destination-out-of-bounds', {
+        vin: car.vin,
+      })
+      return
+    }
+    if (
+      trafficLightList.some(
+        (trafficLight) =>
+          trafficLight.position - trafficLight.scanDistance <=
+            car.destination &&
+          car.destination <= trafficLight.position + trafficLight.scanDistance
+      )
+    ) {
+      destinationError = t('validation.car.forbidden-destination', {
+        vin: car.vin,
+      })
+    }
+  })
+  if (destinationError) {
+    return destinationError
+  }
+
+  let speedError: string | undefined
+  carList.forEach((car) => {
+    if (car.speed < SimulationConstants.MIN_SPEED) {
+      speedError = t('validation.car.speed-too-low', { vin: car.vin })
+    } else if (car.speed > SimulationConstants.MAX_SPEED) {
+      speedError = t('validation.car.speed-too-high', { vin: car.vin })
+    }
+  })
+  if (speedError) {
+    return speedError
+  }
+
   return undefined
 }
 
