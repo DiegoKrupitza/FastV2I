@@ -4,7 +4,6 @@ import fastifySwagger from 'fastify-swagger'
 
 import { connectToAmqp } from './amqp'
 import { connectToDatabase } from './database'
-import { env } from './env'
 import { connectToEureka } from './eureka'
 import { routes } from './routes'
 export interface Options {
@@ -33,8 +32,6 @@ export async function createServer({
         title: 'Entity Service',
         version: '1.0',
       },
-      host: `${env.host}:${env.port}`,
-      // schemes: [`Local: ${env.host}:${env.port}`],
       consumes: ['application/json'],
       produces: ['application/json'],
     },
