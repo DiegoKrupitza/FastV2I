@@ -55,11 +55,11 @@ validation:
     out-of-bounds: The location of car {vin} is out of bounds
     speed-too-high: The speed of car {vin} is too high
     speed-too-low: The speed of car {vin} is too low
-    too-few: Not enough cars
-    too-many: Too many cars
+    too-few: Not enough cars ({count} of {min})
+    too-many: Too many cars ({count} of {max})
   traffic-light:
     out-of-bounds: The position of traffic light {id} is out of bounds
     overlap: The scan areas of the traffic lights {first} and {second} are overlapping
     scan-distance-out-of-bounds: The scan distance of traffic light {id} is out of bounds
-    too-few: Not enough traffic lights
-    too-many: Too many traffic lights
+    too-few: Not enough traffic lights ({count} of {min})
+    too-many: Too many traffic lights ({count} of {max})

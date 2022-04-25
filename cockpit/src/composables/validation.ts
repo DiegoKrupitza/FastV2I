@@ -25,10 +25,16 @@ function validateTrafficLights({
   const { t } = useI18n()
 
   if (numberOfTrafficLights < SimulationConstants.MIN_TRAFFIC_LIGHTS) {
-    return t('validation.traffic-light.too-few')
+    return t('validation.traffic-light.too-few', {
+      count: numberOfTrafficLights,
+      min: SimulationConstants.MIN_TRAFFIC_LIGHTS,
+    })
   }
   if (numberOfTrafficLights > SimulationConstants.MAX_TRAFFIC_LIGHTS) {
-    return t('validation.traffic-light.too-many')
+    return t('validation.traffic-light.too-many', {
+      count: numberOfTrafficLights,
+      max: SimulationConstants.MAX_TRAFFIC_LIGHTS,
+    })
   }
 
   const sortedTrafficLights = trafficLightList.sort(
@@ -97,10 +103,16 @@ function validateCars({
   const { t } = useI18n()
 
   if (numberOfCars < SimulationConstants.MIN_CARS) {
-    return t('validation.car.too-few')
+    return t('validation.car.too-few', {
+      count: numberOfCars,
+      min: SimulationConstants.MIN_CARS,
+    })
   }
   if (numberOfCars > SimulationConstants.MAX_CARS) {
-    return t('validation.car.too-many')
+    return t('validation.car.too-many', {
+      count: numberOfCars,
+      max: SimulationConstants.MAX_CARS,
+    })
   }
 
   let outOfBoundsError: string | undefined
