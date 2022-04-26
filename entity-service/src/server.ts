@@ -26,7 +26,7 @@ export async function createServer({
     },
   })
   server.register(fastifySwagger, {
-    routePrefix: 'entities/documentation/entity',
+    routePrefix: 'entities/documentation-entities',
     openapi: {
       info: {
         title: 'Entity Endpoint',

@@ -77,7 +77,7 @@ export async function routes(server: FastifyInstance) {
     {
       schema: {
         description: 'Deletes all cars and traffic lights from the database',
-        tags: ['service'],
+        tags: ['endpoints'],
         summary: 'Deletes all entities',
         response: {
           200: {},
@@ -95,8 +95,9 @@ export async function routes(server: FastifyInstance) {
     '/cars',
     {
       schema: {
-        description: 'Get information about all cars in database',
-        tags: ['service'],
+        description:
+          'Get information about all cars in database. Is empty when no car was found',
+        tags: ['endpoints'],
         summary: 'get all cars',
         response: {
           200: {
@@ -119,7 +120,7 @@ export async function routes(server: FastifyInstance) {
     {
       schema: {
         description: 'Get information about a car with specified vin',
-        tags: ['service'],
+        tags: ['endpoints'],
         summary: 'get specific car',
         params: {
           type: 'object',
@@ -160,8 +161,9 @@ export async function routes(server: FastifyInstance) {
     '/traffic-lights',
     {
       schema: {
-        description: 'Get information about all traffic lights in database',
-        tags: ['service'],
+        description:
+          'Get information about all traffic lights in database. Is empty when no traffic light was found',
+        tags: ['endpoints'],
         summary: 'get all traffic lights',
         response: {
           200: {
@@ -184,7 +186,7 @@ export async function routes(server: FastifyInstance) {
     {
       schema: {
         description: 'Get information about a traffic light with specified id',
-        tags: ['service'],
+        tags: ['endpoints'],
         summary: 'get specific traffic light',
         params: {
           type: 'object',
@@ -229,7 +231,7 @@ export async function routes(server: FastifyInstance) {
       schema: {
         description:
           'Is used to find the traffic light in front of a car, where the car is in scan distance of said traffic light',
-        tags: ['service'],
+        tags: ['endpoints'],
         summary: 'get traffic light in front of car within scan distance',
         params: {
           type: 'object',
