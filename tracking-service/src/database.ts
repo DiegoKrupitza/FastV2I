@@ -5,11 +5,22 @@ import { MongoClient } from 'mongodb'
 import type { Car } from './model/car'
 import type { TrafficLight } from './model/traffic-light'
 
+/**
+ * The MongoDB collections.
+ */
 export const collections: {
+  /** The collection of car states. */
   cars?: Collection<Car>
+  /** The collection of traffic light states. */
   trafficLights?: Collection<TrafficLight>
 } = {}
 
+/**
+ * Connect to a MongoDB database.
+ * @param server - The server. Used for logging.
+ * @param url - The url of the MongoDB server.
+ * @param retryDelay - Delay between retries after connection failures.
+ */
 export async function connectToDatabase(
   server: FastifyInstance,
   url: string,
@@ -54,9 +65,12 @@ export async function connectToDatabase(
   }
 }
 
+/**
+ * Remove collections and listeners of a MongoDB client.
+ * @param client - The client of the MongoDB connection.
+ */
 function cleanConnection(client: MongoClient) {
   collections.cars = undefined
   collections.trafficLights = undefined
   client.removeAllListeners()
-  client.close()
 }

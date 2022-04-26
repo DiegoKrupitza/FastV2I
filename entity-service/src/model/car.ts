@@ -1,4 +1,5 @@
 import type { Document } from 'mongodb'
+
 /**
  * Model of a car entity.
  */
