@@ -27,13 +27,11 @@ export async function createServer({
   })
   server.register(fastifySwagger, {
     routePrefix: 'entities/documentation/entity',
-    swagger: {
+    openapi: {
       info: {
         title: 'Entity Service',
         version: '1.0',
       },
-      consumes: ['application/json'],
-      produces: ['application/json'],
     },
     uiConfig: {
       docExpansion: 'full',
