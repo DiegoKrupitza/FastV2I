@@ -45,7 +45,7 @@ function trafficLightDtoToTrafficLight(
 }
 
 /**
- * Maps a traffic light to a traffic light dto.
+ * Maps a traffic light to a traffic light DTO.
  * @param trafficLight - The traffic light to be mapped.
  * @returns The traffic light DTO.
  */
