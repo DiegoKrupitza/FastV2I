@@ -49,6 +49,7 @@ export async function routes(server: FastifyInstance) {
     '/health',
     {
       schema: {
+        hide: true,
         description: 'Returns "UP" when entity server is running',
         tags: ['actuator'],
         summary: 'health check',
