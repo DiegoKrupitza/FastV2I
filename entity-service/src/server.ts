@@ -6,11 +6,21 @@ import { connectToDatabase } from './database'
 import { connectToEureka } from './eureka'
 import { routes } from './routes'
 
+/**
+ * Options for server creation.
+ */
 export interface Options {
+  /** Set to true to skip connecting to amqp and eureka. */
   isTest: boolean
+  /** The URL of the MongoDB server. */
   mongoDbUrl: string
 }
 
+/**
+ * Create a new server instance with the given options.
+ * @param options - Options of the created server.
+ * @returns A promise that resolves to the created server instance.
+ */
 export async function createServer({
   isTest,
   mongoDbUrl,
