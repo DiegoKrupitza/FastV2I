@@ -29,7 +29,7 @@ export async function createServer({
     routePrefix: 'entities/documentation/entity',
     openapi: {
       info: {
-        title: 'Entity Service',
+        title: 'Entity Endpoint',
         version: '1.0',
       },
     },
