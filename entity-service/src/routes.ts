@@ -5,6 +5,10 @@ import { collections } from './database'
 import { Mappers } from './model/mappers'
 import type { TrafficLight } from './model/traffic-light'
 
+/**
+ * Configure routes for a given server.
+ * @param server - The server the routes will be added to. Used for logging.
+ */
 export async function routes(server: FastifyInstance) {
   server.get('/health', async () => {
     return {
@@ -96,6 +100,13 @@ export async function routes(server: FastifyInstance) {
   server.log.info('Routes registered')
 }
 
+/**
+ * Check if a car is in the scan distance of a traffic light.
+ * @param trafficLight - The traffic light.
+ * @param carDirection - The direction the car is going.
+ * @param carLocation - The location of the car.
+ * @returns true if the car is in scan distance.
+ */
 function isCarInScanDistance(
   trafficLight: TrafficLight,
   carDirection: string,
