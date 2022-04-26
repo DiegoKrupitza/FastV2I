@@ -2,6 +2,8 @@ package at.ac.dse.simulatorservice.dtos;
 
 import at.ac.dse.simulatorservice.domain.Car;
 import at.ac.dse.simulatorservice.domain.TrafficLight;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 
@@ -14,6 +16,10 @@ import java.util.List;
  * @param timelapse whether the simulation should be run in timelapse mode or not.
  * @param done boolean flag to indicate if the simulation is completed or not.
  */
-public record ScenarioDto(String id, List<TrafficLight> trafficLights, List<Car> cars, Long scenarioLength,
-    boolean timelapse, boolean done) {
+public record ScenarioDto(@Schema(description = "ID of scenario") String id,
+                          @ArraySchema(schema = @Schema(description = "Collection of all the traffic lights we want to simulate", implementation = TrafficLight.class)) List<TrafficLight> trafficLights,
+                          @ArraySchema(schema = @Schema(description = "Collection of all the cars we want to simulate", implementation = Car.class)) List<Car> cars,
+                          @Schema(description = "The length of the scenario in meters") Long scenarioLength,
+                          @Schema(description = "Whether the simulation should be run in timelapse mode or not") boolean timelapse,
+                          @Schema(description = "Boolean flag to indicate if the simulation is completed or not") boolean done) {
 }

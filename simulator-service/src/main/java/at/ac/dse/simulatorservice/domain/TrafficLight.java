@@ -19,7 +19,7 @@ public class TrafficLight {
   @Min(0)
   private Long position;
 
-  @Min(1)
+  @Min(10)
   private Long scanDistance;
 
   @Min(0)
