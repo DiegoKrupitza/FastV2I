@@ -32,9 +32,10 @@ spring:
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
-            - Path=/v3/api-docs/**, /documentation/entity/**
+            - Path=/v3/api-docs/**, /documentation-entities/**, /documentation-tracking/**
           filters:
-            - RewritePath=/documentation/entity, /entities/documentation/entity
+            - RewritePath=/documentation-entities, /entities/documentation-entities
+            - RewritePath=/documentation-tracking, /tracking/documentation-tracking
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
       httpserver:
         wiretap: true
@@ -75,4 +76,6 @@ springdoc:
       - name: simulator
         url: /v3/api-docs/simulator
       - name: entity
-        url: /documentation/entity/json
+        url: /documentation-entities/json
+      - name: tracking
+        url: /documentation-tracking/json

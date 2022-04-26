@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import fastify from 'fastify'
+import fastifySwagger from 'fastify-swagger'
 
 import { connectToAmqp } from './amqp'
 import { connectToDatabase } from './database'
@@ -24,6 +25,22 @@ export async function createServer({
         colorize: true,
       },
     },
+  })
+  server.register(fastifySwagger, {
+    routePrefix: 'tracking/documentation-tracking',
+    openapi: {
+      info: {
+        title: 'Tracking Endpoint',
+        version: '1.0',
+      },
+    },
+    uiConfig: {
+      docExpansion: 'full',
+      deepLinking: false,
+    },
+    staticCSP: true,
+    transformStaticCSP: (header: any) => header,
+    exposeRoute: true,
   })
   server.log.info(`Starting in ${isTest ? 'test' : 'production'} mode`)
 
