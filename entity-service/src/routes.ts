@@ -28,6 +28,7 @@ export async function routes(server: FastifyInstance) {
   server.addSchema({
     $id: 'traffic-light',
     type: 'object',
+    nullable: true,
     properties: {
       id: {
         type: 'string',
@@ -281,10 +282,10 @@ export async function routes(server: FastifyInstance) {
 
       server.log.info(trafficLight)
       if (!trafficLight) {
-        return {}
+        return null
       }
       if (!isCarInScanDistance(trafficLight, direction, locationPoint)) {
-        return {}
+        return null
       }
       return Mappers.trafficLightToTrafficLightDto(trafficLight)
     }
