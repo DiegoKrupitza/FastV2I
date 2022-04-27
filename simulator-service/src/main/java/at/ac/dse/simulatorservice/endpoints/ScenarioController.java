@@ -4,7 +4,6 @@ import at.ac.dse.simulatorservice.dtos.ScenarioDto;
 import at.ac.dse.simulatorservice.services.SimulatorService;
 import at.ac.dse.simulatorservice.services.ValidatorService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -34,6 +33,7 @@ public class ScenarioController {
                   content = @Content(mediaType = "application/json",
                          schema = @Schema(implementation = ScenarioDto.class))))
   public ScenarioDto activeSimulation() {
+    log.info("Called active sim!");
     return simulatorService.getActiveSimulation();
   }
 
