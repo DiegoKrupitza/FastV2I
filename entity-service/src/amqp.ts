@@ -3,15 +3,18 @@ import { connect } from 'amqplib'
 import type { FastifyInstance } from 'fastify'
 
 import { collections } from './database'
-import type { CarDto } from './model/car'
 import { Mappers } from './model/mappers'
-import type { TrafficLightDto } from './model/traffic-light'
 
 const CAR = 'car'
 const TRAFFIC_LIGHT = 'traffic-light'
 
-export const amqp: { channel?: Channel } = {}
+const amqp: { channel?: Channel } = {}
 
+/**
+ * Connect to an amqp server and listen for incoming messages.
+ * @param server - The server. Used for logging.
+ * @param retryDelay - Delay between retries after connection failures.
+ */
 export async function connectToAmqp(
   server: FastifyInstance,
   retryDelay = 1000
@@ -54,6 +57,13 @@ export async function connectToAmqp(
   }
 }
 
+/**
+ * Persist an new car entity.
+ * @param msg - The message.
+ * @param server - The server. Used for logging.
+ * @param channel - The channel. Used for acknowledging.
+ * @returns A promise that resolves when the handler is done.
+ */
 async function onCarMessage(
   msg: ConsumeMessage | null,
   server: FastifyInstance,
@@ -69,9 +79,6 @@ async function onCarMessage(
   }
   try {
     const car = JSON.parse(msg.content.toString())
-    if (!isValidCar(car)) {
-      return
-    }
     cars.updateOne(
       { _id: car.vin },
       { $set: Mappers.carDtoToCar(car) },
@@ -86,11 +93,13 @@ async function onCarMessage(
   }
 }
 
-function isValidCar(object: any): object is CarDto {
-  // TODO
-  return true
-}
-
+/**
+ * Persist an new traffic light entity.
+ * @param msg - The message.
+ * @param server - The server. Used for logging.
+ * @param channel - The channel. Used for acknowledging.
+ * @returns A promise that resolves when the handler is done.
+ */
 async function onTrafficLightMessage(
   msg: ConsumeMessage | null,
   server: FastifyInstance,
@@ -106,9 +115,6 @@ async function onTrafficLightMessage(
   }
   try {
     const trafficLight = JSON.parse(msg.content.toString())
-    if (!isValidTrafficLight(trafficLight)) {
-      return
-    }
     trafficLights.updateOne(
       { _id: trafficLight.id },
       { $set: Mappers.trafficLightDtoToTrafficLight(trafficLight) },
@@ -123,11 +129,10 @@ async function onTrafficLightMessage(
   }
 }
 
-function isValidTrafficLight(object: any): object is TrafficLightDto {
-  // TODO
-  return true
-}
-
+/**
+ * Remove collections and listeners of an amqp client.
+ * @param connection - The amqp connection.
+ */
 function cleanConnection(connection: Connection) {
   amqp.channel?.removeAllListeners()
   amqp.channel = undefined

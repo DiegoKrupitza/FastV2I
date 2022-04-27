@@ -3,6 +3,10 @@ import type { FastifyInstance } from 'fastify'
 
 import { env } from './env'
 
+/**
+ * Connect to and register at a eureka instance.
+ * @param server - The server. Used for logging.
+ */
 export function connectToEureka(server: FastifyInstance) {
   const eureka = new Eureka({
     logger: server.log,

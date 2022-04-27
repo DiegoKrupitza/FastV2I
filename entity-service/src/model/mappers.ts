@@ -3,6 +3,11 @@ import type { ObjectId } from 'mongodb'
 import type { Car, CarDto } from './car'
 import type { TrafficLight, TrafficLightDto } from './traffic-light'
 
+/**
+ * Maps a car DTO to a car entity.
+ * @param car - The car DTO to be mapped.
+ * @returns The car entity.
+ */
 function carDtoToCar(car: CarDto): Car {
   return {
     _id: car.vin as unknown as ObjectId,
@@ -11,6 +16,11 @@ function carDtoToCar(car: CarDto): Car {
   }
 }
 
+/**
+ * Maps a car to a car DTO.
+ * @param car - The car to be mapped.
+ * @returns The car DTO.
+ */
 function carToCarDto(car: Car): CarDto {
   return {
     vin: car._id,
@@ -19,6 +29,11 @@ function carToCarDto(car: Car): CarDto {
   }
 }
 
+/**
+ * Maps a traffic light DTO to a traffic light entity.
+ * @param trafficLight - The traffic light DTO to be mapped.
+ * @returns The traffic light entity.
+ */
 function trafficLightDtoToTrafficLight(
   trafficLight: TrafficLightDto
 ): TrafficLight {
@@ -29,6 +44,11 @@ function trafficLightDtoToTrafficLight(
   }
 }
 
+/**
+ * Maps a traffic light to a traffic light DTO.
+ * @param trafficLight - The traffic light to be mapped.
+ * @returns The traffic light DTO.
+ */
 function trafficLightToTrafficLightDto(
   trafficLight: TrafficLight
 ): TrafficLightDto {
@@ -39,6 +59,9 @@ function trafficLightToTrafficLightDto(
   }
 }
 
+/**
+ * Collection of model mappers.
+ */
 export const Mappers = {
   carDtoToCar,
   carToCarDto,
