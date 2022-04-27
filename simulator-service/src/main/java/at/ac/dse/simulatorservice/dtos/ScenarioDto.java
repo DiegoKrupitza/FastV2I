@@ -19,7 +19,7 @@ import java.util.List;
 public record ScenarioDto(@Schema(description = "ID of scenario") String id,
                           @ArraySchema(schema = @Schema(description = "Collection of all the traffic lights we want to simulate", implementation = TrafficLight.class)) List<TrafficLight> trafficLights,
                           @ArraySchema(schema = @Schema(description = "Collection of all the cars we want to simulate", implementation = Car.class)) List<Car> cars,
-                          @Schema(description = "The length of the scenario in meters") Long scenarioLength,
-                          @Schema(description = "Whether the simulation should be run in timelapse mode or not") boolean timelapse,
-                          @Schema(description = "Boolean flag to indicate if the simulation is completed or not") boolean done) {
+                          @Schema(description = "The length of the scenario in meters", example = "20000") Long scenarioLength,
+                          @Schema(description = "Whether the simulation should be run in timelapse mode or not", example = "false") boolean timelapse,
+                          @Schema(description = "Boolean flag to indicate if the simulation is completed or not", example = "false") boolean done) {
 }
