@@ -15,7 +15,7 @@ services:
     image: deryeger/dse-eureka-service:latest
     ports:
       - '8761:8761'
-    restart: unless-stopped
+    restart: always
     networks:
       - eureka-network
 
@@ -26,7 +26,7 @@ services:
       - '8080:8080'
     environment:
       - EUREKA_SERVER_ADDRESS=eureka-server
-    restart: unless-stopped
+    restart: always
     depends_on:
       - eureka-server
     networks:
@@ -40,7 +40,7 @@ services:
     environment:
       - EUREKA_SERVER_ADDRESS=eureka-server
       - SPRING_RABBITMQ_HOST=rabbitmq
-    restart: unless-stopped
+    restart: always
     depends_on:
       - eureka-server
       - rabbitmq
@@ -109,7 +109,7 @@ services:
     ports:
       - '5672:5672'
       - '15672:15672'
-    restart: unless-stopped
+    restart: always
     networks:
       - rabbit-network
 
@@ -122,7 +122,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
       MONGO_INITDB_DATABASE: root-db
-    restart: unless-stopped
+    restart: always
     networks:
       - mongo-network
 

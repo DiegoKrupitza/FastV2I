@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose.production.yml
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cockpit
+  name: cockpit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cockpit
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../docker-compose.production.yml
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: cockpit
+    spec:
+      containers:
+        - image: deryeger/dse-cockpit:latest
+          name: cockpit
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}
