@@ -24,6 +24,12 @@ export async function routes(server: FastifyInstance) {
       },
     },
   })
+  server.addSchema({
+    $id: 'null',
+    type: 'object',
+    nullable: true,
+    example: null,
+  })
 
   server.addSchema({
     $id: 'traffic-light',
@@ -248,7 +254,8 @@ export async function routes(server: FastifyInstance) {
         },
         response: {
           200: {
-            description: 'Successful response',
+            description:
+              'Successful response. If no traffic light was found near car, returns null',
             content: 'application/json',
             type: 'object',
             $ref: 'traffic-light#',
@@ -256,6 +263,7 @@ export async function routes(server: FastifyInstance) {
           400: {
             description: 'Direction was not in pattern NTS or STN',
             type: 'object',
+            $ref: 'null#',
           },
         },
       },
