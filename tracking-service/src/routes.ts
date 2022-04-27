@@ -3,6 +3,10 @@ import type { FastifyInstance, FastifyRequest } from 'fastify'
 import { collections } from './database'
 import { Mappers } from './model/mappers'
 
+/**
+ * Configure routes for a given server.
+ * @param server - The server the routes will be added to. Used for logging.
+ */
 export async function routes(server: FastifyInstance) {
   server.addSchema({
     $id: 'car',
