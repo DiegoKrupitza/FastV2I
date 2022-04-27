@@ -15,17 +15,17 @@ export async function routes(server: FastifyInstance) {
       vin: {
         type: 'string',
         description: 'Vin of car',
+        example: 'V1',
       },
       location: {
         type: 'number',
         description: 'horizontal location of car',
+        example: '1000',
       },
       speed: {
         type: 'number',
         description: 'speed of car',
-      },
-      timestamp: {
-        type: 'number',
+        example: '50',
       },
     },
   })
@@ -37,21 +37,22 @@ export async function routes(server: FastifyInstance) {
       id: {
         type: 'string',
         description: 'ID of traffic light',
+        example: 'T1',
       },
       remainingMilliseconds: {
         type: 'number',
         description: 'remaining time, the traffic light keeps its state',
+        example: 2000,
       },
       color: {
         type: 'string',
         pattern: '^(green|red){1}$',
+        example: 'green',
       },
       location: {
         type: 'number',
         description: 'horizontal location of traffic light on the street',
-      },
-      timestamp: {
-        type: 'number',
+        example: 5000,
       },
     },
   })

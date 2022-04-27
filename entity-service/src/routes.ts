@@ -17,14 +17,17 @@ export async function routes(server: FastifyInstance) {
       vin: {
         type: 'string',
         description: 'Vin of car',
+        example: 'V1',
       },
       oem: {
         type: 'string',
         description: 'oem of car',
+        example: 'Tesla',
       },
       model: {
         type: 'string',
         description: 'car model',
+        example: 'Model 3',
       },
     },
   })
@@ -37,15 +40,18 @@ export async function routes(server: FastifyInstance) {
       id: {
         type: 'string',
         description: 'ID of traffic light',
+        example: 'T1',
       },
       scanDistance: {
         type: 'number',
         description: 'Scan distance of the traffic light in meters',
         minimum: 10,
+        example: 1000,
       },
       location: {
         type: 'number',
         description: 'horizontal location of traffic light on the street',
+        example: 5000,
       },
     },
   })
@@ -260,9 +266,7 @@ export async function routes(server: FastifyInstance) {
           },
           400: {
             description: 'Direction was not in pattern NTS or STN',
-            type: 'object',
-            nullable: true,
-            example: null,
+            type: 'null',
           },
         },
       },

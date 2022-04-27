@@ -15,33 +15,32 @@ import javax.validation.constraints.Min;
 public class Car {
 
   @Length(min = 1)
-  @Schema(description = "The vin of the car", nullable = false, example = "V1")
+  @Schema(description = "The vin of the car", example = "V1")
   private String vin;
 
   @Length(min = 1)
-  @Schema(description = "The oem of the car", nullable = false, example = "Tesla")
+  @Schema(description = "The oem of the car", example = "Tesla")
   private String oem;
 
   @Length(min = 1)
-  @Schema(description = "The model of the car", nullable = false, example = "Model 3")
+  @Schema(description = "The model of the car", example = "Model 3")
   private String model;
 
   @Min(0)
   @Schema(
       description = "After how many ms the car should enter the scene",
-      nullable = false,
-      example = "1000")
+          example = "1000")
   private Long entryTime;
 
   @Min(0)
-  @Schema(description = "The speed of the car", nullable = false)
+  @Schema(description = "The speed of the car", example = "50")
   private Long speed;
 
   @Min(0)
-  @Schema(description = "The start location of the car", nullable = false, example = "0")
+  @Schema(description = "The start location of the car", example = "0")
   private Long location;
 
   @Min(0)
-  @Schema(description = "The desired destination of the car", nullable = false, example = "1800")
+  @Schema(description = "The desired destination of the car", example = "1800")
   private Long destination;
 }
