@@ -61,10 +61,7 @@ export async function createServer({
   server.register(routes, { prefix: '/entities' })
 
   await connectToDatabase(server, mongoDbUrl)
-  server.ready((err: any) => {
-    if (err) throw err
-    server.swagger()
-  })
+
   if (isTest) {
     return server
   }
