@@ -1,0 +1,132 @@
+version: '3.7'
+
+services:
+  cockpit:
+    container_name: cockpit
+    image: deryeger/dse-cockpit:latest
+    ports:
+      - '80:80'
+    depends_on:
+      - eureka-server
+      - rabbitmq
+
+  eureka-server:
+    container_name: eureka-server
+    image: deryeger/dse-eureka-service:latest
+    ports:
+      - '8761:8761'
+    restart: unless-stopped
+    networks:
+      - eureka-network
+
+  gateway:
+    container_name: gateway
+    image: deryeger/dse-gateway:latest
+    ports:
+      - '8080:8080'
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka-server
+    restart: unless-stopped
+    depends_on:
+      - eureka-server
+    networks:
+      - eureka-network
+
+  flowcontrol-service:
+    container_name: flowcontrol-service
+    image: deryeger/dse-flowcontrol-service:latest
+    ports:
+      - '8087:8087'
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka-server
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    restart: unless-stopped
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - eureka-network
+      - rabbit-network
+
+  simulator-service:
+    container_name: simulator-service
+    image: deryeger/dse-simulator-service:latest
+    ports:
+      - '8081:8081'
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - EUREKA_SERVER_ADDRESS=eureka-server
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - eureka-network
+      - rabbit-network
+
+  entity-service:
+    container_name: entity-service
+    image: deryeger/dse-entity-service:latest
+    ports:
+      - '8889:8889'
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka-server
+      - MONGO_DB_HOST=mongo
+      - MONGO_DB_NAME=entity-service-db
+      - MONGO_DB_USER=admin
+      - MONGO_DB_PWD=admin
+      - RABBIT_MQ_HOST=rabbitmq
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - eureka-network
+      - mongo-network
+      - rabbit-network
+
+  tracking-service:
+    container_name: tracking-service
+    image: deryeger/dse-tracking-service:latest
+    ports:
+      - '8888:8888'
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka-server
+      - MONGO_DB_HOST=mongo
+      - MONGO_DB_NAME=tracking-service-db
+      - MONGO_DB_USER=admin
+      - MONGO_DB_PWD=admin
+      - RABBIT_MQ_HOST=rabbitmq
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - eureka-network
+      - mongo-network
+      - rabbit-network
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: 'rabbitmq:management-alpine'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    restart: unless-stopped
+    networks:
+      - rabbit-network
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: root-db
+    restart: unless-stopped
+    networks:
+      - mongo-network
+
+networks:
+  eureka-network:
+  mongo-network:
+  rabbit-network:
