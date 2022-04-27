@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose.production.yml
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: entity-service
+  name: entity-service
+spec:
+  ports:
+    - name: "8889"
+      port: 8889
+      targetPort: 8889
+  selector:
+    io.kompose.service: entity-service
+status:
+  loadBalancer: {}
