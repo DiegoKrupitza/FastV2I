@@ -21,7 +21,17 @@
     "test": "yarn test:cockpit && yarn test:entity-service && yarn test:tracking-service",
     "test:cockpit": "cd cockpit && yarn test",
     "test:entity-service": "cd entity-service && yarn test",
-    "test:tracking-service": "cd tracking-service  && yarn test"
+    "test:tracking-service": "cd tracking-service  && yarn test",
+    "kompose": "cd kubernetes && kompose convert -f ../docker-compose.production.yml",
+    "kubernetes": "cd kubernetes && kubectl apply -f .",
+    "dockerize:all": "yarn dockerize:cockpit && yarn dockerize:entity-service && yarn dockerize:eureka-service && yarn dockerize:flowcontrol-service && yarn dockerize:gateway && yarn dockerize:simulator-service && yarn dockerize:tracking-service",
+    "dockerize:cockpit": "./dockerize.sh cockpit",
+    "dockerize:entity-service": "./dockerize.sh entity-service",
+    "dockerize:eureka-service": "./dockerize.sh eureka-service",
+    "dockerize:flowcontrol-service": "./dockerize.sh flowcontrol-service",
+    "dockerize:gateway": "./dockerize.sh gateway",
+    "dockerize:simulator-service": "./dockerize.sh simulator-service",
+    "dockerize:tracking-service": "./dockerize.sh tracking-service"
   },
   "license": "MIT",
   "devDependencies": {
