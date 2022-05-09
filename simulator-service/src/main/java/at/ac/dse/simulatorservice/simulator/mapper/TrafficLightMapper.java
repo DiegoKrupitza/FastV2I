@@ -6,6 +6,7 @@ import at.ac.dse.simulatorservice.simulator.domain.TrafficLightMom;
 import at.ac.dse.simulatorservice.simulator.domain.TrafficLightStateMom;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /** Interface that is responsible for mapping various traffic light objects. */
 public interface TrafficLightMapper {
@@ -33,7 +34,7 @@ public interface TrafficLightMapper {
         trafficLight.getId(),
         colorState.getName().toLowerCase(),
         remainingMs,
-        LocalDateTime.now() //
+        LocalDateTime.now(ZoneOffset.UTC) //
         );
   }
 }

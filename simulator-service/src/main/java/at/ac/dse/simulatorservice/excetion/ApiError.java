@@ -3,6 +3,7 @@ package at.ac.dse.simulatorservice.excetion;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 public record ApiError(Integer status, String description, String time) {
 
@@ -25,7 +26,7 @@ public record ApiError(Integer status, String description, String time) {
      * @return the newly created ApiError object
      */
     public static ApiError from(String msg, HttpStatus responseStatus) {
-        return new ApiError(responseStatus.value(), msg, LocalDateTime.now().toString());
+        return new ApiError(responseStatus.value(), msg, LocalDateTime.now(ZoneOffset.UTC).toString());
     }
 }
 
