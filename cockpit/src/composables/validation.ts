@@ -13,8 +13,8 @@ export const SimulationConstants = {
   MAX_TRAFFIC_LIGHTS: 4,
   MIN_CARS: 1,
   MAX_CARS: 4,
-  MIN_SPEED: 25,
-  MAX_SPEED: 130,
+  MIN_SPEED: 7,
+  MAX_SPEED: 37,
 }
 function validateTrafficLights({
   scenarioLength,
