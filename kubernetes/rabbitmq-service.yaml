@@ -1,22 +1,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f ../docker-compose.production.yml
-    kompose.version: 1.26.1 (HEAD)
   creationTimestamp: null
   labels:
-    io.kompose.service: rabbitmq
-  name: rabbitmq
+    app: rabbitmq-service
+  name: rabbitmq-service
 spec:
   ports:
-    - name: "5672"
-      port: 5672
-      targetPort: 5672
-    - name: "15672"
-      port: 15672
-      targetPort: 15672
+  - name: 5672-5672
+    port: 5672
+    protocol: TCP
+    targetPort: 5672
+  - name: 15672-15672
+    port: 15672
+    protocol: TCP
+    targetPort: 15672
   selector:
-    io.kompose.service: rabbitmq
+    app: rabbitmq-service
+  type: ClusterIP
 status:
   loadBalancer: {}

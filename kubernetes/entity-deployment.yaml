@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: entity
+  name: entity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: entity
+  strategy: { }
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: entity
+    spec:
+      containers:
+        - image: deryeger/dse-entity-service
+          name: dse-entity-service
+          resources: { }
+          env:
+            - name: MONGO_DB_HOST
+              value: TODO
+            - name: MONGO_DB_NAME
+              value: entity-service-db
+            - name: MONGO_DB_USER
+              value: admin
+            - name: MONGO_DB_PWD
+              value: admin
+            - name: RABBIT_MQ_HOST
+              value: rabbitmq-service
+status: { }

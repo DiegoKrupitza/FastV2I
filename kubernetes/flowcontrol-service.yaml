@@ -3,16 +3,16 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: gateway-service
-  name: gateway-service
+    app: flowcontrol-service
+  name: flowcontrol-service
 spec:
   ports:
-  - name: 8080-8080
-    port: 8080
+  - name: 8087-8087
+    port: 8087
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8087
   selector:
-    app: gateway-service
+    app: flowcontrol-service
   type: ClusterIP
 status:
   loadBalancer: {}

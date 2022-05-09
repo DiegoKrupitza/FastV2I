@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: simulator
+  name: simulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simulator
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: simulator
+    spec:
+      containers:
+      - image: deryeger/dse-simulator-service
+        name: dse-simulator-service
+        resources: {}
+        env:
+          - name: SPRING_RABBITMQ_HOST
+            value: rabbitmq-service
+status: {}
