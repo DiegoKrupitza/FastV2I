@@ -18,10 +18,35 @@ spec:
         app: flowcontrol
     spec:
       containers:
-        - image: deryeger/dse-flowcontrol-service
+        - image: test/dse-flowcontrol-service
           name: dse-flowcontrol-service
+          imagePullPolicy: Never
           resources: { }
+          ports:
+            - containerPort: 8087
           env:
             - name: SPRING_RABBITMQ_HOST
               value: rabbitmq-service
+            - name: env.namespace
+              value: default
+
 status: { }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: flowcontrol-service
+  name: flowcontrol-service
+spec:
+  ports:
+    - name: 8087-8087
+      port: 8087
+      protocol: TCP
+      targetPort: 8087
+  selector:
+    app: flowcontrol
+  type: ClusterIP
+status:
+  loadBalancer: {}

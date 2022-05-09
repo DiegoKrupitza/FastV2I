@@ -8,18 +8,13 @@ server:
   port: 8081
   forward-headers-strategy: framework
 
-eureka:
-  client:
-    fetch-registry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
-
 management:
   endpoints:
     web:
       exposure:
         include: health,gateway,info
+      base-path: /simulator
+
   info:
     env:
       enabled: true

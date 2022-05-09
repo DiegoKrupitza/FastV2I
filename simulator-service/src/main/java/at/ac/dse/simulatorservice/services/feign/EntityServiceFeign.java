@@ -4,7 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 /** Feign client to interact with the entity-service. */
-@FeignClient(name = "entity-service")
+@FeignClient(name = "entity-service", url = "http://entity-service:8889")
 public interface EntityServiceFeign {
 
   /** Resets the entity-serice to a state where no data is registered. */

@@ -7,7 +7,7 @@ echo "Dockerizing $service"
 
 cd $service
 
-repo=deryeger/dse-$service
+repo=test/dse-$service
 
 docker build -t $repo .
-docker push $repo
+#docker push $repo

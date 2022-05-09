@@ -1,7 +1,10 @@
 spring:
   application:
-    name: gateway
+    name: gateway-service
   cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
     gateway:
       httpclient:
         wiretap: true
@@ -18,15 +21,15 @@ spring:
               - OPTIONS
       routes:
         - id: entity-service
-          uri: lb://ENTITY-SERVICE
+          uri: http://entity-service:8889
           predicates:
             - Path=/entities/**
         - id: tracking-service
-          uri: lb://TRACKING-SERVICE
+          uri: http://tracking-service:8888
           predicates:
             - Path=/tracking/**
         - id: SIMULATOR-SERVICE
-          uri: lb://SIMULATOR-SERVICE
+          uri: http://simulator-service:8081
           predicates:
             - Path=/simulator/**
         - id: openapi
@@ -42,11 +45,7 @@ spring:
 
 server:
   port: 8080
-eureka:
-  client:
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+
 
 management:
   endpoint:
