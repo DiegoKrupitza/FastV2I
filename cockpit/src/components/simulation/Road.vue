@@ -22,7 +22,7 @@ const { config } = toRefs(props)
       class="stroke-yellow"
       :style="{
         'stroke-width': config.roadMarkingSize,
-        'stroke-dasharray': config.roadSize,
+        'stroke-dasharray': config.height / (5 * config.roadSize),
       }"
     />
   </g>
