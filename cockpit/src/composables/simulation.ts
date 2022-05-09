@@ -87,7 +87,7 @@ export function useSimulationVisualization(
   const { height: windowHeight, width: windowWidth } = useWindowSize()
   return computed(() => {
     const length = simulation.value?.scenarioLength ?? 0
-    const roadSize = length / 75
+    const roadSize = length / 40
     const roadMarkingSize = roadSize / 10
     const actorSize = roadSize / 2
     const padding = actorSize

@@ -14,7 +14,9 @@ WORKDIR /usr/app
 
 COPY . .
 
-RUN yarn build
+ARG BACKEND_URL http://localhost:8080
+
+RUN VITE_BACKEND_URL=$BACKEND_URL yarn build
 
 FROM nginx:1.21.3-alpine
 
