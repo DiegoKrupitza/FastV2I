@@ -3,16 +3,16 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: gateway-service
-  name: gateway-service
+    app: simulator-service
+  name: simulator-service
 spec:
   ports:
-  - name: 8080-8080
-    port: 8080
+  - name: 8081-8081
+    port: 8081
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8081
   selector:
-    app: gateway-service
+    app: simulator-service
   type: ClusterIP
 status:
   loadBalancer: {}

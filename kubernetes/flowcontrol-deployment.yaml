@@ -3,22 +3,25 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: gateway
-  name: gateway
+    app: flowcontrol
+  name: flowcontrol
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gateway
+      app: flowcontrol
   strategy: { }
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: gateway
+        app: flowcontrol
     spec:
       containers:
-        - image: deryeger/dse-gateway
-          name: dse-gateway
+        - image: deryeger/dse-flowcontrol-service
+          name: dse-flowcontrol-service
           resources: { }
+          env:
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq-service
 status: { }

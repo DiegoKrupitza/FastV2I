@@ -3,16 +3,16 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: gateway-service
-  name: gateway-service
+    app: entity-service
+  name: entity-service
 spec:
   ports:
-  - name: 8080-8080
-    port: 8080
+  - name: 8889-8889
+    port: 8889
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8889
   selector:
-    app: gateway-service
+    app: entity-service
   type: ClusterIP
 status:
   loadBalancer: {}
