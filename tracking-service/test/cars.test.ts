@@ -45,7 +45,7 @@ describe('cars', () => {
       expect(response.statusCode).toEqual(200)
       const car = JSON.parse(response.body) as CarDto
       expect(car.vin).toEqual('vw-passat-1')
-      expect(car.timestamp).toEqual(15)
+      expect(car.timestamp).toEqual('15')
     })
 
     it('handles unknown ids', async () => {

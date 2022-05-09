@@ -45,7 +45,7 @@ describe('traffic lights', () => {
       expect(response.statusCode).toEqual(200)
       const trafficLight = JSON.parse(response.body) as TrafficLightDto
       expect(trafficLight.id).toEqual('tl-2')
-      expect(trafficLight.timestamp).toEqual(14)
+      expect(trafficLight.timestamp).toEqual('14')
     })
 
     it('handles unknown ids', async () => {

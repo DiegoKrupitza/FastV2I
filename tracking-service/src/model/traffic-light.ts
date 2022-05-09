@@ -11,7 +11,7 @@ export interface TrafficLight extends Document {
   /** The milliseconds until the next state change. */
   remainingMilliseconds: number
   /** The timestamp of the state change. */
-  timestamp: number
+  timestamp: string
 }
 
 /**
@@ -25,5 +25,5 @@ export interface TrafficLightDto {
   /** The milliseconds until the next state change. */
   remainingMilliseconds: number
   /** The timestamp of the state change. */
-  timestamp: number
+  timestamp: string
 }

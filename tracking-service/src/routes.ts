@@ -27,6 +27,10 @@ export async function routes(server: FastifyInstance) {
         description: 'speed of car',
         example: '50',
       },
+      timestamp: {
+        type: 'string',
+        description: 'timestamp of the change',
+      },
     },
   })
   server.addSchema({
@@ -53,6 +57,10 @@ export async function routes(server: FastifyInstance) {
         type: 'number',
         description: 'horizontal location of traffic light on the street',
         example: 5000,
+      },
+      timestamp: {
+        type: 'string',
+        description: 'timestamp of the change',
       },
     },
   })

@@ -13,6 +13,7 @@ function carDtoToCar(car: CarDto): Car {
     _id: car.vin as unknown as ObjectId,
     oem: car.oem,
     model: car.model,
+    goingUp: car.goingUp,
   }
 }
 
@@ -26,6 +27,7 @@ function carToCarDto(car: Car): CarDto {
     vin: car._id,
     oem: car.oem,
     model: car.model,
+    goingUp: car.goingUp,
   }
 }
 

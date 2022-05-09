@@ -14,6 +14,7 @@ export interface CarEntity {
   vin: string
   oem: string
   model: string
+  goingUp: boolean
 }
 
 export interface CarState {

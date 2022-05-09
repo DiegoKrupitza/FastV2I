@@ -8,6 +8,8 @@ export interface Car extends Document {
   oem: string
   /** The model of the car. */
   model: string
+  /** The direction of the car. */
+  goingUp: boolean
 }
 
 /**
@@ -20,4 +22,6 @@ export interface CarDto {
   oem: string
   /** The model of the car. */
   model: string
+  /** The direction of the car. */
+  goingUp: boolean
 }
