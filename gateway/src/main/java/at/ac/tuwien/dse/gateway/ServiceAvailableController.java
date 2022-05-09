@@ -35,8 +35,8 @@ public class ServiceAvailableController {
       Map.of(
           "entity-service", "http://entity-service:8889/entities/health/", //
           "tracking-service", "http://tracking-service:8888/tracking/health", //
-          "simulator-service", "http://simulator-service:8081/simulator/health", //
-          "flowcontrol-service", "http://flowcontrol-service:8087/flowcontrol/health" //
+          "simulator-service", "http://simulator-service:8081/simulator/actuator/health", //
+          "flowcontrol-service", "http://flowcontrol-service:8087/flowcontrol/actuator/health" //
           );
 
   /**

@@ -10,7 +10,7 @@ management:
     web:
       exposure:
         include: health,info
-      base-path: /flowcontrol
+      base-path: /flowcontrol/actuator
   info:
     env:
       enabled: true
