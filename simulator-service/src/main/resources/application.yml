@@ -13,7 +13,7 @@ management:
     web:
       exposure:
         include: health,gateway,info
-      base-path: /simulator
+      base-path: /simulator/actuator
 
   info:
     env:
