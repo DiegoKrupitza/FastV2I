@@ -1,6 +1,5 @@
 package at.ac.tuwien.dse.flowcontrolservice;
 
-
 import at.ac.tuwien.dse.flowcontrolservice.config.FlowControlProperties;
 import at.ac.tuwien.dse.flowcontrolservice.dto.CarStateDto;
 import at.ac.tuwien.dse.flowcontrolservice.dto.NearestTrafficLightDto;
@@ -41,81 +40,98 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 class SpeedCalculationIntegrationTest {
 
-    private static final Long TRAFFIC_LIGHT_LOCATION = 4000L;
-    private static final Long OFFSET_CAR_TRAFFIC_LIGHT = 50L;
-    private CarStateDto car;
-    private NearestTrafficLightDto trafficLight;
-    private NearestTrafficLightStateDto trafficLightRed;
-    private NearestTrafficLightStateDto trafficLightGreen;
+  private static final Long TRAFFIC_LIGHT_LOCATION = 4000L;
+  private static final Long OFFSET_CAR_TRAFFIC_LIGHT = 45L;
+  private CarStateDto car;
+  private NearestTrafficLightDto trafficLight;
+  private NearestTrafficLightStateDto trafficLightRed;
+  private NearestTrafficLightStateDto trafficLightGreen;
 
+  @Autowired private FlowControlProperties flowControlProperties;
 
-    @Container
-    public static GenericContainer<?> rabbit = new GenericContainer<>(DockerImageName.parse("rabbitmq:3-management"))
-            .withExposedPorts(5672,15672);
+  @Container
+  public static GenericContainer<?> rabbit =
+      new GenericContainer<>(DockerImageName.parse("rabbitmq:3-management"))
+          .withExposedPorts(5672, 15672);
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+  @Autowired private RabbitTemplate rabbitTemplate;
 
-    @Autowired
-    private FlowControlProperties properties;
-    @MockBean
-    private EntityServiceFeign entityService;
-    @MockBean
-    private TrackingServiceFeign trackingService;
+  @Autowired private FlowControlProperties properties;
+  @MockBean private EntityServiceFeign entityService;
+  @MockBean private TrackingServiceFeign trackingService;
 
-    static class Initializer implements
-            ApplicationContextInitializer<ConfigurableApplicationContext> {
-        @Override
-        public void initialize(@NotNull ConfigurableApplicationContext configurableApplicationContext) {
-            var values = TestPropertyValues.of(
-                    "spring.rabbitmq.host=" + rabbit.getContainerIpAddress(),
-                    "spring.rabbitmq.port=" + rabbit.getMappedPort(5672)
-            );
-            values.applyTo(configurableApplicationContext);
-        }
+  static class Initializer
+      implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+    @Override
+    public void initialize(@NotNull ConfigurableApplicationContext configurableApplicationContext) {
+      var values =
+          TestPropertyValues.of(
+              "spring.rabbitmq.host=" + rabbit.getContainerIpAddress(),
+              "spring.rabbitmq.port=" + rabbit.getMappedPort(5672));
+      values.applyTo(configurableApplicationContext);
     }
+  }
 
-    @BeforeEach
-    void setup(){
-        car = new CarStateDto("V1",TRAFFIC_LIGHT_LOCATION-OFFSET_CAR_TRAFFIC_LIGHT,100L,"NTS", LocalDateTime.now(ZoneOffset.UTC));
-        trafficLight = new NearestTrafficLightDto("T1",TRAFFIC_LIGHT_LOCATION,1000L);
-        trafficLightRed = new NearestTrafficLightStateDto("red",1000L);
-        trafficLightGreen = new NearestTrafficLightStateDto("green",1000L);
+  @BeforeEach
+  void setup() {
+    car =
+        new CarStateDto(
+            "V1",
+            TRAFFIC_LIGHT_LOCATION - OFFSET_CAR_TRAFFIC_LIGHT,
+            flowControlProperties.getMaxCarSpeed(),
+            "NTS",
+            LocalDateTime.now(ZoneOffset.UTC));
+    trafficLight = new NearestTrafficLightDto("T1", TRAFFIC_LIGHT_LOCATION, 1000L);
+    trafficLightRed = new NearestTrafficLightStateDto("red", 1000L);
+    trafficLightGreen = new NearestTrafficLightStateDto("green", 1000L);
+  }
 
-    }
-    @SneakyThrows
-    @Test
-    void speedStaysTheSameWhenNoTrafficLightIsInScanDistance(){
-        Mockito.when(entityService.getNearestTrafficLight(Mockito.any(),Mockito.any())).thenReturn(Optional.empty());
-        rabbitTemplate.convertAndSend(properties.getCarStateFlowMom(),car);
-        SpeedDto message = rabbitTemplate.receiveAndConvert(properties.getSpeedMom(), 5000, ParameterizedTypeReference.forType(SpeedDto.class));
+  @SneakyThrows
+  @Test
+  void speedStaysTheSameWhenNoTrafficLightIsInScanDistance() {
+    Mockito.when(entityService.getNearestTrafficLight(Mockito.any(), Mockito.any()))
+        .thenReturn(Optional.empty());
+    rabbitTemplate.convertAndSend(properties.getCarStateFlowMom(), car);
+    SpeedDto message =
+        rabbitTemplate.receiveAndConvert(
+            properties.getSpeedMom(), 5000, ParameterizedTypeReference.forType(SpeedDto.class));
 
-        assertThat(message).isNotNull();
-        assertThat(message.speed()).isEqualTo(car.speed());
-    }
-    @SneakyThrows
-    @Test
-    void carStopsInFrontOfRedTrafficLight(){
-        Mockito.when(entityService.getNearestTrafficLight(Mockito.any(),Mockito.any())).thenReturn(Optional.of(trafficLight));
-        Mockito.when(trackingService.getNearestTrafficLightState(trafficLight.id())).thenReturn(trafficLightRed);
+    assertThat(message).isNotNull();
+    assertThat(message.speed()).isEqualTo(car.speed());
+  }
 
-        rabbitTemplate.convertAndSend(properties.getCarStateFlowMom(),car);
+  @SneakyThrows
+  @Test
+  void carStopsInFrontOfRedTrafficLight() {
+    Mockito.when(entityService.getNearestTrafficLight(Mockito.any(), Mockito.any()))
+        .thenReturn(Optional.of(trafficLight));
+    Mockito.when(trackingService.getNearestTrafficLightState(trafficLight.id()))
+        .thenReturn(trafficLightRed);
 
-        SpeedDto message = rabbitTemplate.receiveAndConvert(properties.getSpeedMom(), 5000, ParameterizedTypeReference.forType(SpeedDto.class));
-        assertThat(message).isNotNull();
-        assertThat(message.speed()).isZero();
-    }
-    @SneakyThrows
-    @Test
-    void carDrivesInFrontOfGreenTrafficLight(){
-        Mockito.when(entityService.getNearestTrafficLight(Mockito.any(),Mockito.any())).thenReturn(Optional.of(trafficLight));
-        Mockito.when(trackingService.getNearestTrafficLightState(trafficLight.id())).thenReturn(trafficLightGreen);
+    rabbitTemplate.convertAndSend(properties.getCarStateFlowMom(), car);
 
-        rabbitTemplate.convertAndSend(properties.getCarStateFlowMom(),car);
+    SpeedDto message =
+        rabbitTemplate.receiveAndConvert(
+            properties.getSpeedMom(), 5000, ParameterizedTypeReference.forType(SpeedDto.class));
+    assertThat(message).isNotNull();
+    assertThat(message.speed()).isZero();
+  }
 
-        SpeedDto message = rabbitTemplate.receiveAndConvert(properties.getSpeedMom(), 5000, ParameterizedTypeReference.forType(SpeedDto.class));
-        assertThat(message).isNotNull();
-        // 0 is not positive
-        assertThat(message.speed()).isPositive();
-    }
+  @SneakyThrows
+  @Test
+  void carDrivesInFrontOfGreenTrafficLight() {
+    Mockito.when(entityService.getNearestTrafficLight(Mockito.any(), Mockito.any()))
+        .thenReturn(Optional.of(trafficLight));
+    Mockito.when(trackingService.getNearestTrafficLightState(trafficLight.id()))
+        .thenReturn(trafficLightGreen);
+
+    rabbitTemplate.convertAndSend(properties.getCarStateFlowMom(), car);
+
+    SpeedDto message =
+        rabbitTemplate.receiveAndConvert(
+            properties.getSpeedMom(), 5000, ParameterizedTypeReference.forType(SpeedDto.class));
+    assertThat(message).isNotNull();
+    // 0 is not positive
+    assertThat(message.speed()).isPositive();
+  }
 }
