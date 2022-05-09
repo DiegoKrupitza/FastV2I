@@ -8,18 +8,7 @@ services:
     ports:
       - '80:80'
     depends_on:
-      - eureka-server
       - rabbitmq
-
-  eureka-server:
-    container_name: eureka-server
-    build:
-      context: ./eureka-service
-    ports:
-      - '8761:8761'
-    restart: unless-stopped
-    networks:
-      - eureka-network
 
   gateway:
     container_name: gateway
@@ -27,13 +16,7 @@ services:
       context: ./gateway
     ports:
       - '8080:8080'
-    environment:
-      - EUREKA_SERVER_ADDRESS=eureka-server
     restart: unless-stopped
-    depends_on:
-      - eureka-server
-    networks:
-      - eureka-network
 
   flowcontrol-service:
     container_name: flowcontrol-service
@@ -42,15 +25,10 @@ services:
     ports:
       - '8087:8087'
     environment:
-      - EUREKA_SERVER_ADDRESS=eureka-server
       - SPRING_RABBITMQ_HOST=rabbitmq
     restart: unless-stopped
     depends_on:
-      - eureka-server
       - rabbitmq
-    networks:
-      - eureka-network
-      - rabbit-network
 
   simulator-service:
     container_name: simulator-service
@@ -60,13 +38,8 @@ services:
       - '8081:8081'
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
-      - EUREKA_SERVER_ADDRESS=eureka-server
     depends_on:
-      - eureka-server
       - rabbitmq
-    networks:
-      - eureka-network
-      - rabbit-network
 
   entity-service:
     container_name: entity-service
@@ -75,19 +48,13 @@ services:
     ports:
       - '8889:8889'
     environment:
-      - EUREKA_SERVER_ADDRESS=eureka-server
-      - MONGO_DB_HOST=mongo
+      - MONGO_DB_HOST=cluster0.wzcyf.mongodb.net
       - MONGO_DB_NAME=entity-service-db
-      - MONGO_DB_USER=admin
-      - MONGO_DB_PWD=admin
+      - MONGO_DB_USER=dse_2022_10
+      - MONGO_DB_PWD=dse_2022_10
       - RABBIT_MQ_HOST=rabbitmq
     depends_on:
-      - eureka-server
       - rabbitmq
-    networks:
-      - eureka-network
-      - mongo-network
-      - rabbit-network
 
   tracking-service:
     container_name: tracking-service
@@ -96,19 +63,13 @@ services:
     ports:
       - '8888:8888'
     environment:
-      - EUREKA_SERVER_ADDRESS=eureka-server
-      - MONGO_DB_HOST=mongo
+      - MONGO_DB_HOST=cluster0.wzcyf.mongodb.net
       - MONGO_DB_NAME=tracking-service-db
-      - MONGO_DB_USER=admin
-      - MONGO_DB_PWD=admin
+      - MONGO_DB_USER=dse_2022_10
+      - MONGO_DB_PWD=dse_2022_10
       - RABBIT_MQ_HOST=rabbitmq
     depends_on:
-      - eureka-server
       - rabbitmq
-    networks:
-      - eureka-network
-      - mongo-network
-      - rabbit-network
 
   rabbitmq:
     container_name: rabbitmq
@@ -117,23 +78,5 @@ services:
       - '5672:5672'
       - '15672:15672'
     restart: unless-stopped
-    networks:
-      - rabbit-network
 
-  mongo:
-    container_name: mongo
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin
-      MONGO_INITDB_DATABASE: root-db
-    restart: unless-stopped
-    networks:
-      - mongo-network
 
-networks:
-  eureka-network:
-  mongo-network:
-  rabbit-network:

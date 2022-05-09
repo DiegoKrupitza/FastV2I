@@ -1161,3 +1161,4 @@ FodyWeavers.xsd
 *.iml
 .idea
 ./docker-entrypoint-initdb.d/datadir/*
+/kubernetes/secrets-kubernetes.yaml

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cockpit
+  name: cockpit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cockpit
+  strategy: { }
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cockpit
+    spec:
+      containers:
+        - image: test/dse-cockpit
+          name: dse-cockpit
+          imagePullPolicy: Never
+          resources: { }
+status: { }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cockpit-service
+  name: cockpit-service
+spec:
+  ports:
+    - name: 80-80
+      port: 80
+      protocol: TCP
+      targetPort: 80
+      nodePort: 30002 #TODO: remove in production
+  selector:
+    app: cockpit
+  type: NodePort #TODO: change in production
+status:
+  loadBalancer: { }
