@@ -22,11 +22,13 @@ async function insertTestData() {
         vin: 'vw-passat-1',
         oem: 'vw',
         model: 'passat',
+        goingUp: false,
       },
       {
         vin: 'vw-polo-1',
         oem: 'vw',
         model: 'polo',
+        goingUp: true,
       },
     ].map(Mappers.carDtoToCar)
   )

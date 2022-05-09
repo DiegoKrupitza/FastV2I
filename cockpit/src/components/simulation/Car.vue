@@ -13,6 +13,28 @@ const emit = defineEmits<{
 
 <template>
   <g>
+    <defs>
+      <marker
+        id="arrow"
+        :markerWidth="10"
+        :markerHeight="7"
+        refX="0"
+        :refY="3.5"
+        orient="auto"
+      >
+        <polygon :points="`0 0, 10 3.5, 0 7`" />
+      </marker>
+    </defs>
+    <line
+      v-if="car.location && car.speed && car.speed > 0"
+      :x1="car.location"
+      :y1="0.5 * config.height"
+      :x2="car.location + car.speed * 10 * (car.goingUp ? -1 : 1)"
+      :y2="0.5 * config.height"
+      class="stroke-blue"
+      :stroke-width="config.actorSize / 2"
+      marker-end="url(#arrow)"
+    />
     <circle
       v-if="car.location"
       :cx="car.location"

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prebuild": "yarn typecheck",
-    "build": "VITE_BACKEND_URL=http://localhost:8080 vite-ssg build",
+    "build": "vite-ssg build",
     "dev": "vite --port 3333 --open",
     "preview": "vite preview --port 3333",
     "lint": "eslint \"./**/*.{js,json,md,ts,vue,yaml,yml}\"",

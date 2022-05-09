@@ -22,19 +22,19 @@ async function insertTestData() {
         vin: 'vw-passat-1',
         speed: 30,
         location: 42,
-        timestamp: 12,
+        timestamp: '12',
       },
       {
         vin: 'vw-passat-1',
         speed: 40,
         location: 7,
-        timestamp: 15,
+        timestamp: '15',
       },
       {
         vin: 'vw-polo-1',
         speed: 50,
         location: 123,
-        timestamp: 10,
+        timestamp: '10',
       },
     ].map(Mappers.carDtoToCar)
   )
@@ -45,19 +45,19 @@ async function insertTestData() {
         id: 'tl-1',
         color: 'green' as const,
         remainingMilliseconds: 5000,
-        timestamp: 42,
+        timestamp: '42',
       },
       {
         id: 'tl-2',
         color: 'red' as const,
         remainingMilliseconds: 1500,
-        timestamp: 10,
+        timestamp: '10',
       },
       {
         id: 'tl-2',
         color: 'green' as const,
         remainingMilliseconds: 3000,
-        timestamp: 14,
+        timestamp: '14',
       },
     ].map(Mappers.trafficLightDtoToTrafficLight)
   )

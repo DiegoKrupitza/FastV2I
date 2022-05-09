@@ -31,7 +31,7 @@ describe('server', () => {
       method: 'DELETE',
       url: '/tracking/all',
     })
-    expect(JSON.parse(response.body)).toMatchInlineSnapshot('null')
+    expect(JSON.parse(response.body)).toMatchInlineSnapshot('{}')
     expect(collections?.cars?.countDocuments()).resolves.toBe(0)
     expect(collections?.trafficLights?.countDocuments()).resolves.toBe(0)
   })
