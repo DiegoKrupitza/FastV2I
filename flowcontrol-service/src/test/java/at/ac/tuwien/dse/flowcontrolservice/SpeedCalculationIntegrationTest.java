@@ -30,6 +30,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -76,7 +77,7 @@ class SpeedCalculationIntegrationTest {
 
     @BeforeEach
     void setup(){
-        car = new CarStateDto("V1",TRAFFIC_LIGHT_LOCATION-OFFSET_CAR_TRAFFIC_LIGHT,100L,"NTS", LocalDateTime.now());
+        car = new CarStateDto("V1",TRAFFIC_LIGHT_LOCATION-OFFSET_CAR_TRAFFIC_LIGHT,100L,"NTS", LocalDateTime.now(ZoneOffset.UTC));
         trafficLight = new NearestTrafficLightDto("T1",TRAFFIC_LIGHT_LOCATION,1000L);
         trafficLightRed = new NearestTrafficLightStateDto("red",1000L);
         trafficLightGreen = new NearestTrafficLightStateDto("green",1000L);

@@ -6,6 +6,7 @@ import at.ac.dse.simulatorservice.simulator.domain.CarStateMom;
 import at.ac.dse.simulatorservice.simulator.domain.Direction;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /** Interface that is responsible for mapping various carobjects. */
 public interface CarMapper {
@@ -22,6 +23,6 @@ public interface CarMapper {
         car.getLocation(),
         car.getSpeed(),
         direction.getShortIdentifier(),
-        LocalDateTime.now());
+        LocalDateTime.now(ZoneOffset.UTC));
   }
 }
