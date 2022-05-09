@@ -9,5 +9,6 @@ cd $service
 
 repo=test/dse-$service
 
-docker build -t $repo .
+docker build --build-arg BACKEND_URL=${BACKEND_URL} -t $repo .
 #docker push $repo
+

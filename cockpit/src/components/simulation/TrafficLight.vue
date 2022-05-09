@@ -31,7 +31,7 @@ const emit = defineEmits<{
       class="stroke-yellow"
       :style="{
         'stroke-width': config.roadMarkingSize,
-        'stroke-dasharray': config.roadSize,
+        'stroke-dasharray': config.height / (5 * config.roadSize),
       }"
     />
     <circle
@@ -51,7 +51,7 @@ const emit = defineEmits<{
       }"
       class="stroke-black cursor-pointer"
       :style="{
-        'stroke-width': config.actorSize / 5,
+        'stroke-width': config.actorSize / 10,
       }"
       @click="emit('select', trafficLight)"
     />
