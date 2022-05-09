@@ -29,6 +29,10 @@ export async function routes(server: FastifyInstance) {
         description: 'car model',
         example: 'Model 3',
       },
+      goingUp: {
+        type: 'boolean',
+        description: 'indicates that the car is going up',
+      },
     },
   })
 
