@@ -29,22 +29,31 @@ const emit = defineEmits<{
     <line
       v-if="car.speed && car.speed > 0"
       :x1="car.location"
-      :y1="0.5 * config.height"
+      :y1="
+        0.5 * config.height +
+        0.5 * (car.goingUp ? config.actorSize : -config.actorSize)
+      "
       :x2="
         car.location +
         config.actorSize * (1 + car.speed / 10) * (car.goingUp ? 1 : -1)
       "
-      :y2="0.5 * config.height"
+      :y2="
+        0.5 * config.height +
+        0.5 * (car.goingUp ? config.actorSize : -config.actorSize)
+      "
       class="stroke-blue"
       :stroke-width="config.actorSize / 4"
       marker-end="url(#arrow)"
     />
     <circle
       :cx="car.location"
-      :cy="0.5 * config.height"
-      :r="isSelected ? 2 * config.actorSize : config.actorSize"
+      :cy="
+        0.5 * config.height +
+        0.5 * (car.goingUp ? config.actorSize : -config.actorSize)
+      "
+      :r="isSelected ? config.actorSize : config.actorSize / 2"
       class="fill-blue stroke-black cursor-pointer"
-      :style="{ 'stroke-width': config.actorSize / 5 }"
+      :style="{ 'stroke-width': config.actorSize / 10 }"
       @click="emit('select', car)"
     />
   </g>

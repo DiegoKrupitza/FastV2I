@@ -8,7 +8,7 @@ function randomInRange(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-const MIN_SCAN_RADIUS = 200
+const MIN_SCAN_RADIUS = 50
 function randomizeTrafficLights(scenarioLength: number): NewTrafficLight[] {
   const total = randomInRange(
     SimulationConstants.MIN_TRAFFIC_LIGHTS,
@@ -108,7 +108,7 @@ export function useRandomSimulation(
   timelapse: Ref<boolean>
 ): () => NewSimulation {
   return () => {
-    const scenarioLength = randomInRange(2000, 15000)
+    const scenarioLength = randomInRange(500, 2000)
     const trafficLights = randomizeTrafficLights(scenarioLength)
     return {
       id: v4(),
