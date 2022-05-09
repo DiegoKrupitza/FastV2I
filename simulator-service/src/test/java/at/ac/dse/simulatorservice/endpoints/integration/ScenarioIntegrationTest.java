@@ -111,7 +111,7 @@ class ScenarioIntegrationTest {
                         "oem": "VW",
                         "model": "Caddy",
                         "entryTime": 0,
-                        "speed": 50,
+                        "speed": 10,
                         "location": 0,
                         "destination": 18000
                     },

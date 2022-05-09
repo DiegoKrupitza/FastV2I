@@ -12,8 +12,8 @@ import java.time.ZoneOffset;
 public interface CarMapper {
 
   /** Maps a {@link Car} to a {@link CarMom} */
-  static CarMom toCarMom(Car car) {
-    return new CarMom(car.getVin(), car.getOem(), car.getModel());
+  static CarMom toCarMom(Car car, boolean goingUp) {
+    return new CarMom(car.getVin(), car.getOem(), car.getModel(), goingUp);
   }
 
   /** Maps a {@link Car} with a given {@link Direction} to a {@link CarStateMom} */

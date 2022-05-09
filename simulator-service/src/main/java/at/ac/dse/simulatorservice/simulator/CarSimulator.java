@@ -43,12 +43,13 @@ public class CarSimulator extends SimulatorBase {
   void setup() throws InterruptedException {
     log.info("Started simulation for the car {}", car.getVin());
 
-    // Register car in entity-service
-    getRabbitTemplate()
-        .convertAndSend(getSimulatorProperties().getCarMom(), CarMapper.toCarMom(car));
-
     // determine which direction we are going
     direction = Direction.getFromStartAndDestination(car.getLocation(), car.getDestination());
+
+    // Register car in entity-service
+    getRabbitTemplate()
+        .convertAndSend(getSimulatorProperties().getCarMom(), CarMapper.toCarMom(car, direction.equals(Direction.BOTTOM_TO_TOP)));
+
 
     log.info("Car {} will drive in direction {}", car.getVin(), direction.getName());
 
