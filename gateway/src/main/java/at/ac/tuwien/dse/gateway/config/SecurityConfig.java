@@ -8,7 +8,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
 @EnableWebFluxSecurity
-public class SecruityConfig {
+public class SecurityConfig {
 
   @Bean
   SecurityWebFilterChain webHttpSecurity(ServerHttpSecurity http) {
