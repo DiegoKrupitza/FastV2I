@@ -29,12 +29,12 @@ export async function connectToDatabase(
   try {
     const client = await new MongoClient(url, {
       auth: {
-        username: process.env.MONGO_DB_USER,
-        password: process.env.MONGO_DB_PWD,
+        username: process.env.MONGO_DB_USER ?? 'admin',
+        password: process.env.MONGO_DB_PWD ?? 'admin',
       },
     }).connect()
 
-    const db = client.db(process.env.MONGO_DB_NAME)
+    const db = client.db(process.env.MONGO_DB_NAME ?? 'local-entity-db')
 
     collections.cars = db.collection('cars')
     collections.trafficLights = db.collection('traffic-lights')
