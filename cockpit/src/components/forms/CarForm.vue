@@ -11,7 +11,7 @@ const vin = ref(uuidv4())
 
 const oem = ref('')
 const model = ref('')
-const speed = ref(50)
+const speed = ref(SimulationConstants.MAX_SPEED)
 const delay = ref(0)
 const location = ref(0)
 const destination = ref(simulationLength.value ?? 0)
