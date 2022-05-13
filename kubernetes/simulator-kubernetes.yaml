@@ -29,6 +29,12 @@ spec:
               value: rabbitmq-service
             - name: env.namespace
               value: default
+            - name: ENTITY_SERVICE_IP
+              value: entity-service
+            - name: TRACKING_SERVICE_IP
+              value: tracking-service
+            - name: SIMULATOR_SERVICE_IP
+              value: simulator-service
 status: { }
 ---
 apiVersion: v1

@@ -42,3 +42,8 @@ simulator:
 springdoc:
   api-docs:
     path: simulator/v3/api-docs
+
+
+services:
+  entity-service: ${ENTITY_SERVICE_IP:localhost}
+  tracking-service: ${TRACKING_SERVICE_IP:localhost}

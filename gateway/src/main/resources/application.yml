@@ -21,15 +21,15 @@ spring:
               - OPTIONS
       routes:
         - id: entity-service
-          uri: http://entity-service:8889
+          uri: http://${ENTITY_SERVICE_IP:localhost}:8889
           predicates:
             - Path=/entities/**
         - id: tracking-service
-          uri: http://tracking-service:8888
+          uri: http://${TRACKING_SERVICE_IP:localhost}:8888
           predicates:
             - Path=/tracking/**
         - id: SIMULATOR-SERVICE
-          uri: http://simulator-service:8081
+          uri: http://${SIMULATOR_SERVICE_IP:localhost}:8081
           predicates:
             - Path=/simulator/**
         - id: openapi
@@ -78,3 +78,10 @@ springdoc:
         url: /documentation-entities/json
       - name: tracking
         url: /documentation-tracking/json
+
+health-check-services:
+  services:
+    entity-service: http://${ENTITY_SERVICE_IP:localhost}:8889/entities/health/
+    tracking-service: http://${TRACKING_SERVICE_IP:localhost}:8888/tracking/health
+    simulator-service: http://${SIMULATOR_SERVICE_IP:localhost}:8081/simulator/actuator/health
+    flowcontrol-service: http://${FLOW_SERVICE_IP:localhost}:8087/flowcontrol/actuator/health

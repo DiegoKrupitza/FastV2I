@@ -27,13 +27,18 @@ public class ScenarioController {
 
   /** Is a simulation active or not. */
   @GetMapping
-  @Operation(summary = "Get status of simulation",
-          description = "Returns the information of the simulation or null",
-          responses = @ApiResponse(responseCode = "200", description = "Successful response",
-                  content = @Content(mediaType = "application/json",
-                         schema = @Schema(implementation = ScenarioDto.class))))
+  @Operation(
+      summary = "Get status of simulation",
+      description = "Returns the information of the simulation or null",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Successful response",
+              content =
+                  @Content(
+                      mediaType = "application/json",
+                      schema = @Schema(implementation = ScenarioDto.class))))
   public ScenarioDto activeSimulation() {
-    log.info("Called active sim!");
     return simulatorService.getActiveSimulation();
   }
 
@@ -45,13 +50,22 @@ public class ScenarioController {
    */
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  @Operation(summary = "Get status of simulation",
-          description = "Returns the information of the simulation or null",
-          responses = {@ApiResponse(responseCode = "201", description = "Successful response"),
-          @ApiResponse(responseCode = "400", description = "Validation error, see error message for more information")})
-  public void setScenario( @org.springframework.web.bind.annotation.RequestBody
-                             @RequestBody(description = "The scenario to simulate", required = true,
-          content = @Content(schema = @Schema(implementation = ScenarioDto.class))) ScenarioDto scenario) {
+  @Operation(
+      summary = "Get status of simulation",
+      description = "Returns the information of the simulation or null",
+      responses = {
+        @ApiResponse(responseCode = "201", description = "Successful response"),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Validation error, see error message for more information")
+      })
+  public void setScenario(
+      @org.springframework.web.bind.annotation.RequestBody
+          @RequestBody(
+              description = "The scenario to simulate",
+              required = true,
+              content = @Content(schema = @Schema(implementation = ScenarioDto.class)))
+          ScenarioDto scenario) {
     validatorService.validateScenario(scenario);
     simulatorService.startScenario(scenario);
   }
@@ -60,9 +74,11 @@ public class ScenarioController {
    * Stops an active simulation and makes sure the other services return to an pre simulation state.
    */
   @DeleteMapping
-  @Operation(summary = "Stops the simulation",
-          description = "Stops an active simulation and makes sure the other services return to an pre simulation state",
-          responses = @ApiResponse(responseCode = "200",description = "Successful response"))
+  @Operation(
+      summary = "Stops the simulation",
+      description =
+          "Stops an active simulation and makes sure the other services return to an pre simulation state",
+      responses = @ApiResponse(responseCode = "200", description = "Successful response"))
   public void reset() {
     log.info("Reset the simulator requested");
     this.simulatorService.resetSimulation();

@@ -1,5 +1,6 @@
 package at.ac.tuwien.dse.gateway;
 
+import at.ac.tuwien.dse.gateway.service.HealthProps;
 import at.ac.tuwien.dse.gateway.service.HealthService;
 import at.ac.tuwien.dse.gateway.service.ServiceDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 import java.util.stream.Stream;
 
 /** Controller for the service resource */
@@ -29,15 +29,8 @@ import java.util.stream.Stream;
     description = "Endpoint for getting status information about services")
 public class ServiceAvailableController {
 
+  private final HealthProps healthProps;
   private final HealthService healthService;
-
-  private static final Map<String, String> SERVICE_LIST =
-      Map.of(
-          "entity-service", "http://entity-service:8889/entities/health/", //
-          "tracking-service", "http://tracking-service:8888/tracking/health", //
-          "simulator-service", "http://simulator-service:8081/simulator/actuator/health", //
-          "flowcontrol-service", "http://flowcontrol-service:8087/flowcontrol/actuator/health" //
-          );
 
   /**
    * Lists the health status of the services our gateway is interacting with.
@@ -58,7 +51,7 @@ public class ServiceAvailableController {
                       array = @ArraySchema(schema = @Schema(implementation = ServiceDto.class)))))
   public Stream<ServiceDto> getAllHealthyServices() {
 
-    return SERVICE_LIST.entrySet().stream()
+    return healthProps.getServices().entrySet().stream()
         .map(item -> this.healthService.getHealthStatus(item.getKey(), item.getValue()));
   }
 }
