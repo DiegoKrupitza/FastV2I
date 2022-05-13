@@ -24,3 +24,7 @@ simulator:
   speedMom: car-speed
   timelapseDivider: 4
   fanoutName: fanout.carState
+
+services:
+  entity-service: ${ENTITY_SERVICE_IP:localhost}
+  tracking-service: ${TRACKING_SERVICE_IP:localhost}

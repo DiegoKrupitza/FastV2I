@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
 
 /** Feign client to interact with the entity-service. */
-@FeignClient(name = "entity-service", url = "http://entity-service:8889")
+@FeignClient(name = "entity-service", url = "http://${services.entity-service}:8889")
 public interface EntityServiceFeign {
 
   /** Resets the entity-serice to a state where no data is registered. */
