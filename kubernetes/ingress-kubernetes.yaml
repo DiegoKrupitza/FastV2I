@@ -1,26 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "ingress"
+  name: ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/default-backend: cockpit-service
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: "dev.local"
-      http:
+    - http:
         paths:
-          - path: /(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: cockpit-service
-                port:
-                  number: 30002
-          - path: /api/?(.*)
+          - path: /api
             pathType: Prefix
             backend:
               service:
                 name: gateway-service
                 port:
                   number: 30001
-
