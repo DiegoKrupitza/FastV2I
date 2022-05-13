@@ -43,7 +43,7 @@ spec:
                   name: dse-secrets-v2i
                   key: MONGO_DB_PWD
             - name: MONGO_DB_NAME
-              value: entity-service-db
+              value: tracking-service-db
             - name: RABBIT_MQ_HOST
               value: rabbitmq-service
             - name: env.namespace
