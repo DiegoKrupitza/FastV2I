@@ -9,14 +9,14 @@ spec:
     - http:
         paths:
           - path: /(.*)
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: cockpit-service
                 port:
                   number: 80
           - path: /api/?(.*)
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: gateway-service
