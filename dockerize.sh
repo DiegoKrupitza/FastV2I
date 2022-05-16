@@ -9,6 +9,6 @@ cd $service
 
 repo=deryeger/dse-$service
 
-docker build --build-arg BACKEND_URL=${BACKEND_URL} -t $repo .
-#docker push $repo
+docker build --platform linux/amd64 --build-arg BACKEND_URL=${BACKEND_URL} -t $repo .
+docker push $repo
 
