@@ -20,7 +20,6 @@ spec:
       containers:
         - image: deryeger/dse-entity-service
           name: dse-entity-service
-          imagePullPolicy: Never
           resources: { }
           env:
             - name: MONGO_DB_HOST

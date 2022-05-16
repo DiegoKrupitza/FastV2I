@@ -20,7 +20,6 @@ spec:
       containers:
         - image: deryeger/dse-gateway
           name: dse-gateway
-          imagePullPolicy: Never
           ports:
             - containerPort: 8080
           resources: { }
