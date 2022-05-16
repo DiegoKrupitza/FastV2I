@@ -7,7 +7,9 @@ import { createServer } from './server'
  */
 const options: Options = {
   isTest: false,
-  mongoDbUrl: `mongodb+srv://${process.env.MONGO_DB_HOST ?? 'localhost:27017'}`,
+  mongoDbUrl: process.env.MONGO_DB_HOST
+    ? `mongodb+srv://${process.env.MONGO_DB_HOST}`
+    : 'mongodb://localhost:27017',
 }
 
 /**

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /** Feign client to interact with the tracking-service. */
-@FeignClient("tracking-service")
+@FeignClient(value = "tracking-service", url = "http://${services.tracking-service}:8888")
 public interface TrackingServiceFeign {
 
   /** Resets the tracking-service to a state where no data is registered. */

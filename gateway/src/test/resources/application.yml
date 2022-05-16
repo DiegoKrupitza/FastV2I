@@ -1,10 +1,18 @@
 spring:
   application:
-    name: gateway
+    name: gateway-service
 
 server:
   port: 8080
-eureka:
-  client:
-    registerWithEureka: false
-    enabled: false
+
+services:
+  entity-service: ${ENTITY_SERVICE_IP:localhost}
+  tracking-service: ${TRACKING_SERVICE_IP:localhost}
+
+
+health-check-services:
+  services:
+    entity-service: http://entity-service:8889/entities/health/
+    tracking-service: http://tracking-service:8888/tracking/health
+    simulator-service: http://simulator-service:8081/simulator/actuator/health
+    flowcontrol-service: http://flowcontrol-service:8087/flowcontrol/actuator/health

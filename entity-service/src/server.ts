@@ -4,7 +4,6 @@ import fastifySwagger from 'fastify-swagger'
 
 import { connectToAmqp } from './amqp'
 import { connectToDatabase } from './database'
-import { connectToEureka } from './eureka'
 import { routes } from './routes'
 
 /**
@@ -67,7 +66,6 @@ export async function createServer({
   }
 
   connectToAmqp(server)
-  connectToEureka(server)
 
   return server
 }
