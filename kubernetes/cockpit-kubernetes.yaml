@@ -20,7 +20,6 @@ spec:
       containers:
         - image: deryeger/dse-cockpit
           name: dse-cockpit
-          imagePullPolicy: Never
           resources: { }
 status: { }
 ---

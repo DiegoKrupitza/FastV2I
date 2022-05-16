@@ -20,7 +20,6 @@ spec:
       containers:
         - image: deryeger/dse-flowcontrol-service
           name: dse-flowcontrol-service
-          imagePullPolicy: Never
           resources: { }
           ports:
             - containerPort: 8087

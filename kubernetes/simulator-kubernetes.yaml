@@ -20,7 +20,6 @@ spec:
       containers:
         - image: deryeger/dse-simulator-service
           name: dse-simulator-service
-          imagePullPolicy: Never
           ports:
             - containerPort: 8081
           resources: { }
