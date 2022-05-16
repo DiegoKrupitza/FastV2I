@@ -40,6 +40,12 @@ spring:
             - RewritePath=/documentation-entities, /entities/documentation-entities
             - RewritePath=/documentation-tracking, /tracking/documentation-tracking
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: api-rewrite
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<path>.*),  /$\{path}/
       httpserver:
         wiretap: true
 

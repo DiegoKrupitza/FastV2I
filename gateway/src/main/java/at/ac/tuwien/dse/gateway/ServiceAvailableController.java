@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.stream.Stream;
 
 /** Controller for the service resource */
-@RequestMapping("services")
+@RequestMapping("/api/services")
 @RequiredArgsConstructor
 @Slf4j
 @RestController
