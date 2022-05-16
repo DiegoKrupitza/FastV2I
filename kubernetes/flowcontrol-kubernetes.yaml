@@ -18,7 +18,7 @@ spec:
         app: flowcontrol
     spec:
       containers:
-        - image: test/dse-flowcontrol-service
+        - image: deryeger/dse-flowcontrol-service
           name: dse-flowcontrol-service
           imagePullPolicy: Never
           resources: { }

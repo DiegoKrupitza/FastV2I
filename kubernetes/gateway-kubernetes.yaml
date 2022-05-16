@@ -18,7 +18,7 @@ spec:
         app: gateway
     spec:
       containers:
-        - image: test/dse-gateway
+        - image: deryeger/dse-gateway
           name: dse-gateway
           imagePullPolicy: Never
           ports:
