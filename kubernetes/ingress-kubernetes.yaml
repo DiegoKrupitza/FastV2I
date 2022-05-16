@@ -2,21 +2,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dse-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
     - http:
         paths:
           - path: /*
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: cockpit-service
                 port:
                   number: 80
           - path: /api/*
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: gateway-service
