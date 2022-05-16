@@ -18,7 +18,7 @@ spec:
         app: cockpit
     spec:
       containers:
-        - image: test/dse-cockpit
+        - image: deryeger/dse-cockpit
           name: dse-cockpit
           imagePullPolicy: Never
           resources: { }

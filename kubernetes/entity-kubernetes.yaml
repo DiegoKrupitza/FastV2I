@@ -18,7 +18,7 @@ spec:
         app: entity
     spec:
       containers:
-        - image: test/dse-entity-service
+        - image: deryeger/dse-entity-service
           name: dse-entity-service
           imagePullPolicy: Never
           resources: { }

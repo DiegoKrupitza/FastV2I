@@ -18,7 +18,7 @@ spec:
         app: tracking
     spec:
       containers:
-        - image: test/dse-tracking-service
+        - image: deryeger/dse-tracking-service
           name: dse-tracking-service
           imagePullPolicy: Never
           ports:
