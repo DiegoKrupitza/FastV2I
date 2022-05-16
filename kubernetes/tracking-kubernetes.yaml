@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tracking
+  name: tracking
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tracking
+  strategy: { }
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tracking
+    spec:
+      containers:
+        - image: deryeger/dse-tracking-service
+          name: dse-tracking-service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8888
+          resources: { }
+          env:
+            - name: MONGO_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: dse-secrets-v2i
+                  key: MONGO_DB_HOST
+
+            - name: MONGO_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dse-secrets-v2i
+                  key: MONGO_DB_USER
+
+            - name: MONGO_DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: dse-secrets-v2i
+                  key: MONGO_DB_PWD
+            - name: MONGO_DB_NAME
+              value: tracking-service-db
+            - name: RABBIT_MQ_HOST
+              value: rabbitmq-service
+            - name: env.namespace
+              value: default
+status: { }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tracking-service
+  name: tracking-service
+spec:
+  ports:
+    - name: 8888-8888
+      port: 8888
+      protocol: TCP
+      targetPort: 8888
+  selector:
+    app: tracking
+  type: ClusterIP
+status:
+  loadBalancer: { }

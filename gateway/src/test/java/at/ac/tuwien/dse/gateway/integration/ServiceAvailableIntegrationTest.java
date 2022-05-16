@@ -1,35 +1,36 @@
 package at.ac.tuwien.dse.gateway.integration;
 
+import at.ac.tuwien.dse.gateway.service.HealthService;
+import at.ac.tuwien.dse.gateway.service.ServiceDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.cloud.client.DefaultServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.Collections;
-import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
 class ServiceAvailableIntegrationTest {
 
   @MockBean
-  private DiscoveryClient discoveryClient;
+  private HealthService healthService;
 
   @Autowired private WebTestClient testClient;
 
   @Test
   void testServicesAvailableSuccess() {
 
-    Mockito.when(discoveryClient.getInstances(any()))
-        .thenReturn(List.of(new DefaultServiceInstance()));
+    Mockito.when(healthService.getHealthStatus(any(),anyString()))
+            .thenAnswer(invocationOnMock -> {
+              String serviceName = invocationOnMock.getArgument(0, String.class);
+              return new ServiceDto(serviceName.toUpperCase(),true);
+            });
 
     this.testClient
         .get()
@@ -61,12 +62,12 @@ class ServiceAvailableIntegrationTest {
 
   @Test
   void failingServiceFound() {
-    Mockito.when(discoveryClient.getInstances(any())).thenAnswer(invocationOnMock -> {
+    Mockito.when(healthService.getHealthStatus(any(),anyString())).thenAnswer(invocationOnMock -> {
       String serviceName = invocationOnMock.getArgument(0, String.class);
       if(serviceName.toUpperCase().contains("FLOWCONTROL")) {
-        return Collections.emptyList();
+        return new ServiceDto(serviceName.toUpperCase(),false);
       }else {
-        return List.of(new DefaultServiceInstance());
+        return new ServiceDto(serviceName.toUpperCase(),true);
       }
     });
 

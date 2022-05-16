@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: flowcontrol
+  name: flowcontrol
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flowcontrol
+  strategy: { }
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: flowcontrol
+    spec:
+      containers:
+        - image: deryeger/dse-flowcontrol-service
+          name: dse-flowcontrol-service
+          imagePullPolicy: Never
+          resources: { }
+          ports:
+            - containerPort: 8087
+          env:
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq-service
+            - name: env.namespace
+              value: default
+            - name: ENTITY_SERVICE_IP
+              value: entity-service
+            - name: TRACKING_SERVICE_IP
+              value: tracking-service
+            - name: SIMULATOR_SERVICE_IP
+              value: simulator-service
+
+status: { }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: flowcontrol-service
+  name: flowcontrol-service
+spec:
+  ports:
+    - name: 8087-8087
+      port: 8087
+      protocol: TCP
+      targetPort: 8087
+  selector:
+    app: flowcontrol
+  type: ClusterIP
+status:
+  loadBalancer: {}

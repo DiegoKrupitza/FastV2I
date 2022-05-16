@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: simulator
+  name: simulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simulator
+  strategy: { }
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: simulator
+    spec:
+      containers:
+        - image: deryeger/dse-simulator-service
+          name: dse-simulator-service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          resources: { }
+          env:
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq-service
+            - name: env.namespace
+              value: default
+            - name: ENTITY_SERVICE_IP
+              value: entity-service
+            - name: TRACKING_SERVICE_IP
+              value: tracking-service
+            - name: SIMULATOR_SERVICE_IP
+              value: simulator-service
+status: { }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: simulator-service
+  name: simulator-service
+spec:
+  ports:
+    - name: 8081-8081
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+  selector:
+    app: simulator
+  type: ClusterIP
+status:
+  loadBalancer: { }

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rabbitmq
+  name: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  strategy: { }
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - image: rabbitmq:management-alpine
+          name: rabbitmq
+          resources: { }
+status: { }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: rabbitmq-service
+  name: rabbitmq-service
+spec:
+  ports:
+    - name: 5672-5672
+      port: 5672
+      protocol: TCP
+      targetPort: 5672
+    - name: 15672-15672
+      port: 15672
+      protocol: TCP
+      targetPort: 15672
+  selector:
+    app: rabbitmq
+  type: ClusterIP
+status:
+  loadBalancer: { }
