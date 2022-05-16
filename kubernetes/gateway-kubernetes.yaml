@@ -49,9 +49,8 @@ spec:
       port: 8080
       protocol: TCP
       targetPort: 8080
-      nodePort: 30001 #TODO: remove in production
   selector:
     app: gateway
-  type: NodePort #TODO: change in production
+  type: ClusterIP
 status:
   loadBalancer: { }
