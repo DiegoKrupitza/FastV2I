@@ -13,7 +13,6 @@
   "dependencies": {
     "amqplib": "0.8.0",
     "dotenv": "16.0.0",
-    "eureka-js-client": "4.5.0",
     "fastify": "3.27.4",
     "fastify-swagger": "^5.1.1",
     "mongodb": "4.4.1",
