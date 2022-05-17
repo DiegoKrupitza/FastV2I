@@ -12,7 +12,6 @@ declare module 'vue' {
     CarbonTrashCan: typeof import('~icons/carbon/trash-can')['default']
     CarEntity: typeof import('./components/simulation/CarEntity.vue')['default']
     CarForm: typeof import('./components/forms/CarForm.vue')['default']
-    Date: typeof import('./components/Date.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     Main: typeof import('./components/Main.vue')['default']
     NewCar: typeof import('./components/forms/NewCar.vue')['default']
