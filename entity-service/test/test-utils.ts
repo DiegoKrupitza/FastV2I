@@ -6,7 +6,12 @@ import { Mappers } from '../src/model/mappers'
 import { createServer } from '../src/server'
 
 const createTestServer = async (): Promise<FastifyInstance> => {
-  const mongod = await MongoMemoryServer.create()
+  const mongod = await MongoMemoryServer.create({
+    auth: {
+      customRootName: 'admin',
+      customRootPwd: 'admin',
+    },
+  })
   const server = await createServer({
     isTest: true,
     mongoDbUrl: mongod.getUri(),
