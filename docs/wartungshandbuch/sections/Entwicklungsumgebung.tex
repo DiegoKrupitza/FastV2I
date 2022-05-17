@@ -1,16 +1,16 @@
 \section{Entwicklungsumgebung}
 
+Für das Entwickeln der Java Microservices werden Java 17, Maven 3.8.5 sowie Yarn 1.22.18 oder neuer benötigt.
+Bevor man die Entwicklungsumgebung starten kann, müssen eine Datenbank sowie eine \enquote{MoM} mithilfe von Docker Compose gestartet werden.
+Dazu kann der Befehl \verb|docker-compose up -d| im Hauptverzeichnis des Projektes ausgeführt werden.
 
-Für das Entwickeln der Java Microservices braucht man Java 17 LTS, sowie Maven (mit einer Version größer gleich 3.8.5). Bevor man die Entwicklungsumgebung starten kann muss man die \textit{docker-compose.yml} Datei im Hauptordner des Projektes mittels \textit{docker-compose up} starten.
-
-Sobald Docker den rabbitmq und monodb container gestartet hat, kann man mit dem starten der Microservices beginnen. 
-
-An sich gibt es keine strikte Reihenfolge für das starten der Microservices, jedoch bietet es sich an folgenden Reihenfolge zu befolgen, um die Wartezeit zu verringern. 
+Es gibt keine strikte Reihenfolge für das Starten der Microservices.
+Die folgende Reihenfolge bietet sich jedoch an, um die Wartezeit zu verringern. 
 
 \begin{enumerate}
 	\item Entity-Service
 	\item Tracking-Service
-	\item Flocontrol-Service
+	\item Flowcontrol-Service
 	\item Simulator-Service
 	\item Gateway-Service
 	\item Cockpit
@@ -18,89 +18,98 @@ An sich gibt es keine strikte Reihenfolge für das starten der Microservices, je
 
 \subsection{Starten der Java Services}
 
-Die Services \textit{Flowcontrol-Service}, \textit{Simulato-Service} und \textit{Gateway-Service} können mittels Maven gestartet werden. Hierfür muss man in den Ordner des gewünschten Services gehen und den folgenden command ausführen:  \\ \verb|mvn spring-boot:run|
+Die Services \textit{Flowcontrol-Service}, \textit{Simulator-Service} und \textit{Gateway-Service} können mittels Maven gestartet werden.
+Hierfür muss im Verzeichnis des gewünschten Dienstes der Befehl \verb|mvn spring-boot:run| ausgeführt werden.
 
 \subsection{Starten der Typescript Services}
-JAN MAGIC
+
+Die TypeScript Services sowie das Cockpit lassen sich über den Befehl \verb|yarn dev| starten.
+
 
 \subsection{Konfiguration der Services}
-Einige Services der Applikation bieten Anpassungsmöglichkeit. Diese Anpassungen werden über Environment variablen gesteuert. Die Applikationen laufen auch ohne das Anpassen dieser Werte.
+
+Einige Services der Applikation bieten Anpassungsmöglichkeiten über Umgebungsvariablen, wobei Standardwerte eine Konfiguration optional machen.
 
 \subsubsection{Konfiguration Entity-Service}
-Folgende Environment variablen sind möglich zu setzen.
+
+Folgende Umgebungsvariablen sind anpassbar.
 
 
 \begin{table}[h]
 	\begin{tabular}{|l|l|l|}
 		\hline
 		Name & Standardwert & Beschreibung \\ \hline
-		\verb|MONGO_DB_HOST| & localhost:27017 &  Hostname / die ip wo die MongoDB Instanz läuft \\ \hline
-		\verb|MONGO_DB_USER| & admin  &  Username für die Authentifizierung bei der MongoDB Instanz \\ \hline
-		\verb|MONGO_DB_PWD| & admin &  Passwort für die Authentifizierung bei der MongoDB Instanz \\ \hline
-		\verb|MONGO_DB_NAME| & local-entity-db &  MongoDB Datenbank die das Service benutzen soll \\ \hline
-		\verb|RABBIT_MQ_HOST| & localhost &  Hostname / die IP wo die RabbitMQ Instanz läuft \\ \hline
+		\verb|MONGO_DB_HOST| & localhost:27017 & Adresse der MongoDB Instanz \\ \hline
+		\verb|MONGO_DB_USER| & admin & Username der MongoDB Instanz \\ \hline
+		\verb|MONGO_DB_PWD| & admin & Passwort der MongoDB Instanz \\ \hline
+		\verb|MONGO_DB_NAME| & local-entity-db & Name der MongoDB Datenbank \\ \hline
+		\verb|RABBIT_MQ_HOST| & localhost & Adresse RabbitMQ Instanz \\ \hline
 	\end{tabular}
 	\caption{Environment variablen für Entity-Service }
 \end{table}
 
 \subsubsection{Konfiguration Tracking-Service}
-Folgende Environment variablen sind möglich zu setzen.
+
+Folgende Umgebungsvariablen sind anpassbar.
 
 
 \begin{table}[h]
 	\begin{tabular}{|l|l|l|}
 		\hline
 		Name & Standardwert & Beschreibung \\ \hline
-		\verb|MONGO_DB_HOST| & localhost:27017 &  Hostname / die ip wo die MongoDB Instanz läuft \\ \hline
-		\verb|MONGO_DB_USER| & admin  &  Username für die Authentifizierung bei der MongoDB Instanz \\ \hline
-		\verb|MONGO_DB_PWD| & admin &  Passwort für die Authentifizierung bei der MongoDB Instanz \\ \hline
-		\verb|MONGO_DB_NAME| & local-tracking-db &  MongoDB Datenbank die das Service benutzen soll \\ \hline
-		\verb|RABBIT_MQ_HOST| & localhost &  Hostname / die IP wo die RabbitMQ Instanz läuft \\ \hline
+		\verb|MONGO_DB_HOST| & localhost:27017 & Adresse der MongoDB Instanz \\ \hline
+		\verb|MONGO_DB_USER| & admin & Username der MongoDB Instanz \\ \hline
+		\verb|MONGO_DB_PWD| & admin & Passwort der MongoDB Instanz \\ \hline
+		\verb|MONGO_DB_NAME| & local-entity-db & Name der MongoDB Datenbank \\ \hline
+		\verb|RABBIT_MQ_HOST| & localhost & Adresse RabbitMQ Instanz \\ \hline
 	\end{tabular}
 	\caption{Environment variablen für Tracking-Service }
 \end{table}
 
 \subsubsection{Konfiguration Simulator-Service}
-Folgende Environment variablen sind möglich zu setzen.
+
+Folgende Umgebungsvariablen sind anpassbar.
 
 \begin{table}[h]
 	\begin{tabular}{|l|l|l|}
 		\hline
 		Name & Standardwert & Beschreibung \\ \hline
-		\verb|ENTITY_SERVICE_IP| & localhost &  Hostname / die IP vom Entity-Service \\ \hline
-		\verb|TRACKING_SERVICE_IP| & localhost  &  Hostname / die IP vom Tracking-Service  \\ \hline
-		\verb|FLOW_SERVICE_IP| & localhost &  Hostname / die IP vom Flowcontrol-Service  \\ \hline
-		\verb|SPRING_RABBITMQ_HOST| & localhost &  Hostname / die IP wo die RabbitMQ Instanz läuft  \\ \hline		
+		\verb|ENTITY_SERVICE_IP| & localhost & Adresse des Entity-Service \\ \hline
+		\verb|TRACKING_SERVICE_IP| & localhost & Adresse des Tracking-Service \\ \hline
+		\verb|FLOW_SERVICE_IP| & localhost & Adresse des Flowcontrol-Service \\ \hline
+		\verb|SPRING_RABBITMQ_HOST| & localhost & Adresse der RabbitMQ Instanz \\ \hline		
 	\end{tabular}
 	\caption{Environment variablen für Simulator-Service }
 \end{table}
 
 \subsubsection{Konfiguration Flowcontrol-Service}
-Folgende Environment variablen sind möglich zu setzen.
+
+Folgende Umgebungsvariablen sind anpassbar.
 
 \begin{table}[h]
 	\begin{tabular}{|l|l|l|}
 		\hline
 		Name & Standardwert & Beschreibung \\ \hline
-		\verb|ENTITY_SERVICE_IP| & localhost &  Hostname / die IP vom Entity-Service \\ \hline
-		\verb|TRACKING_SERVICE_IP| & localhost  &  Hostname / die IP vom Tracking-Service  \\ \hline
-		\verb|SIMULATOR_SERVICE_IP| & localhostdmin &  Hostname / die IP vom Simulator-Service  \\ \hline
-		\verb|SPRING_RABBITMQ_HOST| & localhost &  Hostname / die IP wo die RabbitMQ Instanz läuft  \\ \hline		
+		\verb|ENTITY_SERVICE_IP| & localhost & Adresse des Entity-Service \\ \hline
+		\verb|TRACKING_SERVICE_IP| & localhost & Adresse des Tracking-Service \\ \hline
+		\verb|SIMULATOR_SERVICE_IP| & localhost & Adresse des Simulator-Service \\ \hline
+		\verb|SPRING_RABBITMQ_HOST| & localhost &  Adresse der RabbitMQ Instanz \\ \hline		
 	\end{tabular}
 	\caption{Environment variablen für Simulator-Service }
 \end{table}
 
 \subsubsection{Konfiguration Gateway-Service}
-Folgende Environment variablen sind möglich zu setzen.
+
+Folgende Umgebungsvariablen sind anpassbar.
 
 \begin{table}[h]
 	\begin{tabular}{|l|l|l|}
 		\hline
 		Name & Standardwert & Beschreibung \\ \hline
-		\verb|ENTITY_SERVICE_IP| & localhost &  Hostname / die IP vom Entity-Service \\ \hline
-		\verb|TRACKING_SERVICE_IP| & localhost  &  Hostname / die IP vom Tracking-Service  \\ \hline
-		\verb|SIMULATOR_SERVICE_IP| & localhostdmin &  Hostname / die IP vom Simulator-Service  \\ \hline
-		\verb|FLOW_SERVICE_IP| & localhost &  Hostname / die IP vom Flowcontrol-Service  \\ \hline
+		\verb|ENTITY_SERVICE_IP| & localhost & Adresse des Entity-Service \\ \hline
+		\verb|TRACKING_SERVICE_IP| & localhost & Adresse des Tracking-Service \\ \hline
+		\verb|SIMULATOR_SERVICE_IP| & localhost & Adresse des Simulator-Service \\ \hline
+		\verb|FLOW_SERVICE_IP| & localhost & Adresse des Flowcontrol-Service \\ \hline
 	\end{tabular}
 	\caption{Environment variablen für Gateway-Service }
 \end{table}
