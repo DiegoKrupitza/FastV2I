@@ -6,5 +6,6 @@
     "lib": ["es2018"],
     "types": ["@types/node", "@types/geojson", "@types/amqplib"],
     "declaration": false
-  }
+  },
+  "include": ["src"]
 }
