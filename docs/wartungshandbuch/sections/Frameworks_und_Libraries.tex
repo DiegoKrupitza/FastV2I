@@ -6,7 +6,7 @@ Detaillierte Informationen können den Dokumentationen der jeweiligen Projekte e
 \subsection{Entity-Service und Tracking-Service}
 
 Sowohl der Entity-Service als auch der Tracking-Service wurden mithilfe des \href{https://www.fastify.io}{Fastify-Frameworks} entwickelt.
-Dabei handelt es sich um ein Web-Framework für Node.js, welches sich durch seine hohe Performanz sowie Schema-Validierung auszeichnet.
+Dabei handelt es sich um ein Web-Framework für Node.js, welches sich durch seine hohe Performanz sowie Schema-Vali\-dierung auszeichnet.
 
 Für die Kommunikation mit der MongoDB Datenbank wird die offizielle Bibliothek \href{https://github.com/mongodb/node-mongodb-native}{node-mongodb-native} verwendet.
 
@@ -15,7 +15,18 @@ Die Kommunikation mit der \enquote{MoM} basiert auf der Bibliothek \href{https:/
 Darüber hinaus wird \href{https://github.com/motdotla/dotenv}{dotenv} zum Laden der Umgebungsvariablen verwendet.
 
 \subsection{Cockpit}
-JAN
+
+Für die Entwicklung des Frontends wurde eine Vielzahl and Bibliotheken eingesetzt.
+Die Grundlage bildet das Framework \href{https://vuejs.org}{Vue 3}.
+In Kombination mit dem Build-Tool \href{https://vitejs.dev}{Vite}, bietet Vue 3 eine moderne Entwicklungsumgebung und beschleunigt die Umsetzung der Anforderungen durch nützliche Funktionen wie beispielsweise Hot-Reloads in wenigen Millisekunden.
+
+Darüber hinaus wurde \href{https://formkit.com}{FormKit} eingesetzt um eine Validierung von Nutzereingaben zu vereinfachen.
+
+\href{https://github.com/axios/axios}{Axios} wurde als zuverlässiger HTTP-Client in das Frontend eingebunden, um eine Kommunikation mit dem Backend umzusetzen.
+
+Die Bibliothek \href{https://github.com/Maronato/vue-toastification}{vue-toastification} kommt beim Anzeigen von Statusmelden, beispielsweise beim Starten und Stoppen von Simulationen, zum Einsatz.
+
+Als performantere Alternative zu Tailwind wurde die Bibliothek \href{https://uno.antfu.me}{UnoCSS} verwendet.
 
 \subsection{Flocontrol-Service}
 DIEGO
