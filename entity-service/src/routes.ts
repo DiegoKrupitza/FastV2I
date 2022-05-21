@@ -116,7 +116,6 @@ export async function routes(server: FastifyInstance) {
         response: {
           200: {
             description: 'Successful response',
-            content: 'application/json',
             type: 'array',
             items: { $ref: 'car#' },
           },
@@ -182,7 +181,6 @@ export async function routes(server: FastifyInstance) {
         response: {
           200: {
             description: 'Successful response',
-            content: 'application/json',
             type: 'array',
             items: { $ref: 'traffic-light#' },
           },

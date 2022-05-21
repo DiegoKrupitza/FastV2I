@@ -22,8 +22,7 @@ import java.util.List;
     info =
         @Info(
             title = "GateWay API",
-            version = "1.0",
-            description = "Documentation GateWay API v1.0"))
+            version = "1.0"))
 @Log4j2
 public class GatewayApplication {
 
