@@ -1,0 +1,183 @@
+openapi: 3.0.3
+info:
+  title: Entity Endpoint
+  version: '1.0'
+components:
+  schemas:
+    def-0:
+      type: object
+      properties:
+        vin:
+          type: string
+          description: Vin of car
+          example: V1
+        oem:
+          type: string
+          description: oem of car
+          example: Tesla
+        model:
+          type: string
+          description: car model
+          example: Model 3
+        goingUp:
+          type: boolean
+          description: indicates that the car is going up
+      title: car
+    def-1:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          description: ID of traffic light
+          example: T1
+        scanDistance:
+          type: number
+          description: Scan distance of the traffic light in meters
+          minimum: 10
+          example: 1000
+        location:
+          type: number
+          description: horizontal location of traffic light on the street
+          example: 5000
+      title: traffic-light
+paths:
+  /entities/all:
+    delete:
+      summary: Deletes all entities
+      tags:
+        - endpoints
+      description: Deletes all cars and traffic lights from the database
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+  /entities/cars:
+    get:
+      summary: get all cars
+      tags:
+        - endpoints
+      description: Get information about all cars in database. Is empty when no car was found
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                description: Successful response
+                type: array
+                items:
+                  $ref: '#/components/schemas/def-0'
+  /entities/cars/{vin}:
+    get:
+      summary: get specific car
+      tags:
+        - endpoints
+      description: Get information about a car with specified vin
+      parameters:
+        - in: path
+          name: vin
+          required: true
+          schema:
+            type: string
+          description: car vin
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                description: Successful response
+                content: application/json
+                type: object
+                $ref: '#/components/schemas/def-0'
+        '404':
+          description: Error response
+          content:
+            application/json:
+              schema:
+                description: Error response
+                type: object
+                nullable: true
+  /entities/traffic-lights:
+    get:
+      summary: get all traffic lights
+      tags:
+        - endpoints
+      description: Get information about all traffic lights in database. Is empty when no traffic light was found
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                description: Successful response
+                type: array
+                items:
+                  $ref: '#/components/schemas/def-1'
+  /entities/traffic-lights/{id}:
+    get:
+      summary: get specific traffic light
+      tags:
+        - endpoints
+      description: Get information about a traffic light with specified id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: traffic light id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                description: Successful response
+                content: application/json
+                type: object
+                $ref: '#/components/schemas/def-1'
+        '404':
+          description: Error response
+          content:
+            application/json:
+              schema:
+                description: Error response
+                type: object
+                nullable: true
+  /entities/traffic-lights/near/{location}/{direction}:
+    get:
+      summary: get traffic light in front of car within scan distance
+      tags:
+        - endpoints
+      description: Is used to find the traffic light in front of a car, where the car is in scan distance of said traffic light
+      parameters:
+        - in: path
+          name: location
+          required: true
+          schema:
+            type: number
+          description: location of car
+        - in: path
+          name: direction
+          required: true
+          schema:
+            type: string
+          description: driving direction of car
+      responses:
+        '200':
+          description: Successful response. If no traffic light was found near car, returns null
+          content:
+            application/json:
+              schema:
+                description: Successful response. If no traffic light was found near car, returns null
+                content: application/json
+                type: object
+                $ref: '#/components/schemas/def-1'
+        '400':
+          description: Direction was not in pattern NTS or STN

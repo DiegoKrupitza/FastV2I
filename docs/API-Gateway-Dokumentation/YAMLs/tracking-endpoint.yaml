@@ -1,0 +1,188 @@
+openapi: 3.0.3
+info:
+  title: Tracking Endpoint
+  version: '1.0'
+components:
+  schemas:
+    def-0:
+      type: object
+      properties:
+        vin:
+          type: string
+          description: Vin of car
+          example: V1
+        location:
+          type: number
+          description: horizontal location of car
+          example: '1000'
+        speed:
+          type: number
+          description: speed of car
+          example: '50'
+        timestamp:
+          type: string
+          description: timestamp of the change
+      title: car
+    def-1:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          description: ID of traffic light
+          example: T1
+        remainingMilliseconds:
+          type: number
+          description: remaining time, the traffic light keeps its state
+          example: 2000
+        color:
+          type: string
+          pattern: ^(green|red){1}$
+          example: green
+        location:
+          type: number
+          description: horizontal location of traffic light on the street
+          example: 5000
+        timestamp:
+          type: string
+          description: timestamp of the change
+      title: traffic-light
+paths:
+  /tracking/all:
+    delete:
+      summary: Delete all saved entities
+      tags:
+        - endpoints
+      description: Deletes all cars and traffic lights from the database
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+  /tracking/cars:
+    get:
+      summary: get all cars
+      tags:
+        - endpoints
+      description: Get information about all cars in database. Is empty when no car was found
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                description: Successful response
+                type: array
+                items:
+                  $ref: '#/components/schemas/def-0'
+  /tracking/cars/{vin}:
+    get:
+      summary: get all information about specific car
+      tags:
+        - endpoints
+      description: Get all information about car with specific vin
+      parameters:
+        - in: path
+          name: vin
+          required: true
+          schema:
+            type: string
+          description: car vin
+      responses:
+        '200':
+          description: Successful response. Is empty when car with vin does not exist
+          content:
+            application/json:
+              schema:
+                description: Successful response. Is empty when car with vin does not exist
+                type: array
+                items:
+                  $ref: '#/components/schemas/def-0'
+  /tracking/cars/{vin}/latest:
+    get:
+      summary: get latest specific car
+      tags:
+        - endpoints
+      description: Get latest information about a car with specified vin
+      parameters:
+        - in: path
+          name: vin
+          required: true
+          schema:
+            type: string
+          description: car vin
+      responses:
+        '200':
+          description: Successful response. Is empty when no car with vin was found
+          content:
+            application/json:
+              schema:
+                description: Successful response. Is empty when no car with vin was found
+                content: application/json
+                type: object
+                $ref: '#/components/schemas/def-0'
+  /tracking/traffic-lights:
+    get:
+      summary: get all traffic-lights
+      tags:
+        - endpoints
+      description: Get information about all traffic-lights in database. Is empty when no traffic-light was found
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                description: Successful response
+                type: array
+                items:
+                  $ref: '#/components/schemas/def-1'
+  /tracking/traffic-lights/{id}:
+    get:
+      summary: get all information about specific traffic-light
+      tags:
+        - endpoints
+      description: Get all information about traffic-light with specific id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: traffic-light id
+      responses:
+        '200':
+          description: Successful response. Is empty when traffic-lights with id does not exist
+          content:
+            application/json:
+              schema:
+                description: Successful response. Is empty when traffic-lights with id does not exist
+                type: array
+                items:
+                  $ref: '#/components/schemas/def-1'
+  /tracking/traffic-lights/{id}/latest:
+    get:
+      summary: get latest specific traffic-light
+      tags:
+        - endpoints
+      description: Get information about latest traffic-light with specified id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: traffic-light id
+      responses:
+        '200':
+          description: Successful response. Is empty when no traffic-light with id was found
+          content:
+            application/json:
+              schema:
+                description: Successful response. Is empty when no traffic-light with id was found
+                content: application/json
+                type: object
+                $ref: '#/components/schemas/def-1'
