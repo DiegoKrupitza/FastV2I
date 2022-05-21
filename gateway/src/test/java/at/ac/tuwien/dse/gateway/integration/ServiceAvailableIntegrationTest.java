@@ -34,7 +34,7 @@ class ServiceAvailableIntegrationTest {
 
     this.testClient
         .get()
-        .uri("/services")
+        .uri("/api/services")
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
         .expectBody()
@@ -73,7 +73,7 @@ class ServiceAvailableIntegrationTest {
 
     this.testClient
             .get()
-            .uri("/services")
+            .uri("/api/services")
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectBody()
