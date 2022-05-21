@@ -1,0 +1,38 @@
+openapi: 3.0.1
+info:
+  title: GateWay API
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: Service Available Controller
+    description: Endpoint for getting status information about services
+paths:
+  /api/services:
+    get:
+      tags:
+        - Service Available Controller
+      summary: Get status of all services
+      description: Returns the status of all services
+      operationId: getAllHealthyServices
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceDto'
+components:
+  schemas:
+    ServiceDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of service
+        up:
+          type: boolean
+          description: True if service is alive, otherwise false
