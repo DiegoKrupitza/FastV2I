@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ContextConfiguration(initializers = {SpeedCalculationIntegrationTest.Initializer.class})
 @ExtendWith({MockitoExtension.class})
-@Testcontainers
+@Testcontainers(disabledWithoutDocker = true)
 class SpeedCalculationIntegrationTest {
 
   private static final Long TRAFFIC_LIGHT_LOCATION = 4000L;
