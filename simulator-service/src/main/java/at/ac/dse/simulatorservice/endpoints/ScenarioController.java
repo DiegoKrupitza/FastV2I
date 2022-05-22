@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/simulator")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "ScenarioController", description = "Endpoint for controlling the simulation")
+@Tag(name = "Scenario Controller", description = "Endpoint for controlling the simulation")
 public class ScenarioController {
 
   private final SimulatorService simulatorService;
