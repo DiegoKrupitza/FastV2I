@@ -1,4 +1,63 @@
 \section{Deployment}
 
+Für das Deployment verwenden wir GKE und unsere Kubernetes YAML Dateien. Die YAML Dateien befinden sich in dem Ordner mit dem Name \textit{kubernetes}. Auf dem Kubernetes Cluster können diese Dateien dann mit dem Befehl \verb|kubectl apply -f .| eingespielt werden. 
+In den folgenden Unterpunkten findet man eine genauere Beschreibung für die 9 YAML Konfigurationsdateien vor.
 
-DIEGO
+\subsection{secrets-kubernetes.yaml}
+Für das Deployment der Applikation auf Kubernetes müssen bestimmte sensible Information vorerst als Secrets in den Cluster eingespielt werden. Diese Secrets werden in einer Datei mit dem Namen \textit{secrets-kubernetes.yaml} abgelegt. Da diese Secrets je nach Deployment anders sind, gibt es eine Beispiels Datei mit dem Namen \textit{example-secrets-kubernetes.yaml}. 
+
+Das Secret Mapping muss den Namen \textit{dse-secrets-v2i} haben.
+
+In unserem Deployment findet man folgende Secrets.
+
+\begin{table}[h]
+	\begin{tabular}{|l|l|}
+		\hline
+		Name & Beschreibung \\ \hline
+		\verb|MONGO_DB_HOST| &  Der Hostname von der MongoDB Instanz  \\ \hline
+		\verb|MONGO_DB_USER| &  Das Username der MongoDB Instanz  \\ \hline
+		\verb|MONGO_DB_PWD|  &  Das Passwort der MongoDB Instanz  \\ \hline
+	\end{tabular}
+	\caption{Secrests in dem Deployment}
+\end{table}
+
+\subsection{ingress-kubernetes.yaml}
+
+Für unsere Applikation haben wir ein Ingress aufgesetzt bei dem Anfragen basierend auf den Prefix des Pfades zu einem der zwei Services weitergeleitet werden. 
+Anfragen deren pfad mit \verb|/api/*| beginnen werden an das \textit{gateway-service} weitergeleitet. Alle anderen Anfragen werden per Standardeinstellung an das \textit{cockpit-service} weitergeleitet.
+
+\subsection{gateway-kubernetes.yaml}
+
+In dieser YAML Datei findet man die Deploymentkonfiguration des Gateways vor. Es wir ein deployment mit dem Namen \textit{gateway} erstellt welches das Docker Image \textit{deryeger/dse-gateway} benutzt. Zusätzlich werden alle Konfigurationsvariablen die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben worden sind gesetzt. 
+Als nächster wird ein ClusterIP Service mit dem Namen \textit{gateway-service} erstellt welches den passenden Port des Containers zugänglich macht.
+
+\subsection{rabbitmq-kubernetes.yaml}
+
+In dieser YAML Datei findet man die Deploymentkonfiguration des RabbitMQ vor. Es wir ein deployment mit dem Namen \textit{rabbitmq} erstellt welches das Docker Image \textit{rabbitmq:management-alpine} benutzt. 
+Als nächster wird ein ClusterIP Service mit dem Namen \textit{rabbitmq-service} erstellt welches den passenden Port des Containers zugänglich macht.
+
+
+\subsection{cockpit-kubernetes.yaml}
+
+In dieser YAML Datei findet man die Deploymentkonfiguration des Cockpits vor. Es wir ein deployment mit dem Namen \textit{cockpit} erstellt welches das Docker Image \textit{deryeger/dse-cockpit} benutzt. 
+Als nächster wird ein ClusterIP Service mit dem Namen \textit{cockpit-service} erstellt welches den passenden Port des Containers zugänglich macht.
+
+\subsection{entity-kubernetes.yaml}
+
+In dieser YAML Datei findet man die Deploymentkonfiguration des Entity-Services vor. Es wir ein deployment mit dem Namen \textit{entity} erstellt welches das Docker Image \textit{deryeger/dse-entity} benutzt. Zusätzlich werden alle Konfigurationsvariablen die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben worden sind gesetzt. Bei dem Setzen der Konfigurationsvariablen werden unter anderem die Werte aus dem Secret mit dem Namen  \textit{dse-secrets-v2i} genutzt.
+Als nächster wird ein ClusterIP Service mit dem Namen \textit{entity-service} erstellt welches den passenden Port des Containers zugänglich macht.
+
+\subsection{simulator-kubernetes.yaml}
+
+In dieser YAML Datei findet man die Deploymentkonfiguration des Gateways vor. Es wir ein deployment mit dem Namen \textit{simulator} erstellt welches das Docker Image \textit{deryeger/dse-simulator} benutzt. Zusätzlich werden alle Konfigurationsvariablen die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben worden sind gesetzt. 
+Als nächster wird ein ClusterIP Service mit dem Namen \textit{simulator-service} erstellt welches den passenden Port des Containers zugänglich macht.
+
+\subsection{flowcontrol-kubernetes.yaml}
+
+In dieser YAML Datei findet man die Deploymentkonfiguration des Gateways vor. Es wir ein deployment mit dem Namen \textit{flowcontrol} erstellt welches das Docker Image \textit{deryeger/dse-flowcontrol} benutzt. Zusätzlich werden alle Konfigurationsvariablen die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben worden sind gesetzt. 
+Als nächster wird ein ClusterIP Service mit dem Namen \textit{flowcontrol-service} erstellt welches den passenden Port des Containers zugänglich macht.
+
+\subsection{tracking-kubernetes.yaml}
+
+In dieser YAML Datei findet man die Deploymentkonfiguration des Tracking-Services vor. Es wir ein deployment mit dem Namen \textit{tracking} erstellt welches das Docker Image \textit{deryeger/dse-tracking} benutzt. Zusätzlich werden alle Konfigurationsvariablen die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben worden sind gesetzt. Bei dem Setzen der Konfigurationsvariablen werden unter anderem die Werte aus dem Secret mit dem Namen  \textit{dse-secrets-v2i} genutzt.
+Als nächster wird ein ClusterIP Service mit dem Namen \textit{tracking-service} erstellt welches den passenden Port des Containers zugänglich macht.

@@ -28,11 +28,11 @@ Die Bibliothek \href{https://github.com/Maronato/vue-toastification}{vue-toastif
 
 Als performantere Alternative zu Tailwind wurde die Bibliothek \href{https://uno.antfu.me}{UnoCSS} verwendet.
 
-\subsection{Flocontrol-Service}
-DIEGO
+\subsection{Flowcontrol-Service}
+Für die Entwicklung des Simulator-Services, welches in Java entwickelt wurde, wurde auf das Spring Boot gesetzt sowie Spring Cloud gesetzt. Damit die Kommunikation über REST mit den anderen Services nicht viel unnötigen boilerplate Code braucht, verwenden wir \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementation von OpenFeign. Da dieses Service auch mit RabbitMQ kommuniziert verwenden wir auch die Implementierung von \verb|spring-boot-starter-amqp|. Dies ermöglichte uns sehr schnell mit wenig Code effizient mit der RabbitMQ Instanz zu kommunizieren. Für das Testen wurde JUnit5 und TestContainer verwendet.
 
 \subsection{Simulator-Service}
-DIEGO
+Für die Entwicklung des Simulator-Services, welches in Java entwickelt wurde, wurde auf das Spring Boot gesetzt sowie Spring Cloud gesetzt. Für die Entwicklung der Restcontroller wurde unter anderem Spring MVC verwendet. Damit die Kommunikation über REST mit den anderen Services nicht viel unnötigen boilerplate Code braucht, verwenden wir \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementation von OpenFeign. Da dieses Service auch mit RabbitMQ kommuniziert verwenden wir auch die Implementierung von \verb|spring-boot-starter-amqp|. Dies ermöglichte uns sehr schnell mit wenig Code effizient mit der RabbitMQ Instanz zu kommunizieren. Für das Testen wurde JUnit5 verwendet.
 
 \subsection{Gateway-Service}
-DIEGO
+Für die Entwicklung des Gateways wurde auf das Spring Boot gesetzt sowie Spring Cloud gesetzt. Für die Umsetzung vom Gateway war insbesondere die Dependency \verb|org.springframework.cloud : spring-cloud-starter-gateway| sehr von Bedeutung, da dies uns erlaubt hat mit möglichst wenig aufwand und nur durch reine Konfiguration ein sehr gutes Gateway aufzusetzen.
