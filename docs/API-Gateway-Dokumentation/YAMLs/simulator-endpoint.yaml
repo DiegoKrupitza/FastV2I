@@ -6,13 +6,13 @@ servers:
   - url: http://localhost:8080
     description: Generated server url
 tags:
-  - name: ScenarioController
+  - name: Scenario Controller
     description: Endpoint for controlling the simulation
 paths:
   /simulator:
     get:
       tags:
-        - ScenarioController
+        - Scenario Controller
       summary: Get status of simulation
       description: Returns the information of the simulation or null
       operationId: activeSimulation
@@ -25,7 +25,7 @@ paths:
                 $ref: '#/components/schemas/ScenarioDto'
     post:
       tags:
-        - ScenarioController
+        - Scenario Controller
       summary: Get status of simulation
       description: Returns the information of the simulation or null
       operationId: setScenario
@@ -43,7 +43,7 @@ paths:
           description: Validation error, see error message for more information
     delete:
       tags:
-        - ScenarioController
+        - Scenario Controller
       summary: Stops the simulation
       description: Stops an active simulation and makes sure the other services return to an pre simulation state
       operationId: reset
