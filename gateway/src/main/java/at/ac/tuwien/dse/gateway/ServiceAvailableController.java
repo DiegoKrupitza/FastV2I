@@ -25,8 +25,7 @@ import java.util.stream.Stream;
 @RestController
 @CrossOrigin
 @Tag(
-    name = "ServiceAvailableController",
-    description = "Endpoint for getting status information about services")
+    name = "Service Available Controller", description = "Endpoint for getting status information about services")
 public class ServiceAvailableController {
 
   private final HealthProps healthProps;
