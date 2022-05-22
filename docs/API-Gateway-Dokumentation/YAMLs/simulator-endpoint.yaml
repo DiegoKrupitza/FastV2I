@@ -1,0 +1,156 @@
+openapi: 3.0.1
+info:
+  title: Simulator API
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: Scenario Controller
+    description: Endpoint for controlling the simulation
+paths:
+  /simulator:
+    get:
+      tags:
+        - Scenario Controller
+      summary: Get status of simulation
+      description: Returns the information of the simulation or null
+      operationId: activeSimulation
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioDto'
+    post:
+      tags:
+        - Scenario Controller
+      summary: Get status of simulation
+      description: Returns the information of the simulation or null
+      operationId: setScenario
+      requestBody:
+        description: The scenario to simulate
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScenarioDto'
+        required: true
+      responses:
+        '201':
+          description: Successful response
+        '400':
+          description: Validation error, see error message for more information
+    delete:
+      tags:
+        - Scenario Controller
+      summary: Stops the simulation
+      description: Stops an active simulation and makes sure the other services return to an pre simulation state
+      operationId: reset
+      responses:
+        '200':
+          description: Successful response
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        vin:
+          type: string
+          description: The vin of the car
+          example: V1
+        oem:
+          type: string
+          description: The oem of the car
+          example: Tesla
+        model:
+          type: string
+          description: The model of the car
+          example: Model 3
+        entryTime:
+          minimum: 0
+          type: integer
+          description: After how many ms the car should enter the scene
+          format: int64
+          example: 1000
+        speed:
+          minimum: 0
+          type: integer
+          description: The speed of the car
+          format: int64
+          example: 50
+        location:
+          minimum: 0
+          type: integer
+          description: The start location of the car
+          format: int64
+          example: 0
+        destination:
+          minimum: 0
+          type: integer
+          description: The desired destination of the car
+          format: int64
+          example: 1800
+      description: Collection of all the cars we want to simulate
+    ScenarioDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of scenario
+        trafficLights:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficLight'
+        cars:
+          type: array
+          items:
+            $ref: '#/components/schemas/Car'
+        scenarioLength:
+          type: integer
+          description: The length of the scenario in meters
+          format: int64
+          example: 20000
+        timelapse:
+          type: boolean
+          description: Whether the simulation should be run in timelapse mode or not
+          example: false
+        done:
+          type: boolean
+          description: Boolean flag to indicate if the simulation is completed or not
+          example: false
+    TrafficLight:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the traffic light
+          example: T1
+        position:
+          minimum: 0
+          type: integer
+          description: The position of the traffic light
+          format: int64
+          example: 1000
+        scanDistance:
+          minimum: 10
+          type: integer
+          description: The scan distance of the traffic light
+          format: int64
+          example: 200
+        entryDelay:
+          minimum: 0
+          type: integer
+          description: The entry delay in ms after when the first state change should be triggered
+          format: int64
+          example: 1000
+        stateHoldSeconds:
+          minimum: 1
+          type: integer
+          description: How long a state holds in seconds
+          format: int64
+          example: 10
+        stateHoldInMs:
+          type: integer
+          format: int64
+      description: Collection of all the traffic lights we want to simulate

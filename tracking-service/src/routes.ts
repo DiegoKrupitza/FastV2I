@@ -108,7 +108,6 @@ export async function routes(server: FastifyInstance) {
         response: {
           200: {
             description: 'Successful response',
-            content: 'application/json',
             type: 'array',
             items: { $ref: 'car#' },
           },
@@ -141,7 +140,6 @@ export async function routes(server: FastifyInstance) {
           200: {
             description:
               'Successful response. Is empty when car with vin does not exist',
-            content: 'application/json',
             type: 'array',
             items: { $ref: 'car#' },
           },
@@ -210,7 +208,6 @@ export async function routes(server: FastifyInstance) {
         response: {
           200: {
             description: 'Successful response',
-            content: 'application/json',
             type: 'array',
             items: { $ref: 'traffic-light#' },
           },
@@ -243,7 +240,6 @@ export async function routes(server: FastifyInstance) {
           200: {
             description:
               'Successful response. Is empty when traffic-lights with id does not exist',
-            content: 'application/json',
             type: 'array',
             items: { $ref: 'traffic-light#' },
           },

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @OpenAPIDefinition(info =
-@Info(title = "Simulator API", version = "1.0", description = "Simulator Employee API v1.0")
+@Info(title = "Simulator API", version = "1.0")
 )
 public class SimulatorServiceApplication {
 
