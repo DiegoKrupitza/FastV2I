@@ -17,7 +17,7 @@ Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile au
 \subsection{Flowcontrol-Service}
 
 Die Tests des Flowcontrol-Service überprüfen das Berechnen von optimalen Geschwindigkeit für Fahrzeuges in der nähe von Ampeln.
-Das Ziel der Berechnung ist, dass Autos so selten wie möglich zu einem totalen Stillstand kommen.
+Das Ziel der Berechnung ist, dass Fahrzeuge so selten wie möglich zu einem totalen Stillstand kommen.
 
 Der Flowcontrol-Service kommuniziert in der Produktionsversion mit einer RabbitMQ Instanz.
 Damit die Tests unabhängig von RabbitMQ laufen können, kommt hier ein Testcontainer mit dem Image \textit{rabbitmq:3-management} zum Einsatz.

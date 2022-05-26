@@ -8,7 +8,7 @@ In den folgenden Unterkapiteln werden Microservice und Gateway vorgestellt.
 \subsubsection{Gateway}
 
 Die Aufgabe des Gateways ist es eingehende Anfragen basierend auf Routing-Regeln weiterzuleiten.
-Darüber hinaus befindet sich im Gateway auch die zentrale Swagger-UI-Dokumentationsplattform, auf welcher Endbenutzer:innen die REST-Schnittstellen der Microservices einsehen können.
+Darüber hinaus befindet sich im Gateway auch die zentrale Swagger-UI-Dokumentationsplattform, auf welcher Endbenutzerinnen und Endbenutzer die REST-Schnittstellen der Microservices einsehen können.
 
 \subsubsection{Entity-Service}
 
@@ -64,13 +64,13 @@ Der Gateway kommuniziert per REST mit allen Services, welche eine solche Schnitt
 
 \paragraph{Flowcontrol-Service}
 
-Der Flowcontrol-Service stellt keine REST Schnittstelle bereit.
+Der Flowcontrol-Service stellt keine REST-Schnittstelle bereit.
 Dieser Service kommuniziert mit dem \textit{Entity-Service} sowie dem \textit{Tracking-Service}, um alle Eingaben für den Algorithmus zur Berechnung der optimalen Geschwindigkeit zu erhalten.
 
 \paragraph{Simulator-Service}
 Der Simulator-Service stellt drei REST-Endpunkte zur Verfügung.
 Diese ermöglichen das Starten und Stoppen von Simulationen.
-Der Simulator-Service kommuniziert mit dem \textit{Entity-Service} sowie dem \textit{Tracking-Service}, um einen Beenden von aktiven Simulationen zu erwirken.
+Der Simulator-Service kommuniziert mit dem \textit{Entity-Service} sowie dem \textit{Track\-ing-Service}, um einen Beenden von aktiven Simulationen zu erwirken.
 
 \paragraph{Entity-Service}
 
@@ -106,7 +106,7 @@ Die Namen der Queues sind wie folgt:
 	\item \verb|car-speed| 
 \end{enumerate}
 
-In den folgenden Abschnitten werden die Queues sowie die Fanout-Exchange vorgestellt.
+In den folgenden Abschnitten werden die Queues sowie die Fanout-Ex\-change vorgestellt.
 
 \begin{figure}[h]
 	\centering
@@ -121,7 +121,7 @@ In Abbildung \ref{fig:car_simulator_mom} ist die Verwendung der Queues \textit{C
 Zu Beginn einer Simulation sendet der \textit{Car-Simulator} Registrierungsinformationen von Fahrzeugen an die Queue \textit{car}.
 Diese Queue wird vom Entity-Service konsumiert.
 Während der Simulation werden aktuelle Positionen, Geschwindigkeiten und weiteres dynamische Daten an die Fanout-Exchange gesendet (welche in der Abbildung \ref{fig:car_simulator_mom} als Raute gekennzeichnet ist).
-Die Fanout-Exchange leitet diese dann an die beiden Queues \textit{car-state-flow} und \textit{car-state-tracking} weiter.
+Die Fanout-Exchange leitet diese an die beiden Queues \textit{car-state-flow} und \textit{car-state-tracking} weiter.
 Diese Designentscheidung wurde getroffen, da es sich hier um ein \textit{PubSub}-Szenario und keine \textit{Competing-Consumers} handelt.
 
 \begin{figure}[h]

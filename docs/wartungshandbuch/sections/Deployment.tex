@@ -3,7 +3,7 @@
 Für das Deployment wurden GKE sowie die dem Projekt beigelegten YAML-Dateien verwendet.
 Die YAML-Dateien befinden sich im Verzeichnis \textit{kubernetes}.
 Auf dem Kubernetes Cluster können diese Dateien mit dem Befehl \verb|kubectl apply -f .| angewendet werden. 
-In den folgenden Unterpunkten finden sich detaillierte Beschreibungen der neun YAML-Konfigurationsdateien.
+In den folgenden Unterpunkten finden sich detaillierte Beschreibungen der neun YAML-Konfigurations\-dateien.
 
 \subsection{secrets-kubernetes.yaml}
 
@@ -61,21 +61,21 @@ Letztlich wird ein ClusterIP-Service mit dem Namen \textit{entity-service} erste
 
 \subsection{simulator-kubernetes.yaml}
 
-In dieser YAML-Datei liegt die Konfiguration des Simulator-Service-Deployments vor.
+In dieser YAML-Datei liegt die Konfiguration des Simulator-Service-Deploy\-ments vor.
 Es wir ein Deployment mit dem Namen \textit{simulator} erstellt, welches das Docker Image \textit{deryeger/dse-simulator} verwendet.
 Zusätzlich werden alle Konfigurationsvariablen, die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben werden, gesetzt. 
 Letztlich wird ein ClusterIP-Service mit dem Namen \textit{simulator-service} erstellt, um den Port des Containers zugänglich zu machen.
 
 \subsection{flowcontrol-kubernetes.yaml}
 
-In dieser YAML-Datei liegt die Konfiguration des Flowcontrol-Service-Deployments vor.
+In dieser YAML-Datei liegt die Konfiguration des Flowcontrol-Service-Deploy\-ments vor.
 Es wir ein Deployment mit dem Namen \textit{flowcontrol} erstellt, welches das Docker Image \textit{deryeger/dse-flowcontrol} verwendet.
 Zusätzlich werden alle Konfigurationsvariablen, die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben werden, gesetzt. 
 Letztlich wird ein ClusterIP-Service mit dem Namen \textit{flowcontrol-service} erstellt welches den passenden Port des Containers zugänglich macht.
 
 \subsection{tracking-kubernetes.yaml}
 
-In dieser YAML-Datei liegt die Konfiguration des Tracking-Service-Deployments vor.
+In dieser YAML-Datei liegt die Konfiguration des Tracking-Service-Deploy\-ments vor.
 Es wir ein Deployment mit dem Namen \textit{tracking} erstellt, welches das Docker Image \textit{deryeger/dse-tracking} verwendet.
 Zusätzlich werden alle Konfigurationsvariablen, die in dem Kapitel \textit{Entwicklungsumgebung} beschrieben werden, gesetzt. 
 Beim Setzen der Konfigurationsvariablen werden unter anderem Werte aus dem Secret \textit{dse-secrets-v2i} genutzt.
