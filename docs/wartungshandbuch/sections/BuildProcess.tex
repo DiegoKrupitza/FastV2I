@@ -4,7 +4,6 @@ Die Java-Dienste lassen über den Befehl \verb|mvn package -DskipTests| bauen.
 Analog dazu baut der Befehl \verb|yarn build| die TypeScript-Dienste.
 
 Letztendlich findet dies nur beim Bauen der Docker-Images statt, für welche pro Verzeichnis ein Dockerfile angelegt wurde.
-Für eine kürzere Bauzeit wurden die Dockerfiles so programmiert, dass diese mehrere Ebenen verwenden und Dependencies zwischenspeichert.
-Um das Bauen der Docker-Images weiter zu vereinfachen, können die \verb|dockerize|-Skripte der Datei \verb|package.json| verwendet werden.
+Für eine kürzere Bauzeit wurden die Dockerfiles so programmiert, dass diese mehrere Ebenen verwenden und Dependencies zwischengespeichert.
+Um das Bauen der Docker-Images weiter zu vereinfachen, können die \verb|dockerize|-Skripte der Datei \break \verb|package.json| verwendet werden.
 Der lokale Docker-Nutzer muss dafür Zugriffsrechte auf die Docker Hub Repositories besitzen.
-
