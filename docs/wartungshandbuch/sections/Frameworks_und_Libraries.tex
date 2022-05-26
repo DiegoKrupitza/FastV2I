@@ -29,10 +29,22 @@ Die Bibliothek \href{https://github.com/Maronato/vue-toastification}{vue-toastif
 Als performantere Alternative zu Tailwind wurde die Bibliothek \href{https://uno.antfu.me}{UnoCSS} verwendet.
 
 \subsection{Flowcontrol-Service}
-Für die Entwicklung des Simulator-Services, welches in Java entwickelt wurde, wurde auf das Spring Boot gesetzt sowie Spring Cloud gesetzt. Damit die Kommunikation über REST mit den anderen Services nicht viel unnötigen boilerplate Code braucht, verwenden wir \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementation von OpenFeign. Da dieses Service auch mit RabbitMQ kommuniziert verwenden wir auch die Implementierung von \verb|spring-boot-starter-amqp|. Dies ermöglichte uns sehr schnell mit wenig Code effizient mit der RabbitMQ Instanz zu kommunizieren. Für das Testen wurde JUnit5 und TestContainer verwendet.
+
+Für die Entwicklung des Flowcontrol-Services, welcher in Java implement wurde, wurden Spring Boot sowie Spring Cloud eingesetzt.
+Damit die REST-Kommunikation mit den anderen Services nur minimalen Boilerplate-Code aufweist, wurde mit \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementierung von OpenFeign verwendet.
+Da dieser Service auch mit RabbitMQ kommuniziert, wurde zudem \verb|spring-boot-starter-amqp| eingebunden.
+Dies ermöglichte uns eine simple Anbindung von mit RabbitMQ Instanzen für eine asynchrone Kommunikation.
+Zum Testen wurden JUnit5 sowie TestContainer verwendet.
 
 \subsection{Simulator-Service}
-Für die Entwicklung des Simulator-Services, welches in Java entwickelt wurde, wurde auf das Spring Boot gesetzt sowie Spring Cloud gesetzt. Für die Entwicklung der Restcontroller wurde unter anderem Spring MVC verwendet. Damit die Kommunikation über REST mit den anderen Services nicht viel unnötigen boilerplate Code braucht, verwenden wir \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementation von OpenFeign. Da dieses Service auch mit RabbitMQ kommuniziert verwenden wir auch die Implementierung von \verb|spring-boot-starter-amqp|. Dies ermöglichte uns sehr schnell mit wenig Code effizient mit der RabbitMQ Instanz zu kommunizieren. Für das Testen wurde JUnit5 verwendet.
+
+Für die Entwicklung des Simulator-Services, welcher in Java implementiert wurde, wurden Spring Boot, Spring Cloud sowie Spring MVC eingesetzt.
+Damit die REST-Kommunikation mit den anderen Services nur minimalen Boilerplate-Code aufweist, wurde mit \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementierung von OpenFeign verwendet.
+Da dieser Service auch mit RabbitMQ kommuniziert, wurde zudem \verb|spring-boot-starter-amqp| eingebunden.
+Dies ermöglichte uns eine simple Anbindung von mit RabbitMQ Instanzen für eine asynchrone Kommunikation.
+Zum Testen wurden JUnit5 sowie TestContainer verwendet.
 
 \subsection{Gateway-Service}
-Für die Entwicklung des Gateways wurde auf das Spring Boot gesetzt sowie Spring Cloud gesetzt. Für die Umsetzung vom Gateway war insbesondere die Dependency \verb|org.springframework.cloud : spring-cloud-starter-gateway| sehr von Bedeutung, da dies uns erlaubt hat mit möglichst wenig aufwand und nur durch reine Konfiguration ein sehr gutes Gateway aufzusetzen.
+
+Für die Entwicklung des Gateway-Services, welcher in Java implement wurde, wurden Spring Boot sowie Spring Cloud eingesetzt.
+Insbesondere die Bibliothek \verb|org.springframework.cloud : spring-cloud-starter-gateway| war für die Umsetzung vom Gateway von Bedeutung, da diese das Erstellen eines Gateways auf Basis einer Konfigurationsdatei ermöglicht.
