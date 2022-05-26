@@ -1,22 +1,49 @@
 \section{Test Process}
-Für jedes Microservice sind mindestens zwei Modultests implementiert worden.\\
-Die Java basierten Services wurden mithilfe von \textit{JUnit5} entwickelt. Hierbei wurde die Springboot Version $2.6.5$ verwendet. \\
-Die Tests bei den Typescript basierten Services nutzen das \textit{Vitest testing framework}  mit Version $0.12.6$.\\
-% Für das Testen des Frontends wurde Cypress mit der Version $9.5.1$ eingesetzt. 
+
+Für jeden Microservice wurden mindestens zwei Modultests implementiert.
+
+Die Java-basierten Services wurden mithilfe von \textit{JUnit5} getestet.
+Hierbei wurde die Springboot Version \verb|2.6.5| verwendet.
+
+Die Tests der TypeScript-basierten Services nutzen den \textit{Test Runner Vitest}  mit Version \verb|0.12.6|.
 
 \subsection{Gateway}
-Hier wird getestet ob alle Services und deren Status richtig vom Gateway angezeigt werden. Die \textit{Health-Check} Anfragen an die anderen Services wird hier Mithilfe von \textit{Mockito} gemockt. 
-Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile durchgeführt werden. 
+
+Beim Gateway wird getestet, ob alle Services und deren Status vom Gateway richtig angezeigt werden.
+Die \textit{Health-Check} Anfragen an die jeweiligen Services werden mithilfe von \textit{Mockito} gemockt. 
+
+Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile ausgeführt werden.
+
 \subsection{Flowcontrol-Service}
-Die Tests überprüfen das Berechnen der Geschwindigkeit eines Fahrzeuges in der nähe einer Ampel. Das Ziel der Berechnung ist, dass das Auto so selten wie möglich zu einem totalen Stillstand kommt.\\ 
-Der Flowcontrol-Service kommuniziert in der Produktionsversion mit einer RabbitMQ Instanz. Damit die Tests unabhängig von der Produktionsinstanz von RabbitMQ laufen kann, kommt hier ein Testcontainer mit Image \textit{rabbitmq:3-management} im Einsatz. Zusätzlich wird die Kommunikation mit anderen Microservices mithilfe von \textit{Mockito} gemockt.\\
-Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile durchgeführt werden. 
+
+Die Tests des Flowcontrol-Service überprüfen das Berechnen von optimalen Geschwindigkeit für Fahrzeuges in der nähe von Ampeln.
+Das Ziel der Berechnung ist, dass Autos so selten wie möglich zu einem totalen Stillstand kommen.
+
+Der Flowcontrol-Service kommuniziert in der Produktionsversion mit einer RabbitMQ Instanz.
+Damit die Tests unabhängig von RabbitMQ laufen können, kommt hier ein Testcontainer mit dem Image \textit{rabbitmq:3-management} zum Einsatz.
+Zusätzlich wird die Kommunikation mit anderen Microservices mithilfe von \textit{Mockito} gemockt.
+
+Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile ausgeführt werden. 
+
 \subsection{Simulator-Service}
-Das korrekte Verhalten beim Starten und Stoppen einer Simulation wird mit den vorhandenen Integrationstests überprüft. Dabei wird die sowohl die Anfrage zum Service und die internen Anfragen an weiteren Services mithilfe von \textit{Mockito} gemockt.\\
-Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile durchgeführt werden. 
+
+Das korrekte Verhalten beim Starten und Stoppen einer Simulation wird mit den vorhandenen Integrationstests überprüft.
+Dabei werden sowohl eingehende Anfrage an den Service als auch ausgehende Anfragen an weiteren Services mithilfe von \textit{Mockito} gemockt.
+
+Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile ausgeführt werden. 
+
 \subsection{Entity-Service}
-Die vorhandenen Integrationstests überprüfen, ob der \textit{car} Endpunkt sich richtig verhält und ob der Service seinen Status über seinen \textit{health} Endpunkt richtig vermitteln kann. Die Anfragen werden mithilfe eines im Test erstellten Testservers verarbeitet.\\
-Die Tests können mit dem Befehl \textit{yarn test} in der Kommandozeile durchgeführt werden. 
+
+Die vorhandenen Integrationstests überprüfen, ob die Endpunkte den Anforderungen entsprechend verhalten und der Service seinen Status über seinen \textit{health}-Endpunkt korrekt übermittelt.
+Die Anfragen werden mithilfe eines im Test erstellten Testservers verarbeitet.
+Zusätzlich wird eine \textit{In-Memory-MongoDB} Instanz verwendet.
+
+Die Tests können mit dem Befehl \textit{yarn test} in der Kommandozeile ausgeführt werden. 
+
 \subsection{Tracking-Service}
-In dem Service überprüfen die Integration das korrekte Verhalten der \textit{car} und \textit{traffic-light} Endpunkte und ob der Service seinen Status über seinen \textit{health} Endpunkt richtig vermitteln kann.  Die Anfragen werden mithilfe eines im Test erstellten Testservers verarbeitet.\\
-Die Tests können mit dem Befehl \textit{yarn test} in der Kommandozeile durchgeführt werden.
+
+Die vorhandenen Integrationstests überprüfen, ob die Endpunkte den Anforderungen entsprechend verhalten und der Service seinen Status über seinen \textit{health}-Endpunkt korrekt übermittelt.
+Die Anfragen werden mithilfe eines im Test erstellten Testservers verarbeitet.
+Zusätzlich wird eine \textit{In-Memory-MongoDB} Instanz verwendet.
+
+Die Tests können mit dem Befehl \textit{yarn test} in der Kommandozeile ausgeführt werden.
