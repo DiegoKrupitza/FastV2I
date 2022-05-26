@@ -1,13 +1,31 @@
-\section{Beurteilung Ablauf des Projektes}
+\section{Beurteilung des Projektablaufs}
 
 \subsection{Was hat gut funktioniert, was weniger gut? Begründen Sie ihre Beurteilung.}
 
-Im Großen und Ganzen war der Ablauf während der Entwicklung sehr gut. Aufgrund einer optimalen Projektkommunikation, dank regelmäßiger Meetings und Statusupdate innerhalb der Projektchats, haben wir sehr effizient arbeiten können. Des Weiteren wurden aufgrund Pair-Programming Sessions, Probleme Technischer Natur sehr schnell aus der Welt geschafft und somit wurde nicht viel Zeit verloren. Der Start des Projektes war ein wenig holprig da aufgrund von Versions unterschieden (insbesondere Java) nach fehlern gesucht werden musste. Was sehr gut funktioniert hatte, war das wir ein Zentrales Gitrepository erstellt hatten in dem alle Artefakte der Projektes hinterlegt wurden. Dies ermöglichte uns jederzeit den neuesten Stand zu sehen ohne auf viele verschiedene Services zugreifen zu müssen. Bei der Dokumentation war dies nur möglich, da wir mit \LaTeX gearbeitet haben.
+Im Großen und Ganzen war der Ablauf während der Entwicklung sehr gut.
+Aufgrund einer optimalen Projektkommunikation, dank regelmäßiger Meetings und Statusupdate innerhalb der Projektchats, haben wir sehr effizient arbeiten können.
+Des Weiteren wurden mithilfe von Pair-Programming Sessions Probleme technischer Natur schnell und effizient gelöst.
+
+Der Start des Projektes verlief ein wenig holprig, da aufgrund von Abweichungen bei den Entwicklungsumgebungen der Entwickler Probleme bei der Inbetriebnahme der Services entstanden.
+Diese konnten jedoch durch rasche Kommunikation behoben werden.
+
+Sehr gut hat der Einsatz eines zentrales Repositories bei GitHub funktioniert, in welchem alle Artefakte der Projektes hinterlegt wurden.
+Dies ermöglichte allen Entwickler jederzeit einen Zugriff auf den aktuellsten Stand des Projektes, ohne auf eine Vielzahl and Diensten zugreifen zu müssen.
+Insbesondere profitierte davon die Versionierung der Dokumentationsdokumente, welche mit \LaTeX \space erstellt wurden.
 
 \subsection{Wenn zutreffend, warum haben Sie den ursprünglich geschätzten Aufwand überschritten?}
 
-Die Aufwandsschätzung war relative genau und wir haben sogar aufgrund von Frameworks uns einiges an zeit gespart, obwohl wir bei einigen uns zuerst in die Dokumentation einlesen mussten. Hingegen bei dem Setup vom Deployment auf GKE bzw der Lokalen Kubernetes Engine haben wir recht viel Zeit verloren, da bisher kaum Erfahrung damit hatten und anfangs widersprüchliche Tutorials geschaut und Dokumentationen gelesen haben. Jedoch dieser Mehraufwand wurde aufgrund der effizienten Entwicklung ausgeglichen.
+Die Aufwandsschätzung war relative genau und konnte dank einem Einsatz von modernen Frameworks zum Teil unterboten werden.
+
+Hingegen wurde beim Einrichten des Deployments auf GKE beziehungsweise eines lokalen Kubernetes Clusters viel Zeit verloren, da das Team bisher kaum Erfahrung mit diesen Technologien gesammelt hatte und anfangs widersprüchliche Tutorials hinzugezogen wurden.
+
+Letztendlich konnte dieser Mehraufwand durch eine effiziente Entwicklung ausgeglichen werden.
 
 \subsection{Was würden Sie aufgrund der gewonnenen Erfahrung anders bzw. besser machen?}
 
-Am Anfang des Projetkes wurde das Deployment nicht beachtet. Daher hatten wir für Service-Discovery ein Netflix-Eureka Service genutzt. Beim Deployment ist uns dann aufgefallen, dass GKE dies für uns übernimmt. Dadurch mussten wir unsere Service-Discovery-Logik und deren Integration im Gateway umschreiben. Aufgrund dieser gewonnenen Erfahrung ist es empfehlenswert, bereits am Beginn der Entwicklung, das Deployment und Production-Environment zu beachten. 
+Das Deployment der Anwendung wurde zu Beginn der Entwicklung nicht beachtet.
+Daher hatten wir einen Netflix-Eureka-Service für Service-Discovery konfiguriert und eingebunden.
+Erst beim Deployment ist uns aufgefallen, dass GKE diese Funktionalität nativ bereitstellt.
+
+Deshalb mussten wir unsere Service-Discovery-Logik sowie deren Integration im Gateway umschreiben.
+Aufgrund dieser gewonnenen Erfahrung, werden wir zukünftig bereits zu Beginn der Entwicklung das Deployment sowie die Produktionsumgebung berücksichtigen. 

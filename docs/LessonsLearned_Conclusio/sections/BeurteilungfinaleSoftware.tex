@@ -1,17 +1,16 @@
-\section{Beurteilung finale Software}
+\section{Beurteilung der finalen Software}
 
 \subsection{Gut geglückt}
-Mithilfe von Swagger-Grouping war es möglich, alle Swagger Dokumentationen beim Gateway-Service zu aggregieren.
-Da wir die asynchrone Kommunikation stark nutzen, haben wir kaum blockieren Anfragen was sich in der Performance des Projetkes widerspiegelt.
-Durch die Microservicearchitektur waren wir in der Lage für simple Services (die nur CRUD Operation durchführen) leicht gewichtigte Frameworks und Technologien
-einzusetzen. Für die komplexere Services konnten wir uns den Gebrauch von Technologien mit Threadsupport und OOP-Strategien zu nutzen machen.
+
+Mithilfe von Swagger-Grouping war es möglich, alle Swagger-Dokumentationen über den Gateway-Service bereitzustellen.
+
+Da wir primär asynchrone Kommunikation nutzen, haben wir kaum blockierende Anfragen und konnten einen hohes Maß an Performanz erreichen.
+
+Durch die Microservicearchitektur der Anwendung waren wir in der Lage für simple Services, welche lediglich CRUD-Operationen durchführen, leichtgewichtigte Frameworks und Technologien
+einzusetzen.
+Analog dazu konnten wir auch für komplexere Services, welche beispielsweise wie der Simulator-Service Multithreading benötigen, Technologien mit den benötigten Funktionalitäten einsetzen.
 
 \subsection{Verbesserungsmöglichkeiten}
-Am Anfang des Projetkes wurde das Deployment nicht beachtet. Daher hatten wir für Service-Discovery ein Netflix-Eureka
-Service genutzt. Beim Deployment ist uns dann aufgefallen, dass GKE dies für uns übernimmt. Dadurch mussten wir unsere
-Service-Discovery-Logik und deren Integration im Gateway umschreiben. Aufgrund dieser gewonnenen Erfahrung ist es empfehlenswert,
-bereits am Beginn der Entwicklung, das Deployment und Production-Environment zu beachten.
 
-Die derzeitige Version von dem Simulator-Service simuliert die Erreignisse von den Autos und Ampeln. Es wäre möglich gewesen
-den jetzigen Simulator-Service weiter in ein Auto-Simulator-Service, Ampel-Simulator-Service und Simulator-Manager aufzuspalten.
-
+Der Simulator-Service simuliert sowohl Ereignisse von Fahrzeugen als auch die von Ampeln.
+Es wäre möglich gewesen den Simulator-Service in Fahrzeug-Simulator-Service, Ampel-Simulator-Service und Simulator-Manager aufzuspalten.
