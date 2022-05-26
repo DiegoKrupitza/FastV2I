@@ -1,22 +1,22 @@
-\section{Test process}
-Für jedes Microservice sind mindestens zwei Modul-tests implementiert worden.\\
-Die Java basierten Services wurden mithile von \textit{JUnit5} entwickelt. Hierbei wurde die Springboot Version $2.6.5$ verwendet. \\
+\section{Test Process}
+Für jedes Microservice sind mindestens zwei Modultests implementiert worden.\\
+Die Java basierten Services wurden mithilfe von \textit{JUnit5} entwickelt. Hierbei wurde die Springboot Version $2.6.5$ verwendet. \\
 Die Tests bei den Typescript basierten Services nutzen das \textit{Vitest testing framework}  mit Version $0.12.6$.\\
 % Für das Testen des Frontends wurde Cypress mit der Version $9.5.1$ eingesetzt. 
 
 \subsection{Gateway}
 Hier wird getestet ob alle Services und deren Status richtig vom Gateway angezeigt werden. Die \textit{Health-Check} Anfragen an die anderen Services wird hier Mithilfe von \textit{Mockito} gemockt. 
 Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile durchgeführt werden. 
-\subsection{Flowcontrol-service}
+\subsection{Flowcontrol-Service}
 Die Tests überprüfen das Berechnen der Geschwindigkeit eines Fahrzeuges in der nähe einer Ampel. Das Ziel der Berechnung ist, dass das Auto so selten wie möglich zu einem totalen Stillstand kommt.\\ 
-Der Flowcontrol-service kommuniziert in der Produktionsversion mit einer RabbitMQ Instanz. Damit die Tests unabhängig von der Produktionsinstanz von RabbitMQ laufen kann, kommt hier ein Testcontainer mit Image \textit{rabbitmq:3-management} im Einsatz. Zusätzlich wird die Kommunikation mit anderen Microservices mithilfe von \textit{Mockito} gemockt.\\
+Der Flowcontrol-Service kommuniziert in der Produktionsversion mit einer RabbitMQ Instanz. Damit die Tests unabhängig von der Produktionsinstanz von RabbitMQ laufen kann, kommt hier ein Testcontainer mit Image \textit{rabbitmq:3-management} im Einsatz. Zusätzlich wird die Kommunikation mit anderen Microservices mithilfe von \textit{Mockito} gemockt.\\
 Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile durchgeführt werden. 
 \subsection{Simulator-Service}
 Das korrekte Verhalten beim Starten und Stoppen einer Simulation wird mit den vorhandenen Integrationstests überprüft. Dabei wird die sowohl die Anfrage zum Service und die internen Anfragen an weiteren Services mithilfe von \textit{Mockito} gemockt.\\
 Die Tests können mit dem Befehl \textit{mvn clean test} in der Kommandozeile durchgeführt werden. 
-\subsection{Entitiy-Service}
-Die vorhandenen Integrationtests überprüfen, ob der \textit{car} Endpunkt sich richtig verhält und ob der Service seinen Status über seinen \textit{health} Endpunkt richtig vermitteln kann. Die Anfragen werden mithilfe eines im Test erstellten Testservers verarbeitet.\\
-Die Tests können mit dem Befehl \textit{yarn vitest} in der Kommandozeile durchgeführt werden. 
+\subsection{Entity-Service}
+Die vorhandenen Integrationstests überprüfen, ob der \textit{car} Endpunkt sich richtig verhält und ob der Service seinen Status über seinen \textit{health} Endpunkt richtig vermitteln kann. Die Anfragen werden mithilfe eines im Test erstellten Testservers verarbeitet.\\
+Die Tests können mit dem Befehl \textit{yarn test} in der Kommandozeile durchgeführt werden. 
 \subsection{Tracking-Service}
 In dem Service überprüfen die Integration das korrekte Verhalten der \textit{car} und \textit{traffic-light} Endpunkte und ob der Service seinen Status über seinen \textit{health} Endpunkt richtig vermitteln kann.  Die Anfragen werden mithilfe eines im Test erstellten Testservers verarbeitet.\\
-Die Tests können mit dem Befehl \textit{yarn vitest} in der Kommandozeile durchgeführt werden.
+Die Tests können mit dem Befehl \textit{yarn test} in der Kommandozeile durchgeführt werden.
