@@ -103,7 +103,7 @@ In Abbildung \ref{fig:car_simulator_mom} sieht man die Verwendung der Queues \te
 	\label{fig:light_simulator_mom}
 \end{figure}
 
-\paragraph{car, car-state-*, exchange}
+\paragraph{taffic-light, taffic-light-state-*}
 In Abbildung \ref{fig:light_simulator_mom} sieht man die Verwendung der Queues \textit{traffic-light}, \textit{traffic-light-state}. Am Anfang der Simulation sendet der \textit{TrafficLight-Simulator} an die Queue \textit{traffic-light} die Informationen für die Registrierung der Ampel. Diese Queue wird vom Entity-Service konsumiert. Während der Simulation wird die verbleibende Zeit im State und weitere dynamische Daten an die Queue \textit{traffic-light-state} gesendet, welceh vom \textit{tracking-service} konsumiert wird.
 
 \begin{figure}[h]
