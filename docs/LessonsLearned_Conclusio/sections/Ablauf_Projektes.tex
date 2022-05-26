@@ -10,4 +10,5 @@ Die Aufwandsschätzung war relative genau und wir haben sogar aufgrund von Frame
 
 \subsection{Was würden Sie aufgrund der gewonnenen Erfahrung anders bzw. besser machen?}
 
-TODO:
+Die Hauptaufgabe des Gateways ist bei uns hauptsächlich das Weiterleiten von Anfragen. Nächstes mal würden wir versuchen, den Gateway selbst schon Anfragen bearbeiten zu lassen, damit das Frontend nicht so viele einzelne Requests schicken muss, nur Eine, die dann das Gateway direkt bearbeitet.  
+Am Anfang des Projetkes wurde das Deployment nicht beachtet. Daher hatten wir für Service-Discovery ein Netflix-Eureka Service genutzt. Beim Deployment ist uns dann aufgefallen, dass GKE dies für uns übernimmt. Dadurch mussten wir unsere Service-Discovery-Logik und deren Integration im Gateway umschreiben. Aufgrund dieser gewonnenen Erfahrung ist es empfehlenswert, bereits am Beginn der Entwicklung, das Deployment und Production-Environment zu beachten. 
