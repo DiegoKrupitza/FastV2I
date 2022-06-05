@@ -30,21 +30,26 @@ Als performantere Alternative zu Tailwind wurde die Bibliothek \href{https://uno
 
 \subsection{Flowcontrol-Service}
 
-Für die Entwicklung des Flowcontrol-Services, welcher in Java implement wurde, wurden Spring Boot sowie Spring Cloud eingesetzt.
-Damit die REST-Kommunikation mit den anderen Services nur minimalen Boilerplate-Code aufweist, wurde mit \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementierung von OpenFeign verwendet.
-Da dieser Service auch mit RabbitMQ kommuniziert, wurde zudem \verb|spring-boot-starter-amqp| eingebunden.
+Für die Entwicklung des Flowcontrol-Services, welcher in Java implement wurde, wurden Spring Boot (Version 2.6.5), sowie Spring Cloud (Version 2021.0.1) eingesetzt.
+Damit die REST-Kommunikation mit den anderen Services nur minimalen Boilerplate-Code aufweist, wurde mit \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| \\ (Version 1.4.7.RELEASE) eine Implementierung von OpenFeign verwendet.
+Da dieser Service auch mit RabbitMQ kommuniziert, wurde zudem \\ \verb|spring-boot-starter-amqp| eingebunden.
 Dies ermöglichte uns eine simple Anbindung von mit RabbitMQ Instanzen für eine asynchrone Kommunikation.
 Zum Testen wurden JUnit5 sowie TestContainer verwendet.
 
 \subsection{Simulator-Service}
 
-Für die Entwicklung des Simulator-Services, welcher in Java implementiert wurde, wurden Spring Boot, Spring Cloud sowie Spring MVC eingesetzt.
-Damit die REST-Kommunikation mit den anderen Services nur minimalen Boilerplate-Code aufweist, wurde mit \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| eine Implementierung von OpenFeign verwendet.
-Da dieser Service auch mit RabbitMQ kommuniziert, wurde zudem \verb|spring-boot-starter-amqp| eingebunden.
+Für die Entwicklung des Simulator-Services, welcher in Java implementiert wurde, wurden Spring Boot (Version 2.6.5) , Spring Cloud (Version 2021.0.1) sowie Spring MVC eingesetzt.
+Damit die REST-Kommunikation mit den anderen Services nur minimalen Boilerplate-Code aufweist, wurde mit \\ \verb|org.springframework.cloud : spring-cloud-starter-feign| \\ (Version 1.4.7.RELEASE) eine Implementierung von OpenFeign verwendet.
+Da dieser Service auch mit RabbitMQ kommuniziert, wurde zudem \\ \verb|spring-boot-starter-amqp| eingebunden.
 Dies ermöglichte uns eine simple Anbindung von mit RabbitMQ Instanzen für eine asynchrone Kommunikation.
-Zum Testen wurden JUnit5 sowie TestContainer verwendet.
+Zum Testen wurden JUnit5 sowie TestContainer (Version 1.16.3) verwendet.
 
 \subsection{Gateway-Service}
 
-Für die Entwicklung des Gateway-Services, welcher in Java implement wurde, wurden Spring Boot sowie Spring Cloud eingesetzt.
-Insbesondere die Bibliothek \verb|org.springframework.cloud : spring-cloud-starter-gateway| war für die Umsetzung vom Gateway von Bedeutung, da diese das Erstellen eines Gateways auf Basis einer Konfigurationsdatei ermöglicht.
+Für die Entwicklung des Gateway-Services, welcher in Java implement wurde, wurden Spring Boot (Version 2.6.5) sowie Spring Cloud (Version 2021.0.1) eingesetzt.
+Insbesondere die Bibliothek \\ \verb|org.springframework.cloud : spring-cloud-starter-gateway| war für die Umsetzung vom Gateway von Bedeutung, da diese das Erstellen eines Gateways auf Basis einer Konfigurationsdatei ermöglicht.
+
+\subsection{Swagger}
+
+Für die Realisierung von Swagger in den in Java Services haben wir \\ \verb|org.springdoc : springdoc-openapi-webmvc-core| bzw \\ \verb|org.springdoc : springdoc-openapi-webflux-core| in der version \verb|1.6.8| verwendet.  Damit im Gateway die Swagger Dokumentation interaktiv begutachtet werden kann wurde die Dependency \\ \verb|org.springdoc : springdoc-openapi-webflux-ui| in der Version \verb*|1.6.8| verwendet.
+ In den Typescript services haben wir \verb|fastify-openapi-docs| in der Version \verb|^1.0.5| und \verb|fastify-swagger| in der Version \verb|^5.1.1| verwendet.
