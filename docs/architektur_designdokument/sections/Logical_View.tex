@@ -1,13 +1,16 @@
 \section{Logical View}
-Die logische Sicht beschreibt die Funktionalität der Komponenten. Dazu wird ein UML-Klassendiagramm für jeden 
-Microservice bereitgestellt. Um die Lesbarkeit zu verbessern, werden die Bibliotheksklassen von \textit{spring} und \textit{fastify} nicht in den Diagrammen dargestellt.
-Zusätzlich sind der Entity- und der Tracking-Service in einem nicht OOP-Stil in Typescript entwickelt worden. Da sie keine Klassen haben, basieren ihre Klassendiagramme nicht auf Klassen, sondern auf deren Module. Dadurch können die Funktionalitäten ähnlich zu einem klassichen Klassendiagramm abgebildet werden.
+Die logische Sicht beschreibt die Funktionalität der Komponenten.
+Dazu wird ein UML-Klassendiagramm für jeden Microservice bereitgestellt.
+Um die Lesbarkeit zu verbessern, werden die Bibliotheksklassen von \textit{Spring} und \textit{Fastify} nicht in den Diagrammen dargestellt.
+Zusätzlich sind der Entity- sowie der Tracking-Service nicht in einem objektorientierten Stil mit TypeScript entwickelt worden.
+Da sie keine Klassen verwenden, basieren ihre Klassendiagramme nicht auf Klassen, sondern auf deren Modulen.
+Dadurch können die Funktionalitäten ähnlich zu einem klassischen Klassendiagramm abgebildet werden.
 
 \subsection{Entity-Service}
 \begin{figure}[!ht]
     \centering
     \makebox[0pt]{%
-    \includegraphics[width=18cm]{./figure/entity-service-uml.png}}
+    \includegraphics[width=18cm]{./figures/entity-service-uml.png}}
     \caption{Entity-Service UML}
     \label{fig:entity-service}
 \end{figure}
@@ -15,7 +18,7 @@ Zusätzlich sind der Entity- und der Tracking-Service in einem nicht OOP-Stil in
 \begin{figure}[!ht]
     \centering
     \makebox[0pt]{%
-    \includegraphics[width=18cm]{./figure/tracking-service.png}}
+    \includegraphics[width=18cm]{./figures/tracking-service.png}}
     \caption{Tracking-Service UML}
     \label{fig:tracking-service}
 \end{figure}
