@@ -25,10 +25,10 @@ function onConfirm() {
     vin: vin.value,
     oem: oem.value,
     model: model.value,
-    entryTime: delay.value,
-    speed: speed.value,
-    location: location.value,
-    destination: destination.value,
+    entryTime: +delay.value,
+    speed: +speed.value,
+    location: +location.value,
+    destination: +destination.value,
   })
   vin.value = uuidv4()
 }

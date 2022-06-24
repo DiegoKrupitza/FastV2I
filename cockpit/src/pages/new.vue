@@ -67,7 +67,7 @@ async function submit() {
   const config: NewSimulation = {
     id: v4(),
     cars: Object.values(cars.value),
-    scenarioLength: scenarioLength.value,
+    scenarioLength: +scenarioLength.value,
     timelapse: enableTimelapse.value,
     trafficLights: Object.values(trafficLights.value),
     done: false,

@@ -16,6 +16,7 @@ export const SimulationConstants = {
   MIN_SPEED: 7,
   MAX_SPEED: 37,
 }
+
 function validateTrafficLights({
   scenarioLength,
   trafficLights,
@@ -50,7 +51,7 @@ function validateTrafficLights({
   sortedTrafficLights.forEach((trafficLight) => {
     if (
       trafficLight.position < 0 ||
-      trafficLight.position > scenarioLength.value
+      trafficLight.position > +scenarioLength.value
     ) {
       errors.push(
         t('validation.traffic-light.out-of-bounds', {
@@ -70,7 +71,7 @@ function validateTrafficLights({
   }
 
   const last = sortedTrafficLights.at(-1)
-  if (last && last.position + last.scanDistance >= scenarioLength.value) {
+  if (last && last.position + last.scanDistance >= +scenarioLength.value) {
     errors.push(
       t('validation.traffic-light.scan-distance-out-of-bounds', {
         id: last.id,
@@ -80,7 +81,7 @@ function validateTrafficLights({
 
   sortedTrafficLights.slice(1).forEach((trafficLight, i, rest) => {
     const next = rest.at(i)
-    if (!next) {
+    if (!next || next.id === trafficLight.id) {
       return
     }
     if (
@@ -128,7 +129,7 @@ function validateCars({
   }
 
   carList.forEach((car) => {
-    if (car.location < 0 || car.location > scenarioLength.value) {
+    if (car.location < 0 || car.location > +scenarioLength.value) {
       errors.push(
         t('validation.car.out-of-bounds', {
           vin: car.vin,
@@ -140,7 +141,7 @@ function validateCars({
   const trafficLightList = Object.values(trafficLights.value)
 
   carList.forEach((car) => {
-    if (car.destination < 0 || car.destination > scenarioLength.value) {
+    if (car.destination < 0 || car.destination > +scenarioLength.value) {
       errors.push(
         t('validation.car.destination-out-of-bounds', {
           vin: car.vin,

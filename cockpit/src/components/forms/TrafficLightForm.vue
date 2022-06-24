@@ -19,10 +19,10 @@ const emit = defineEmits<{
 function onConfirm() {
   emit('create', {
     id: id.value,
-    position: position.value,
-    scanDistance: scanDistance.value,
-    entryDelay: delay.value,
-    stateHoldSeconds: interval.value,
+    position: +position.value,
+    scanDistance: +scanDistance.value,
+    entryDelay: +delay.value,
+    stateHoldSeconds: +interval.value,
   })
   id.value = uuidv4()
 }
