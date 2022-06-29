@@ -28,6 +28,14 @@ Service B.
 
 ![FastV2I Architecture Communication Channels](docs/architektur_designdokument/figures/whole_system_communication.png)
 
+## Swagger
+
+![Swagger UI for Entity Service](docs/swagger_example.png)
+
+Under `https://[gateway-service-ip]:8080/swagger-ui.html` you can access the interactive swagger ui for all the publicly
+exposed services. Below you can see a screenshot of the UI when the Entity Service is selected. In the top right corner
+you can switch between the services.
+
 ## Team members
 
 The team of developers consists of:
