@@ -4,7 +4,6 @@
 > Johannes Weidl-Rektenwald
 
 ![Picture of a running simulation](docs/demo_simulation.png)
-<div style="text-align: center;"><em>Screenshot of an active simulation in the cockpit</em></div>
 
 FastV2I is a visual simulation software that allows you to simulate vehicles and traffic lights in a given
 configuration. The cars aim to minimize the amount of standing time in front of red traffic lights. To do so a
