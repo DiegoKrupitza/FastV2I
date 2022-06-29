@@ -3,7 +3,7 @@
 > Project completed in the course Distributed Systems Engineering Lecture 2022 - Vienna University of Technology, Dr.
 > Johannes Weidl-Rektenwald
 
-![Picture of a running simulation](docs/demo_simulation.png)
+![Picture of a running simulation](docs/demo_simulation.jpg)
 
 FastV2I is a visual simulation software that allows you to simulate vehicles and traffic lights in a given
 configuration. The cars aim to minimize the amount of standing time in front of red traffic lights. To do so a
@@ -30,7 +30,7 @@ Service B.
 
 ## Swagger
 
-![Swagger UI for Entity Service](docs/swagger_example.png)
+![Swagger UI for Entity Service](docs/swagger_example.jpg)
 
 Under `https://[gateway-service-ip]:8080/swagger-ui.html` you can access the interactive swagger ui for all the publicly
 exposed services. Below you can see a screenshot of the UI when the Entity Service is selected. In the top right corner
